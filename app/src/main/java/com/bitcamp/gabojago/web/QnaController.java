@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import javax.servlet.http.HttpSession;
 
 @Controller
-@RequestMapping("/qna/")
+@RequestMapping("/support/qna/")
 public class QnaController {
     @Autowired
     QnaService qnaService;
