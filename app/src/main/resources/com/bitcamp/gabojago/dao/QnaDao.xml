@@ -51,11 +51,5 @@
         where QNANO=#{no}
     </delete>
 
-    <update id="update" parameterType="qnaBoard">
-        update jang_qna set
-          TITLE=#{title},
-          CONT=#{questionContent}
-        where QNANO=#{no}
-    </update>
 
 </mapper>

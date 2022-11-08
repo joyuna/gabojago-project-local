@@ -14,6 +14,4 @@ public interface QnaDao {
     QnaBoard findByNo(int no);
 
     int deleteByNo(int no);
-
-    int update(QnaBoard qnaBoard);
 }
