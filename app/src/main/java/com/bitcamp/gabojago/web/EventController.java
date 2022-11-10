@@ -46,6 +46,23 @@ public class EventController {
         model.addAttribute("event", eventService.get(no));
     }
 
+    @GetMapping("delete")
+    public String delete(int no) throws Exception {
+        eventService.delete(no);
+        return "redirect:list";
+    }
 
+    @GetMapping("editForm")
+    public void editForm(int no, Model model) throws Exception {
+        model.addAttribute("event", eventService.get(no));
+    }
 
+    @PostMapping("update")
+    public String update(
+            Event event,
+            HttpSession session) throws Exception {
+        System.out.println("EventControllerUpdate :" + event.toString());
+        eventService.update(event);
+        return "redirect:list";
+    }
 }

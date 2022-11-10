@@ -13,7 +13,7 @@ public interface EventDao {
 
     Event findByNo(int no);
 
+    int deleteByNo(int no);
 
-
-
+    int update(Event event);
 }
