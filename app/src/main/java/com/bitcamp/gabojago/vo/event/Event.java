@@ -3,6 +3,7 @@ package com.bitcamp.gabojago.vo.event;
 import java.sql.Date;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.List;
 
 public class Event {
 
@@ -17,19 +18,38 @@ public class Event {
     private Date createdDate;
     private Integer viewCount;
 
+    private List<EventItem> eventItems;
+
+//    @Override
+//    public String toString() {
+//        return "Event{" +
+//                "no=" + no +
+//                ", title='" + title + '\'' +
+//                ", content='" + content + '\'' +
+//                ", startDate=" + startDate +
+//                ", endDate=" + endDate +
+//                ", disclosure=" + disclosure +
+//                ", eventCode='" + eventCode + '\'' +
+//                ", capacity=" + capacity +
+//                ", createdDate=" + createdDate +
+//                ", viewCount=" + viewCount +
+//                '}';
+//    }
+
     @Override
     public String toString() {
         return "Event{" +
                 "no=" + no +
                 ", title='" + title + '\'' +
                 ", content='" + content + '\'' +
-                ", startDate=" + startDate +
-                ", endDate=" + endDate +
+                ", startDate='" + startDate + '\'' +
+                ", endDate='" + endDate + '\'' +
                 ", disclosure=" + disclosure +
                 ", eventCode='" + eventCode + '\'' +
                 ", capacity=" + capacity +
                 ", createdDate=" + createdDate +
                 ", viewCount=" + viewCount +
+                ", eventItems=" + eventItems +
                 '}';
     }
 
@@ -111,5 +131,13 @@ public class Event {
 
     public void setViewCount(Integer viewCount) {
         this.viewCount = viewCount;
+    }
+
+    public List<EventItem> getEventItems() {
+        return eventItems;
+    }
+
+    public void setEventItems(List<EventItem> eventItems) {
+        this.eventItems = eventItems;
     }
 }

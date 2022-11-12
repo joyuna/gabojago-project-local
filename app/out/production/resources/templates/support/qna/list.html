@@ -31,7 +31,7 @@
                 <th>제목</th>
                 <th>아이디</th>
                 <th>작성일</th>
-                <th>답변일</th>
+                <th>답변상태</th>
             </tr>
             </thead>
             <tbody>
@@ -47,7 +47,7 @@
                 <td>
                     <a href='detail?no=1'
                        data-th-href="@{detail(no=${qnaBoard.no})}"
-                       data-th-text="${qnaBoard.answerDate == '' || qnaBoard.answerDate == null} ? '미답변' : ${qnaBoard.answerDate}">답변일</a>
+                       data-th-text="${qnaBoard.answerDate == '' || qnaBoard.answerDate == null} ? '미답변' : ${qnaBoard.answerDate}">답변상태</a>
                 </td>
             </tr>
             </tbody>

@@ -13,6 +13,9 @@ public class QnaBoard {
     private String answerContent;
     private String answerDate;
 
+    public QnaBoard() {
+
+    }
     @Override
     public String toString() {
         return "QnaBoard{" +

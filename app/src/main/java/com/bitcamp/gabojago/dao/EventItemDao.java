@@ -14,6 +14,8 @@ public interface EventItemDao {
 
     int getItemsCountByEventNo(int no);
 
+    List<EventItem> getItemListByEventNo(int no);
+
 //
 //    int deleteByNo(int no);
 //

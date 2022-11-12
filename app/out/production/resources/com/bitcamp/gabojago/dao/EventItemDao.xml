@@ -24,4 +24,15 @@
         from jang_item
         where EVTNO=#{no}
     </select>
+
+    <select id="getItemListByEventNo" resultMap="eventItemMap" parameterType="int">
+        select
+            ITMNO,
+            NAME,
+            CNT,
+            EVTNO,
+            RANK
+        from jang_item
+        where EVTNO=#{no}
+    </select>
 </mapper>

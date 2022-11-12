@@ -2,6 +2,7 @@ package com.bitcamp.gabojago.web;
 
 import com.bitcamp.gabojago.service.QnaService;
 import com.bitcamp.gabojago.vo.qna.QnaBoard;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

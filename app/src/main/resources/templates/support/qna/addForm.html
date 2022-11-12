@@ -27,9 +27,11 @@
             <label for="questionContent">내용</label>
             <textarea input type="text" id="questionContent" name="questionContent" class="form-control" rows='10' cols='60' placeholder="내용을 입력하세요."></textarea>
         </div>
-        <div>
-            <label for="disclosure">비공개</label>
-            <input type="checkbox" id="disclosure" name="disclosure">
+
+        <div class="form-check">
+            <label for="disclosure" class="form-check-label">비공개</label>
+            <input type="checkbox" id="disclosure" name="disclosure" class="form-check-input">
+            <input type="hidden" name="_disclosure" value="on"/>
         </div>
 
         <hr class="my-4">

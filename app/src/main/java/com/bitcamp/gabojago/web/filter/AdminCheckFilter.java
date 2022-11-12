@@ -30,7 +30,7 @@ public class AdminCheckFilter implements Filter {
     // 콘텐트를 등록,변경,삭제하는 경우 로그인 여부를 검사한다.
     if (servletPath.toLowerCase().endsWith("exhibition/form") ||
         servletPath.toLowerCase().endsWith("exhibition/updateform") ||
-        servletPath.toLowerCase().endsWith("update") ||
+        servletPath.toLowerCase().endsWith("exhibition/update") ||
         servletPath.toLowerCase().endsWith("exhibition/delete")) {
       Member loginMember = (Member) httpServletRequest.getSession().getAttribute("loginMember");
       if (loginMember == null || // 로그인이 안됐거나

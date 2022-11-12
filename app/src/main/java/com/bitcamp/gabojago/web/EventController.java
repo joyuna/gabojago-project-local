@@ -45,6 +45,7 @@ public class EventController {
     @GetMapping("detail")
     public void detail(int no, Model model) throws Exception {
         model.addAttribute("event", eventService.get(no));
+        model.addAttribute("eventItems", eventService.itemList(no));
     }
 
     @GetMapping("delete")

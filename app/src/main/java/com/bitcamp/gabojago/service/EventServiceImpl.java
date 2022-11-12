@@ -69,4 +69,12 @@ public class EventServiceImpl implements EventService {
             throw new Exception("게시글 등록 실패!!");
         }
     }
+
+    @Transactional
+    @Override
+    public List<EventItem> itemList(int no) throws Exception {
+        List<EventItem> itemListByEventNo = eventItemDao.getItemListByEventNo(no);
+        System.out.println("itemListByEventNo : " + itemListByEventNo.toString());
+        return itemListByEventNo;
+    }
 }

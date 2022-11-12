@@ -54,8 +54,8 @@
     <update id="update" parameterType="qnaBoard">
         update jang_qna set
         TITLE=#{title},
-        CONT=#{questionContent}
+        CONT=#{questionContent},
+        PBL=#{disclosure}
         where QNANO=#{no}
     </update>
-
 </mapper>

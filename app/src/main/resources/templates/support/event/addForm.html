@@ -22,10 +22,10 @@
 
         <div>
             <laber for="eventCode">구분</laber>
-            <select name="eventCode">
-            <option value="">이벤트 구분</option>
-            <option value="선착순">선착순</option>
-            <option value="차등지급">차등지급</option>
+            <select class="form-select" id= "eventCode" name="eventCode">
+                <option value="">== 이벤트 구분 ==</option>
+                <option value="선착순">선착순</option>
+                <option value="차등지급">차등지급</option>
             </select>
         </div>
 
@@ -47,7 +47,8 @@
         </div>
         <div>
             <label for="disclosure">비공개</label>
-            <input type="checkbox" id="disclosure" name="disclosure">
+            <input type="checkbox" id="disclosure" name="disclosure" class="form-check-input">
+            <input type="hidden" name="_disclosure" value="on"/>
         </div>
         <div>
             <label for="content">내용</label>
