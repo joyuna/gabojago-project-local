@@ -2,6 +2,7 @@ package com.bitcamp.gabojago.web;
 
 import com.bitcamp.gabojago.service.EventService;
 import com.bitcamp.gabojago.vo.event.Event;
+import com.bitcamp.gabojago.vo.event.EventAttachedFile;
 import com.bitcamp.gabojago.vo.event.EventItem;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -9,12 +10,23 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.ServletContext;
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpSession;
+import javax.servlet.http.Part;
+import java.io.File;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.UUID;
 
 @Controller
 @RequestMapping("/support/event/")
 public class EventController {
+
+    ServletContext sc;
     @Autowired
     EventService eventService;
 
@@ -76,9 +88,27 @@ public class EventController {
     @PostMapping("item/itemadd")
     public String itemAdd(
             EventItem eventItem,
+            MultipartFile[] files,
             HttpSession session) throws Exception {
         System.out.println("eventCotrollerAdd_item:" + eventItem.toString());
         eventService.itemAdd(eventItem);
         return "redirect:../detail?no=" + eventItem.getEventNo();
+    }
+
+    private List<EventAttachedFile> saveAttachedFiles(MultipartFile[] files)
+            throws IOException, ServletException {
+        List<EventAttachedFile> eventAttachedFiles = new ArrayList<>();
+        String dirPath = sc.getRealPath("/event/files");
+
+        for (MultipartFile part : files) {
+            if (part.isEmpty()) {
+                continue;
+            }
+
+            String fileName = UUID.randomUUID().toString();
+            part.transferTo(new File(dirPath + "/" + fileName));
+            eventAttachedFiles.add(new EventAttachedFile(fileName));
+        }
+        return eventAttachedFiles;
     }
 }

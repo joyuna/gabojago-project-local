@@ -24,8 +24,8 @@
             <laber for="eventCode">구분</laber>
             <select class="form-select" id= "eventCode" name="eventCode">
                 <option value="">== 이벤트 구분 ==</option>
-                <option value="선착순">선착순</option>
-                <option value="차등지급">차등지급</option>
+                <option value="선착순"  data-th-selected="${event.eventCode == '선착순'} ? true : false">선착순</option>
+                <option value="차등지급"  data-th-selected="${event.eventCode == '차등지급'} ? true : false">차등지급</option>
             </select>
         </div>
 
