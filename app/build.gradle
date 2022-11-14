@@ -36,8 +36,8 @@ dependencies {
     // 단위테스트 관련 라이브러리
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
 
-    // 회원가입 시 이메일 인증 관련 라이브러리
-    implementation group: 'org.springframework.boot', name: 'spring-boot-starter-mail', version: '2.7.5'
+//    // 회원가입 시 이메일 인증 관련 라이브러리
+//    implementation group: 'org.springframework.boot', name: 'spring-boot-starter-mail', version: '2.7.5'
 
     // 내맘대로 추가하는 편의성 라이브러리
     compileOnly 'org.projectlombok:lombok'
@@ -49,6 +49,10 @@ dependencies {
     // 적은양의 코드만을 이용해 썸네일을 제작할 수 있고 가로 세로 사이즈를 결정하면 비율에 맞게 조정해 주는 기능
     implementation group: 'net.coobird', name: 'thumbnailator', version: '0.4.11'
 
+    //spring mail
+    dependencies {
+        implementation 'org.springframework.boot:spring-boot-starter-mail'
+    }
     // implementation project(':app-common')
 }
 
