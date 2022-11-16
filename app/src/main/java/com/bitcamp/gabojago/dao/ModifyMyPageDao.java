@@ -13,4 +13,6 @@ public interface ModifyMyPageDao {
 
     Member findById(String id);
 
+    int findByNickName(String nickName);
+
 }

@@ -12,5 +12,7 @@ public interface ModifyMyPageService {
 
     Member get(String id) throws Exception;
 
+    int nickCheck(String nickName) throws Exception;
+
 
 }

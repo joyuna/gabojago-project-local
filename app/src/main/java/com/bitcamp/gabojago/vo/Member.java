@@ -14,28 +14,30 @@ public class Member implements Serializable {
   private String email;
   private String phoneNo;
   private Date birthDay;
-  private Character gender;
+  private String gender;
   private String snsAddress;
   private String mbti;
   private String status;
+  private Date outDate;
 
   @Override
   public String toString() {
     return "Member{" +
-            "id='" + id + '\'' +
-            ", password='" + password + '\'' +
-            ", nickName='" + nickName + '\'' +
-            ", createdDate=" + createdDate +
-            ", profileFig='" + profileFig + '\'' +
-            ", name='" + name + '\'' +
-            ", email='" + email + '\'' +
-            ", phoneNo='" + phoneNo + '\'' +
-            ", birthDay=" + birthDay +
-            ", gender=" + gender +
-            ", snsAddress='" + snsAddress + '\'' +
-            ", mbti='" + mbti + '\'' +
-            ", status='" + status + '\'' +
-            '}';
+        "id='" + id + '\'' +
+        ", password='" + password + '\'' +
+        ", nickName='" + nickName + '\'' +
+        ", createdDate=" + createdDate +
+        ", profileFig='" + profileFig + '\'' +
+        ", name='" + name + '\'' +
+        ", email='" + email + '\'' +
+        ", phoneNo='" + phoneNo + '\'' +
+        ", birthDay=" + birthDay +
+        ", gender='" + gender + '\'' +
+        ", snsAddress='" + snsAddress + '\'' +
+        ", mbti='" + mbti + '\'' +
+        ", status='" + status + '\'' +
+        ", outDate=" + outDate +
+        '}';
   }
 
   public String getId() {
@@ -110,11 +112,11 @@ public class Member implements Serializable {
     this.birthDay = birthDay;
   }
 
-  public char getGender() {
+  public String getGender() {
     return gender;
   }
 
-  public void setGender(Character gender) {
+  public void setGender(String gender) {
     this.gender = gender;
   }
 
@@ -142,5 +144,12 @@ public class Member implements Serializable {
     this.status = status;
   }
 
+  public Date getOutDate() {
+    return outDate;
+  }
+
+  public void setOutDate(Date outDate) {
+    this.outDate = outDate;
+  }
 }
 

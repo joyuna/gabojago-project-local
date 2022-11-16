@@ -32,7 +32,10 @@ public class ModifyMyPageServiceImpl implements ModifyMyPageService {
         return modifyMyPageDao.findById(id);
     }
 
-
-
+    @Override
+    public int nickCheck(String nickName) throws Exception {
+        int result = modifyMyPageDao.findByNickName(nickName);
+        return result;
+    }
 }
 

@@ -18,9 +18,8 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
+import java.util.*;
 import java.util.List;
-import java.util.UUID;
 
 @Controller // 주소 전달
 @RequestMapping("/exhibition/")
@@ -151,10 +150,30 @@ public class ExhibitionController {
 
 
 
-  @GetMapping("exhibitionlist")
-  public void list(Model model) throws Exception {
-    model.addAttribute("exhibitions", exhibitionService.exhibitionList());
+  @GetMapping("exhibitionlist") // 페이징 추가
+  public void list(Integer count, Model model) throws Exception {
+//    model.addAttribute("exhibitions", exhibitionService.exhibitionList());
+    int number = 4;
+    int countInt = count!=null? (count.intValue()-1)*number:0; // 게시물 갯수
+
+    Map<String, Object> map = new HashMap<String, Object>();
+    map.put("count", countInt);
+    map.put("number", number);
+
+    List<Exhibition> exhibitionList = exhibitionService.exhibitionLimitList(map);
+    model.addAttribute("exhibitions", exhibitionList);
+
+    // 정보 내보내기
+    int totalNumber = (exhibitionService.exhibitionCount()-1) / number;
+    model.addAttribute("totalNumber", totalNumber) ;
+
+    // 나누기
+    model.addAttribute("count",count!=null? count.intValue()-1:0);
   }
+
+
+
+
 
 
   @GetMapping("detail")
@@ -248,6 +267,7 @@ public String update(Exhibition exhibition, MultipartFile[] files, HttpSession s
 
 
 
+
   @ResponseBody  //데이터 전달 빠르게 확인 가능 CRUD만
   @RequestMapping("select-list")
   public List<Exhibition> exhibitionList() throws Exception{
@@ -259,7 +279,6 @@ public String update(Exhibition exhibition, MultipartFile[] files, HttpSession s
   public Exhibition exhibitionSelect(@PathVariable("exno") int exno) throws Exception{
     return exhibitionService.exhibitionSelect(exno);
   }
-
 
 
 }

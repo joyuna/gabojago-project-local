@@ -1,0 +1,252 @@
+<!--<!DOCTYPE html>-->
+<!--<html xmlns:th="http://www.thymeleaf.org">-->
+<!--<head>-->
+<!--    <meta charset="utf-8">-->
+<!--    <link th:href="@{/css/bootstrap.min.css}"-->
+<!--          href="../css/bootstrap.min.css" rel="stylesheet">-->
+<!--    <title>myPage</title>-->
+
+<!--    <style>-->
+
+<!--        .container {-->
+<!--            max-width: 500px;-->
+<!--        }-->
+
+<!--    </style>-->
+<!--</head>-->
+<!--<body>-->
+
+<!--    <div class="container">-->
+
+<!--        <div class="py-5 text-center">-->
+<!--            <h2>profile</h2>-->
+<!--        </div>-->
+
+<!--    &lt;!&ndash;    <div>&ndash;&gt;-->
+<!--          <img th:src="@{/board/files/} + ${profileFig}"/>-->
+<!--    &lt;!&ndash;    </div>&ndash;&gt;-->
+
+<!--        <div>-->
+<!--          <label>nickname</label>-->
+<!--          <div th:text="${nickname}"></div>-->
+<!--        </div>-->
+
+<!--        <div>-->
+<!--          <label>MBTI</label>-->
+<!--          <div th:text="${mbti}"></div>-->
+<!--        </div>-->
+
+<!--        <div>-->
+<!--            <label>INSTAGRAM</label>-->
+<!--            <a th:href="@{https://www.instagram.com/{snsAddress}(snsAddress=${snsAddress})}">INSTAGRAM</a>-->
+<!--        </div>-->
+
+<!--        <button th:onclick="|location.href='@{../}'|"-->
+<!--                type="button">메인</button>-->
+
+<!--        <button onclick="location.href='profileDetail.html'"-->
+<!--                        th:onclick="|location.href='@{/myPage/modify/profileDetail}'|"-->
+<!--                        type="button">프로필 수정</button>-->
+
+<!--        <button onclick="location.href='myAccountDetail.html'"-->
+<!--                th:onclick="|location.href='@{/myPage/modify/myAccountDetail}'|"-->
+<!--                type="button">개인정보 수정</button>-->
+
+<!--    </div>-->
+<!--</body>-->
+<!--</html>-->
+
+
+
+
+
+
+<!--&lt;!&ndash;<!DOCTYPE HTML>&ndash;&gt;-->
+<!--&lt;!&ndash;<html xmlns:th="http://www.thymeleaf.org">&ndash;&gt;-->
+<!--&lt;!&ndash;<head>&ndash;&gt;-->
+<!--&lt;!&ndash;    <meta charset="utf-8">&ndash;&gt;-->
+<!--&lt;!&ndash;    <link href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" rel="stylesheet">&ndash;&gt;-->
+<!--&lt;!&ndash;    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>&ndash;&gt;-->
+<!--&lt;!&ndash;    <script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>&ndash;&gt;-->
+<!--&lt;!&ndash;    <link th:href="@{/css/bootstrap.min.css}"&ndash;&gt;-->
+<!--&lt;!&ndash;          href="../css/bootstrap.min.css" rel="stylesheet">&ndash;&gt;-->
+<!--&lt;!&ndash;    <style>&ndash;&gt;-->
+<!--&lt;!&ndash;        body {&ndash;&gt;-->
+<!--&lt;!&ndash;            display: flex;&ndash;&gt;-->
+<!--&lt;!&ndash;            align-items: center;&ndash;&gt;-->
+<!--&lt;!&ndash;            justify-content: center;&ndash;&gt;-->
+<!--&lt;!&ndash;            min-height: 100vh;&ndash;&gt;-->
+<!--&lt;!&ndash;        }&ndash;&gt;-->
+
+<!--&lt;!&ndash;        .wrap,&ndash;&gt;-->
+<!--&lt;!&ndash;        .img-area,&ndash;&gt;-->
+<!--&lt;!&ndash;        .buttons button {&ndash;&gt;-->
+<!--&lt;!&ndash;            background: #ecf0f3;&ndash;&gt;-->
+<!--&lt;!&ndash;            box-shadow: -3px -3px 7px #ffffff, 3px 3px 5px #ceced1;&ndash;&gt;-->
+<!--&lt;!&ndash;        }&ndash;&gt;-->
+
+<!--&lt;!&ndash;        .wrap{&ndash;&gt;-->
+
+<!--&lt;!&ndash;            position: relative;&ndash;&gt;-->
+<!--&lt;!&ndash;            width: 450px;&ndash;&gt;-->
+<!--&lt;!&ndash;            height: 700px;&ndash;&gt;-->
+<!--&lt;!&ndash;            padding: 30px;&ndash;&gt;-->
+<!--&lt;!&ndash;            display: flex;&ndash;&gt;-->
+<!--&lt;!&ndash;            flex-direction: column;&ndash;&gt;-->
+<!--&lt;!&ndash;            align-items: center;&ndash;&gt;-->
+<!--&lt;!&ndash;            justify-content: center;&ndash;&gt;-->
+
+<!--&lt;!&ndash;        }&ndash;&gt;-->
+
+<!--&lt;!&ndash;        .img-area {&ndash;&gt;-->
+
+<!--&lt;!&ndash;            height: 150px;&ndash;&gt;-->
+<!--&lt;!&ndash;            width: 150px;&ndash;&gt;-->
+<!--&lt;!&ndash;            border-radius: 50%;&ndash;&gt;-->
+<!--&lt;!&ndash;            display: flex;&ndash;&gt;-->
+<!--&lt;!&ndash;            align-items: center;&ndash;&gt;-->
+<!--&lt;!&ndash;            justify-content: center;&ndash;&gt;-->
+
+<!--&lt;!&ndash;        }&ndash;&gt;-->
+
+<!--&lt;!&ndash;        .inner-area {&ndash;&gt;-->
+<!--&lt;!&ndash;            height: calc(100% - 25px);&ndash;&gt;-->
+<!--&lt;!&ndash;            width: calc(100% - 25px);&ndash;&gt;-->
+<!--&lt;!&ndash;            border-radius: 50%;&ndash;&gt;-->
+<!--&lt;!&ndash;        }&ndash;&gt;-->
+
+<!--&lt;!&ndash;        .inner-area img {&ndash;&gt;-->
+<!--&lt;!&ndash;            height: 100%;&ndash;&gt;-->
+<!--&lt;!&ndash;            width: 100%;&ndash;&gt;-->
+<!--&lt;!&ndash;            border-radius: 50%;&ndash;&gt;-->
+<!--&lt;!&ndash;            object-fit: cover;&ndash;&gt;-->
+<!--&lt;!&ndash;        }&ndash;&gt;-->
+
+<!--&lt;!&ndash;        .nickname {&ndash;&gt;-->
+<!--&lt;!&ndash;            font-family: sans-serif;&ndash;&gt;-->
+<!--&lt;!&ndash;            font-size: 23px;&ndash;&gt;-->
+<!--&lt;!&ndash;            font-weight: 400;&ndash;&gt;-->
+<!--&lt;!&ndash;            color: #31344b;&ndash;&gt;-->
+<!--&lt;!&ndash;            margin: 10px 0 5px 0;&ndash;&gt;-->
+<!--&lt;!&ndash;        }&ndash;&gt;-->
+
+<!--&lt;!&ndash;        .buttons button:hover::before {&ndash;&gt;-->
+<!--&lt;!&ndash;            content: "";&ndash;&gt;-->
+<!--&lt;!&ndash;            position: absolute;&ndash;&gt;-->
+<!--&lt;!&ndash;            top: 0;&ndash;&gt;-->
+<!--&lt;!&ndash;            left: 0;&ndash;&gt;-->
+<!--&lt;!&ndash;            bottom: 0;&ndash;&gt;-->
+<!--&lt;!&ndash;            right: 0;&ndash;&gt;-->
+<!--&lt;!&ndash;            border-radius: 50%;&ndash;&gt;-->
+<!--&lt;!&ndash;            background: #ecf0f3;&ndash;&gt;-->
+<!--&lt;!&ndash;            box-shadow: inset -3px -3px 7px #ffffff, inset 3px 3px 5px #ceced1;&ndash;&gt;-->
+<!--&lt;!&ndash;        }&ndash;&gt;-->
+
+<!--&lt;!&ndash;        .buttons button:hover:before {&ndash;&gt;-->
+<!--&lt;!&ndash;            z-index: -1;&ndash;&gt;-->
+<!--&lt;!&ndash;            border-radius: 5px;&ndash;&gt;-->
+<!--&lt;!&ndash;        }&ndash;&gt;-->
+
+<!--&lt;!&ndash;        .buttons {&ndash;&gt;-->
+<!--&lt;!&ndash;            display: flex;&ndash;&gt;-->
+<!--&lt;!&ndash;            width: 100%;&ndash;&gt;-->
+<!--&lt;!&ndash;            justify-content: space-between;&ndash;&gt;-->
+<!--&lt;!&ndash;        }&ndash;&gt;-->
+
+<!--&lt;!&ndash;        .buttons button {&ndash;&gt;-->
+<!--&lt;!&ndash;            position: relative;&ndash;&gt;-->
+<!--&lt;!&ndash;            width: 100%;&ndash;&gt;-->
+<!--&lt;!&ndash;            border: none;&ndash;&gt;-->
+<!--&lt;!&ndash;            outline: none;&ndash;&gt;-->
+<!--&lt;!&ndash;            padding: 12px 0;&ndash;&gt;-->
+<!--&lt;!&ndash;            color: #31344b;&ndash;&gt;-->
+<!--&lt;!&ndash;            font-size: 17px;&ndash;&gt;-->
+<!--&lt;!&ndash;            font-family: sans-serif;&ndash;&gt;-->
+<!--&lt;!&ndash;            font-weight: 400;&ndash;&gt;-->
+<!--&lt;!&ndash;            border-radius: 5px;&ndash;&gt;-->
+<!--&lt;!&ndash;            cursor: pointer;&ndash;&gt;-->
+<!--&lt;!&ndash;            z-index: 4;&ndash;&gt;-->
+<!--&lt;!&ndash;            margin-top: 300px;&ndash;&gt;-->
+<!--&lt;!&ndash;        }&ndash;&gt;-->
+
+<!--&lt;!&ndash;        .buttons button:first-child {&ndash;&gt;-->
+<!--&lt;!&ndash;            margin-right: 10px;&ndash;&gt;-->
+<!--&lt;!&ndash;        }&ndash;&gt;-->
+
+<!--&lt;!&ndash;        .buttons button:last-child {&ndash;&gt;-->
+<!--&lt;!&ndash;            margin-left: 10px;&ndash;&gt;-->
+<!--&lt;!&ndash;        }&ndash;&gt;-->
+
+
+
+<!--&lt;!&ndash;    </style>&ndash;&gt;-->
+<!--&lt;!&ndash;</head>&ndash;&gt;-->
+<!--&lt;!&ndash;<body>&ndash;&gt;-->
+
+<!--&lt;!&ndash;&lt;!&ndash; Navigation 사실상의 header &ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;&ndash;&gt;-->
+<!--&lt;!&ndash;<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">&ndash;&gt;-->
+<!--&lt;!&ndash;    <div class="container">&ndash;&gt;-->
+<!--&lt;!&ndash;        <a class="navbar-brand" href="/app">가보자GO</a>&ndash;&gt;-->
+<!--&lt;!&ndash;        <div class="collapse navbar-collapse" id="navbarResponsive">&ndash;&gt;-->
+<!--&lt;!&ndash;            <ul class="navbar-nav ml-auto">&ndash;&gt;-->
+<!--&lt;!&ndash;                <li class="nav-item active">&ndash;&gt;-->
+<!--&lt;!&ndash;                    <a class="nav-link" href="/etc"&ndash;&gt;-->
+<!--&lt;!&ndash;                    >홈&ndash;&gt;-->
+<!--&lt;!&ndash;                        <span class="sr-only">(current)</span>&ndash;&gt;-->
+<!--&lt;!&ndash;                    </a>&ndash;&gt;-->
+<!--&lt;!&ndash;                </li>&ndash;&gt;-->
+<!--&lt;!&ndash;                <li class="nav-item"><a class="nav-link" href="#">Search</a></li>&ndash;&gt;-->
+<!--&lt;!&ndash;                <li class="nav-item">&ndash;&gt;-->
+<!--&lt;!&ndash;                    <a class="nav-link" href="#">코스추천</a>&ndash;&gt;-->
+<!--&lt;!&ndash;                </li>&ndash;&gt;-->
+<!--&lt;!&ndash;                <li class="nav-item"><a class="nav-link" href="#">전시회</a></li>&ndash;&gt;-->
+<!--&lt;!&ndash;                <li class="nav-item">&ndash;&gt;-->
+<!--&lt;!&ndash;                    <a class="nav-link" href="#">고객지원</a>&ndash;&gt;-->
+<!--&lt;!&ndash;                </li>&ndash;&gt;-->
+<!--&lt;!&ndash;                <li class="nav-item" th:if="${session.loginMember != null}">&ndash;&gt;-->
+<!--&lt;!&ndash;                    <a&ndash;&gt;-->
+<!--&lt;!&ndash;                            class="nav-link"&ndash;&gt;-->
+<!--&lt;!&ndash;                            href="auth/logout"&ndash;&gt;-->
+<!--&lt;!&ndash;                            th:text="${session.loginMember.name}+'(로그아웃)'"&ndash;&gt;-->
+<!--&lt;!&ndash;                    >홍길동(로그아웃)</a&ndash;&gt;-->
+<!--&lt;!&ndash;                    >&ndash;&gt;-->
+<!--&lt;!&ndash;                </li>&ndash;&gt;-->
+<!--&lt;!&ndash;                <li class="nav-item" th:if="${session.loginMember == null}">&ndash;&gt;-->
+<!--&lt;!&ndash;                    <span class="nav-link btn-open-popup">로그인</span>&ndash;&gt;-->
+<!--&lt;!&ndash;                </li>&ndash;&gt;-->
+
+<!--&lt;!&ndash;                <li class="nav-item">&ndash;&gt;-->
+<!--&lt;!&ndash;                    <a class="nav-link" href="auth/register">회원가입</a>&ndash;&gt;-->
+<!--&lt;!&ndash;                </li>&ndash;&gt;-->
+<!--&lt;!&ndash;                <li class="nav-item">&ndash;&gt;-->
+<!--&lt;!&ndash;                    <a class="nav-link" href="#">&ndash;&gt;-->
+<!--&lt;!&ndash;                        <img src="./images/mypage.png" width="90%" height="25"&ndash;&gt;-->
+<!--&lt;!&ndash;                        /></a>&ndash;&gt;-->
+<!--&lt;!&ndash;                </li>&ndash;&gt;-->
+<!--&lt;!&ndash;            </ul>&ndash;&gt;-->
+<!--&lt;!&ndash;        </div>&ndash;&gt;-->
+<!--&lt;!&ndash;    </div>&ndash;&gt;-->
+<!--&lt;!&ndash;</nav>&ndash;&gt;-->
+<!--&lt;!&ndash;&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash; header &ndash;&gt;&ndash;&gt;-->
+
+<!--&lt;!&ndash;<div class="wrap">&ndash;&gt;-->
+
+<!--&lt;!&ndash;    <div class="nickname">nickname</div>&ndash;&gt;-->
+<!--&lt;!&ndash;    <div class="img-area">&ndash;&gt;-->
+<!--&lt;!&ndash;        <div class="inner-area">&ndash;&gt;-->
+<!--&lt;!&ndash;            <img src="https://photo.coolenjoy.co.kr/data/editor/2107/59ac272705f0f74ce2e485ca20c30cb936a4fea3.png">&ndash;&gt;-->
+<!--&lt;!&ndash;        </div>&ndash;&gt;-->
+<!--&lt;!&ndash;    </div>&ndash;&gt;-->
+<!--&lt;!&ndash;    <div class="buttons">&ndash;&gt;-->
+<!--&lt;!&ndash;        <button onclick="location.href='profileModification.html'"&ndash;&gt;-->
+<!--&lt;!&ndash;                th:onclick="|location.href='@{/myPage/profileModification}'|"&ndash;&gt;-->
+<!--&lt;!&ndash;                type="button">프로필 수정</button>&ndash;&gt;-->
+<!--&lt;!&ndash;        <button>개인정보 수정</button>&ndash;&gt;-->
+<!--&lt;!&ndash;    </div>&ndash;&gt;-->
+<!--&lt;!&ndash;</div>&ndash;&gt;-->
+<!--&lt;!&ndash;</div>&ndash;&gt;-->
+
+<!--&lt;!&ndash;</body>&ndash;&gt;-->
+<!--&lt;!&ndash;</html>&ndash;&gt;-->

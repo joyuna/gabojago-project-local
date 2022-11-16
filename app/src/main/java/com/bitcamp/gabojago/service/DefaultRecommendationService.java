@@ -35,22 +35,22 @@ public class DefaultRecommendationService implements RecommendationService  {
     int prvno;
 
     for (int i = 0; i < recommendation.getJangSoReviews().size(); i++) {
-      // 각각의 장소리뷰에 코스추천글 번호 set하기
+      // 각각의 장소리뷰에 코스추천글 번호 set 하기
       recommendation.getJangSoReviews().get(i).setRecono(recono);
 
-      // 각각의 장소리뷰 insert하기
+      // 2) 각각의 장소리뷰 insert 하기
       if (recommendationDao.jangSoReviewAdd(recommendation.getJangSoReviews().get(i)) == 0) {
         throw new Exception("장소리뷰 등록 실패!");
       }
 
-      // 각각의 장소리뷰를 insert하면서 자동증가한 prvno 받아오기
+      // 각각의 장소리뷰를 insert 하면서 자동증가한 prvno 받아오기
       prvno = recommendation.getJangSoReviews().get(i).getPrvno();
 
       for (int j = 0; j < recommendation.getJangSoReviews().get(i).getAttachedFiles().size(); j++) {
-        // 장소리뷰를 insert하면서 자동증가한 prvno를 장소리뷰 첨부파일에 set하기
+        // 장소리뷰를 insert 하면서 자동증가한 prvno를 장소리뷰 첨부파일에 set 하기
         recommendation.getJangSoReviews().get(i).getAttachedFiles().get(j).setPrvno(prvno);
 
-        // 장소리뷰 첨부파일 insert하기
+        // 3) 장소리뷰 첨부파일 insert 하기
         if (recommendationDao.jangSoReviewAttachedFileAdd(
             recommendation.getJangSoReviews().get(i).getAttachedFiles().get(j)
         ) == 0) {
@@ -84,8 +84,90 @@ public class DefaultRecommendationService implements RecommendationService  {
 
   // recommendationDisable
   @Override
-  public boolean disableRecommend(int recono) {
+  public boolean disableRecommend(int recono) throws Exception {
     return recommendationDao.disableRecommend(recono) > 0;
+  }
+
+  // recommendationUpdate
+  @Transactional
+  @Override
+  public void recommendationUpdate(Recommendation recommendation) throws Exception {
+    // 1) 코스추천글 업데이트
+    if (recommendationDao.recommendationUpdate(recommendation) == 0) {
+      throw new Exception("코스추천글 업데이트 실패!");
+    }
+
+    // 2) 원래 코스추천글의 장소리뷰 데이터 삭제하기
+    // 코스추천글의 번호 받아오기
+    int recono = recommendation.getRecono();
+
+    // 코스추천글 번호에 해당하는 장소리뷰첨부파일 찾아서 삭제
+    recommendationDao.deleteFilesByRecono(recono);
+
+    // 코스추천글 번호에 해당하는 장소리뷰 찾아서 삭제
+    recommendationDao.deleteJangSoReviewsByRecono(recono);
+
+    // 3) 각각의 장소리뷰 insert 하기
+    // 자동증가한 장소리뷰 번호를 받을 변수 준비
+    int prvno;
+
+    for (int i = 0; i < recommendation.getJangSoReviews().size(); i++) {
+      // 각각의 장소리뷰에 코스추천글 번호 set 하기
+      recommendation.getJangSoReviews().get(i).setRecono(recono);
+
+      // 각각의 장소리뷰 insert 하기
+      if (recommendationDao.jangSoReviewAdd(recommendation.getJangSoReviews().get(i)) == 0) {
+        throw new Exception("장소리뷰 등록 실패!");
+      }
+
+      // 각각의 장소리뷰를 insert 하면서 자동증가한 prvno 받아오기
+      prvno = recommendation.getJangSoReviews().get(i).getPrvno();
+
+      for (int j = 0; j < recommendation.getJangSoReviews().get(i).getAttachedFiles().size(); j++) {
+        // 장소리뷰를 insert 하면서 자동증가한 prvno를 장소리뷰 첨부파일에 set 하기
+        recommendation.getJangSoReviews().get(i).getAttachedFiles().get(j).setPrvno(prvno);
+
+        // 4) 장소리뷰 첨부파일 insert 하기
+        if (recommendationDao.jangSoReviewAttachedFileAdd(
+            recommendation.getJangSoReviews().get(i).getAttachedFiles().get(j)
+        ) == 0) {
+          throw new Exception("장소리뷰첨부파일 등록 실패!");
+        }
+      }
+    }
+
+    // 5) 장소리뷰 첨부파일 insert 하기
+
+    // 자동증가한 코스추천글 recono 받아오기
+//    int recono = recommendation.getRecono();
+
+    // 자동증가한 장소리뷰 번호를 받을 변수 준비
+//    int prvno;
+
+//    for (int i = 0; i < recommendation.getJangSoReviews().size(); i++) {
+//      // 각각의 장소리뷰에 코스추천글 번호 set 하기
+//      recommendation.getJangSoReviews().get(i).setRecono(recono);
+//
+//      // 2) 각각의 장소리뷰 insert 하기
+//      if (recommendationDao.jangSoReviewAdd(recommendation.getJangSoReviews().get(i)) == 0) {
+//        throw new Exception("장소리뷰 등록 실패!");
+//      }
+//
+//      // 각각의 장소리뷰를 insert 하면서 자동증가한 prvno 받아오기
+//      prvno = recommendation.getJangSoReviews().get(i).getPrvno();
+//
+//      for (int j = 0; j < recommendation.getJangSoReviews().get(i).getAttachedFiles().size(); j++) {
+//        // 장소리뷰를 insert 하면서 자동증가한 prvno를 장소리뷰 첨부파일에 set 하기
+//        recommendation.getJangSoReviews().get(i).getAttachedFiles().get(j).setPrvno(prvno);
+//
+//        // 3) 장소리뷰 첨부파일 insert 하기
+//        if (recommendationDao.jangSoReviewAttachedFileAdd(
+//            recommendation.getJangSoReviews().get(i).getAttachedFiles().get(j)
+//        ) == 0) {
+//          throw new Exception("장소리뷰첨부파일 등록 실패!");
+//        }
+//      }
+//    }
   }
 
 }

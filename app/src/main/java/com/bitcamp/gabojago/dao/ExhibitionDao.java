@@ -5,6 +5,7 @@ import com.bitcamp.gabojago.vo.ExhibitionFile;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
+import java.util.Map;
 
 @Mapper
 public interface ExhibitionDao {
@@ -30,4 +31,10 @@ public interface ExhibitionDao {
   int deleteFiles(int exno);
 
 //deleteFilesByMemberBoards :  후에 추가
+
+  // 페이징
+  List<Exhibition> exhibitionLimitList(Map<String, Object> map);
+
+  int exhibitionCount ();
+
 }

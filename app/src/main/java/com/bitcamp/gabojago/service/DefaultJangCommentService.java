@@ -35,12 +35,10 @@ public class DefaultJangCommentService implements JangCommentService {
     return jangCommentDao.jangCommentDelete(cmno) >0;
   }
 
-
   @Override
-  public boolean jangCommentUpdate(JangComment jangComment) throws Exception {
-    if(jangCommentDao.jangCommentUpdate(jangComment) == 0 ){
-      return false;
-    }
-    return true;
+  public JangComment getJangCommentByCmno(int cmno) throws Exception {
+    return jangCommentDao.getJangCommentByCmno(cmno);
   }
+
+
 }

@@ -2,13 +2,15 @@ package com.bitcamp.gabojago.service;
 
 import com.bitcamp.gabojago.dao.ExhibitionReviewDao;
 import com.bitcamp.gabojago.dao.MemberDao;
-import com.bitcamp.gabojago.vo.ExhibitionReview;
 import com.bitcamp.gabojago.vo.Member;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
+import javax.mail.*;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
+import java.util.*;
 
 @Service
 public class DefaultMemberService implements MemberService {
@@ -17,6 +19,8 @@ public class DefaultMemberService implements MemberService {
 
   @Autowired
   ExhibitionReviewDao exhibitionReviewDao;
+
+
 
   @Override
   public Member idCheck(String id) throws Exception {
@@ -80,6 +84,50 @@ public class DefaultMemberService implements MemberService {
   public boolean update(Member member) throws Exception {
     return memberDao.update(member) > 0;
   }
+
+  @Override
+  public Member findId(Map<String, String> map) throws Exception {
+    return memberDao.findId(map);
+
+  }
+  @Override
+  public Member findpwd(Map<String, String> map) throws Exception {
+    Member member = memberDao.findpwd(map);
+    if (member == null) return member;
+
+    String newPw = Integer.toString((int)(Math.random()*(100000000-10000000)+10000000));
+    map.put("password", newPw); // map정보 받아서 pw 수정
+    memberDao.findpwdupdate(map); // pw 업데이트
+
+    String id = "bitcampproject@naver.com";
+    String pw = "Jang!@34";
+
+    Properties prop = new Properties();
+    prop.put("mail.smtp.host", "smtp.naver.com");
+    prop.put("mail.smtp.port", 465);
+    prop.put("mail.smtp.auth", "true");
+    prop.put("mail.smtp.ssl.enable", "true");
+    prop.put("mail.smtp.ssl.trust", "smtp.naver.com");
+
+    Session session = Session.getDefaultInstance(prop, new javax.mail.Authenticator() {
+      protected PasswordAuthentication getPasswordAuthentication() {
+        return new PasswordAuthentication(id, pw);
+      }
+    });
+
+    MimeMessage message = new MimeMessage(session);
+    message.setFrom(new InternetAddress(id));
+
+    message.addRecipient(Message.RecipientType.TO, new InternetAddress(member.getEmail()));
+    message.setSubject("가보자Go 임시 비밀번호를 발급해드립니다.");
+    message.setText("안녕하세요 회원님 가보자Go의 임시비밀번호 발송해드립니다\n" + " 회원님의 임시비밀번호는" +
+                    "임시 비밀번호: " + newPw);
+    Transport.send(message);
+    System.out.println("메일 전송 완료");
+
+    return member;
+  }
+
 
 
 }

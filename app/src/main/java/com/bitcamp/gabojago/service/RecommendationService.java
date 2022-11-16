@@ -24,9 +24,11 @@ public interface RecommendationService {
   List<JangSoReview> getJangSoReviewList(int recono) throws Exception;
 
   // recommendationDisable
-  boolean disableRecommend(int recono);
+  boolean disableRecommend(int recono) throws Exception;
 
+  // recommendationUpdate
+  void recommendationUpdate(Recommendation recommendation) throws Exception;
+
+  // Comment Insert
   void setCntRecommendation(int recono) throws Exception;
-
-
 }

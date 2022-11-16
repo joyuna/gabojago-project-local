@@ -17,7 +17,8 @@ public interface JangCommentDao {
 
   int jangCommentDelete(int cmno);
 
-  int jangCommentUpdate(JangComment jangComment);
+
+  JangComment getJangCommentByCmno(int cmno);
 
 
 }

@@ -43,16 +43,21 @@ dependencies {
     compileOnly 'org.projectlombok:lombok'
     annotationProcessor 'org.projectlombok:lombok'
     
-    // 프레임워크나 라이브러리 등에서 출력하는 로그를 다루는 라이브러리
+    // 프레임워크나 라이브러리 등에서 출력하는 로그를 다루는 라이브러리 -장현경
     implementation 'org.apache.logging.log4j:log4j-core:2.18.0'
 
-    // 적은양의 코드만을 이용해 썸네일을 제작할 수 있고 가로 세로 사이즈를 결정하면 비율에 맞게 조정해 주는 기능
+    // 적은양의 코드만을 이용해 썸네일을 제작할 수 있고 가로 세로 사이즈를 결정하면 비율에 맞게 조정해 주는 기능 -장현경
     implementation group: 'net.coobird', name: 'thumbnailator', version: '0.4.11'
 
-    //spring mail
-    dependencies {
-        implementation 'org.springframework.boot:spring-boot-starter-mail'
-    }
+    // 소스 수정 저장 후 바로 적용 -장현경
+    developmentOnly 'org.springframework.boot:spring-boot-devtools'
+
+    // 메일 보내는 의존- 장현경
+    implementation 'org.springframework.boot:spring-boot-starter-mail'
+
+    //gson
+    implementation 'com.google.code.gson:gson:2.9.0'
+
     // implementation project(':app-common')
 }
 

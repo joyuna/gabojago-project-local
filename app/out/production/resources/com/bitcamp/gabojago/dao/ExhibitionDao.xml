@@ -76,7 +76,6 @@
 
         INSERT INTO jangdb.jang_exhibition (exname, cont, plno, stdate, eddate, price)
         values (#{exname}, #{cont}, -1, #{stdate}, #{eddate}, #{price})
-
     </insert>
 
     <delete id="delete">
@@ -92,9 +91,7 @@
         where jang_baguni.EXNO=#{value};-->
         delete from jang_exhibition
         where jang_exhibition.EXNO=#{value};
-
     </delete>
-
 
     <update id="update" parameterType="exhibition">
         update jang_exhibition set
@@ -104,10 +101,7 @@
         where jang_exhibition.EXNO= #{exno}
     </update>
 
-
-
     <!-- 첨부파일 -->
-
     <select id="findFilesByExhibition" resultMap="exhibitionFileMap">
         select
         exfno,
@@ -134,7 +128,7 @@
         where exno= #{value}
     </delete>
 
-<!--    <delete id="deleteFilesByMemberBoards">
+    <!--    <delete id="deleteFilesByMemberBoards">
         delete from  jang_exhibition_file
         where exno in (select bno from app_board where mno = #{value})
     </delete>-->
@@ -156,6 +150,22 @@
         exfno = #{value};
     </select>
 
+    <!--총 게시글 갯수 출력-->
+    <select id="exhibitionCount"  resultType="int">
+        select count(*) from jang_exhibition
+    </select>
+
+    <select id="exhibitionLimitList" resultMap="exhibitionMap">
+        select
+        jang_exhibition.*,
+        jang_exhibition_file.*
+        from jang_exhibition
+        left join jang_exhibition_file
+        on
+        jang_exhibition.EXNO = jang_exhibition_file.EXNO
+        ORDER BY jang_exhibition.EXNO desc
+        LIMIT #{count}, #{number};
+    </select>
 
 
 

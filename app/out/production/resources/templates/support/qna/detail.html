@@ -1,89 +1,169 @@
-<!DOCTYPE HTML>
+<!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
+    <title>가보자Go!!</title>
     <meta charset="utf-8">
-    <link th:href="@{/css/bootstrap.min.css}"
-            href="../css/bootstrap.min.css" rel="stylesheet">
-    <style>
-        .container {
-            max-width: 700px;
-        }
-    </style>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:300,400,500,700" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Herr+Von+Muellerhoff" rel="stylesheet">
+
+    <link rel="stylesheet" href="../../css/open-iconic-bootstrap.min.css">
+    <link rel="stylesheet" href="../../css/animate.css">
+
+    <link rel="stylesheet" href="../../css/owl.carousel.min.css">
+    <link rel="stylesheet" href="../../css/owl.theme.default.min.css">
+    <link rel="stylesheet" href="../../css/magnific-popup.css">
+
+    <link rel="stylesheet" href="../../css/aos.css">
+
+    <link rel="stylesheet" href="../../css/ionicons.min.css">
+
+    <link rel="stylesheet" href="../../css/bootstrap-datepicker.css">
+    <link rel="stylesheet" href="../../css/jquery.timepicker.css">
+
+
+    <link rel="stylesheet" href="../../css/flaticon.css">
+    <link rel="stylesheet" href="../../css/icomoon.css">
+    <link rel="stylesheet" href="../../css/style.css">
 </head>
 <body>
-
-<div class="container">
-
-    <div class="py-5 text-center">
-        <h2>QnA 상세</h2>
+<!—Heather—>
+<nav class="navbar navbar-expand-lg navbar-light fixed-top py-3" id="mainNav">
+    <div class="container px-4 px-lg-5">
+        <a class="navbar-brand" href="#page-top">Start Bootstrap</a>
+<!-- 	<button class="navbar-toggler navbar-toggler-right" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>-->
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+            <ul class="navbar-nav ms-auto my-2 my-lg-0">
+                <li class="nav-item"><a class="nav-link" href="#about">About</a></li>
+                <li class="nav-item"><a class="nav-link" href="#services">Services</a></li>
+                <li class="nav-item"><a class="nav-link" href="#portfolio">Portfolio</a></li>
+                <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
+            </ul>
+        </div>
     </div>
+</nav><br>
+<!—Heather End—>
 
-    <div>
-        <label>No.</label>
-        <input name='no' type='number' class="form-control"
-         value='1'
-         data-th-value="${qnaBoard.no}"
-         readonly>
-    </div>
+<div id="colorlib-page">
+    <a href="javascript" class="js-colorlib-nav-toggle colorlib-nav-toggle"><i></i></a>
+    <aside id="colorlib-aside" role="complementary" class="js-fullheight text-center">
+        <h1 id="colorlib-logo"><a href="/app/support/"><span class="img"></span>고객지원</a></h1>
+        <nav id="colorlib-main-menu" role="navigation">
+            <ul>
+                <li><a onclick="location.href='list.html'"
+                       th:onclick="|location.href='@{/support/qna/list}'|">QnA</a></li>
+            </ul>
+        </nav>
+    </aside> <!-- END COLORLIB-ASIDE -->
 
-    <div>
-        <label>제목</label>
-        <input name='title' type='text' class="form-control"
-         value='제목'
-         data-th-value='${qnaBoard.title}' readonly>
-    </div>
 
-    <div>
-        <label>내용</label>
-        <textarea name='content' rows='10' cols='60' class="form-control"
-                  data-th-text='${qnaBoard.questionContent}' readonly></textarea>
-    </div>
+    <div id="colorlib-main">
+        <section class="ftco-bread">
+            <div class="container">
+                <div class="slider-text justify-content-center align-items-center">
+                    <div class="col-md-11 ftco-animate">
+                        <p class="breadcrumbs"><span class="mr-2"><a href="index.html">Support</a></span>
+                            <span>QnA</span></p>
+                        <h1 class="bread">QnA 문의 내용</h1>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="ftco-section contact-section">
+            <div class="container">
+                <div class="contact-form">
+                    <div class="col-md-12 ftco-animate">
+                        <h5 class="mb-12">
+                            <p class="meta">
+                                <span>No.</span>
+                                <span data-th-text="${qnaBoard.no}">100</span>
+                            <p class="meta">
+                        </h5>
 
-    <div>
-        <label>작성일</label>
-        <input name='createdDate' type='date' class="form-control"
-               value='2022-11-11'
-               data-th-value="${qnaBoard.createdDate}" readonly>
-    </div>
+                        <div class="meta-wrap mt-3 text-right">
+                            <p class="meta">
+                                <span data-th-text="${qnaBoard.id}">홍길동</span>
+                                <span class="col-12"
+                                      data-th-text="${qnaBoard.createdDate}">2022-1-1</span>
+                            </p>
+                        </div>
+                        <h2 class="mb-3 mt-3 font-weight-bold" data-th-text='${qnaBoard.title}'>
+                            제목
+                        </h2>
+                        <div>
+                            <h5 class="mb-3 mt-5 font-weight-bold"
+                                data-th-text='${qnaBoard.questionContent}'>문의내용
+                            </h5>
+                        </div>
 
-    <div>
-        <label>작성자</label>
-        <input name='id' type='text' class="form-control"
-               data-th-value="${qnaBoard.id}" readonly>
-    </div>
 
-    <div>
-        <label>공개여부</label>
-        <input name='disclosure' type='text' class="form-control"
-               data-th-value="${qnaBoard.disclosure == true} ? '비공개' : '공개'" readonly>
-    </div>
+                        <div class="form-group text-center mb-5 mt-5">
+                                <span class="col">
+                                    <button class="btn btn-primary py-3 px-5"
+                                            onclick="location.href='editForm.html'"
+                                            th:onclick="|location.href='@{/support/qna/editForm(no=${qnaBoard.no})}'|"
+                                            type="button">수정</button>
+                                </span>
+                            <span class="col">
+                                    <button class="btn btn-secondary py-3 px-5"
+                                            onclick="location.href='list.html'"
+                                            th:onclick="|location.href='@{/support/qna/list}'|"
+                                            type="button">이전</button>
+                                </span>
+                        </div>
+                    </div>
+                </div> <!-- .col-md-8 -->
 
-    <hr class="my-4">
+            </div><!-- END COL -->
+        </section>
+        <footer class="ftco-footer ftco-bg-dark ftco-section">
+            <div class="container px-md-5">
+                <div class="row mb-5">
+                    <div class="row">
+                        <div class="col-md-12">
 
-    <div class="row">
-        <div class="col">
-            <button class="w-100 btn btn-primary btn-lg"
-                    onclick="location.href='editForm.html'"
-                    th:onclick="|location.href='@{/support/qna/editForm(no=${qnaBoard.no})}'|"
-                    type="button">내용수정</button>
+                            <p><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                                Copyright &copy;<script>document.write(new Date().getFullYear());</script>
+                                All rights reserved | This template is made with <i class="icon-heart"
+                                                                                    aria-hidden="true"></i> by <a
+                                        href="https://colorlib.com" target="_blank">Colorlib</a>
+                                <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </footer>
+
+
+        <!-- loader -->
+        <div id="ftco-loader" class="show fullscreen">
+            <svg class="circular" width="48px" height="48px">
+                <circle class="path-bg" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke="#eeeeee"/>
+                <circle class="path" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke-miterlimit="10"
+                        stroke="#F96D00"/>
+            </svg>
         </div>
 
-        <div class="col">
-            <button class="w-100 btn btn-primary btn-lg"
-                    onclick="location.href='list.html'"
-                    th:onclick="|location.href='@{delete(no=${qnaBoard.no})}'|"
-                    type="submit">삭제</button>
-        </div>
+        <script src="../../js/jquery.min.js"></script>
+        <script src="../../js/jquery-migrate-3.0.1.min.js"></script>
+        <script src="../../js/popper.min.js"></script>
+        <script src="../../js/bootstrap.min.js"></script>
+        <script src="../../js/jquery.easing.1.3.js"></script>
+        <script src="../../js/jquery.waypoints.min.js"></script>
+        <script src="../../js/jquery.stellar.min.js"></script>
+        <script src="../../js/owl.carousel.min.js"></script>
+        <script src="../../js/jquery.magnific-popup.min.js"></script>
+        <script src="../../js/aos.js"></script>
+        <script src="../../js/jquery.animateNumber.min.js"></script>
+        <script src="../../js/bootstrap-datepicker.js"></script>
+        <script src="../../js/jquery.timepicker.min.js"></script>
+        <script src="../../js/scrollax.min.js"></script>
+        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&sensor=false"></script>
+        <script src="../../js/google-map.js"></script>
+        <script src="../../js/main.js"></script>
 
-        <div class="col">
-            <button class="w-100 btn btn-secondary btn-lg"
-                    onclick="location.href='list.html'"
-                    th:onclick="|location.href='@{/support/qna/list}'|"
-                    type="button">목록으로</button>
-        </div>
-
-    </div>
-
-</div> <!-- /container -->
 </body>
 </html>

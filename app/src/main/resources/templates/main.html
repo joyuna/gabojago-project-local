@@ -13,8 +13,11 @@
       rel="stylesheet"
       href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
     />
-<!--    <script src="./script/jquery-3.6.0.js"></script>-->
-<!--    <script src="./script/script.js"></script>-->
+
+    <script
+        src="https://code.jquery.com/jquery-3.6.1.js"
+        integrity="sha256-3zlB5s2uwoUzrXK3BT7AX3FyvojsraNFxCc2vC/7pNI="
+        crossorigin="anonymous"></script>
 
     <!--<meta name ="google-signin-client_id"
           content="400828157542-5kee4rg9u2va7k0c5q762jqnl973c4dv.apps.googleusercontent.com">
@@ -27,26 +30,29 @@
   <body class="pt-5">
     <!-- body 이름 바꿈 -->
 
-
     <div class="modal">
-      <div class="modal_body">
-        <h2>Sign In</h2>
-        <form action="auth/login" method="post">
+      <div class="modal_body" style=" background: rgba(255,255,255,0.8); ">
+        <div class="out" style="margin: 05px;  float: right;">나가기</div>
+        <br>
+        <h2 style=" text-align: center;"> 로그인 </h2>
+
+        <form action="auth/login" method="post" >
           <p>ID</p>
           <input name="id" type="text" size="30" placeholder="ID를 입력해주세요." th:value="${id}">
-          
+          <br> <!--공백-->
           <p>Password</p>
           <input name="password" type="password" size="20" placeholder="Password를 입력해주세요.">
           <br>
-          <button class="btn_login" type="submit">Login</button>
-
+          <br> <!--공백-->
+          <button class="btn_login" type="submit"
+          style="background-color: #ffca2c">Login</button>
 
 
 <!--          <a href="http://localhost:9999/app/">구글 아이디로 로그인</a>-->
 
           <div class="g-signin2" data-onsuccess="onSignIn"></div>
 
-          <script>
+        <!--  <script>
             function onSignIn(googleUser) {
               var profile = googleUser.getBasicProfile();
               console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
@@ -56,7 +62,7 @@
             }
 
           </script>
-
+-->
          <!-- <a href="#" onClick="signOut();">Sign out</a>-->
           <script>
             function signOut() {
@@ -68,10 +74,9 @@
           </script>
 
 
-
           <div class="savecheck">
             <input id="savecheckbox" type="checkbox" name="saveEmail"><label for="savecheckbox">&nbsp;ID 저장</label>
-            <span><a href="#">ID 찾기</a></span><span> / </span><span><a href="#">Password 찾기</a></span>
+            <span><a href="/app/member/findid">ID 찾기</a></span><span> / </span><span><a href="/app/member/findpwd">Password 찾기</a></span>
           </div>
         </form>
 
@@ -95,7 +100,8 @@
          -->
 
         <form action="auth/register">
-          <button class="btn_signin" type="submit">회원가입</button>
+          <button class="btn_signin" type="submit"
+                  style="background-color: #ffca2c">회원가입</button>
         </form>
 
       </div>
@@ -140,9 +146,10 @@
               </li>
 
 
-              <!--테스트 중-->
+              <!--어드민만 보일 수 있음-->
+              <span data-th-if="${session.loginMember} != null and ${session.loginMember.id} == 'admin'">
+              <a href='member/list'>회원 관리</a></span>
 
-              <li><a href='member/list'>회원</a></li>
 
             </ul>
           </div>
@@ -183,7 +190,8 @@
         <p class="m-0 text-center text-white">Copyright &copy;가보자GO</p>
       </div>
     </footer>
-    
+
+    <!--login modal script-->
     <script>
       const body = document.querySelector("body");
       const modal = document.querySelector(".modal");
@@ -206,6 +214,12 @@
           }
         }
       });
+
+      // 장현경 : 로그인 모달 창 나가기
+      $('.out').click(function() {
+        $('.modal').removeClass('show')
+      })
+
     </script>
 
   </body>

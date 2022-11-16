@@ -88,19 +88,21 @@
     <!-- recommendationDetail - 1 -->
     <select id="getRecommendation" resultMap="recommendationMap">
         select
-        recono,
-        title,
-        cnt,
-        wdate,
-        act,
-        pet,
-        frd,
-        cple,
-        fmly,
-        solo,
-        tpname
+            jsrc.recono,
+            jsrc.title,
+            jsrc.cnt,
+            jsrc.wdate,
+            jsrc.act,
+            jsrc.pet,
+            jsrc.frd,
+            jsrc.fmly,
+            jsrc.solo,
+            jsrc.tpname,
+            jm.id,
+            jm.nname
         from
-        jang_so_recommendation
+            jang_so_recommendation jsrc
+        join jang_member jm on jm.id=jsrc.id
         where recono = #{value}
     </select>
 
@@ -110,8 +112,42 @@
         act=false
         where recono=#{recono}
     </update>
-    
-    
+
+    <!-- recommendationUpdate -->
+    <update id="recommendationUpdate">
+        update jang_so_recommendation set
+            title=#{title},
+            pet=#{pet},
+            frd=#{frd},
+            cple=#{cple},
+            fmly=#{fmly},
+            solo=#{solo},
+            tpname=#{tpname}
+        where recono=#{recono}
+    </update>
+
+    <!-- JangSoReviewAttachedFile Delete (recono) -->
+    <delete id="deleteFilesByRecono">
+        delete jang_so_review_file
+        from
+            jang_so_review_file
+        join
+            jang_so_review
+        on
+            jang_so_review.prvno = jang_so_review_file.prvno
+        where
+            jang_so_review.recono = #{recono}
+    </delete>
+
+    <!-- JangSoReview Delete (recono) -->
+    <delete id="deleteJangSoReviewsByRecono">
+        delete from
+            jang_so_review
+        where
+            recono = #{recono}
+    </delete>
+
+    <!-- comment insert -->
     <update id="setCntRecommendation">
         update jang_so_recommendation
         set

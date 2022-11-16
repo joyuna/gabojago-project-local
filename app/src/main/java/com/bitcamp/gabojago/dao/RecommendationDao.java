@@ -28,6 +28,15 @@ public interface RecommendationDao {
   // recommendationDisable
   int disableRecommend(int recono);
 
-  int setCntRecommendation(int recono);
+  // recommendationUpdate
+  int recommendationUpdate(Recommendation recommendation);
 
+  // deleteFilesByRecono
+  int deleteFilesByRecono(int recono);
+
+  // deleteJangSoReviewsByRecono
+  int deleteJangSoReviewsByRecono(int recono);
+
+  // comment Insert
+  int setCntRecommendation(int recono);
 }

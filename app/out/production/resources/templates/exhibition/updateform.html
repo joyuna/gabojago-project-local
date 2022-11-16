@@ -11,12 +11,9 @@
   <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>
   <link rel="stylesheet"
         href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"/>
-  <link rel="stylesheet" href="./css/main-base.css" />
-  <link rel="stylesheet" href="./css/main.css" />
-  <link rel="stylesheet" href="./css/main-modal.css" />
-
-  <meta name ="google-signin-client_id"
-        content="400828157542-5kee4rg9u2va7k0c5q762jqnl973c4dv.apps.googleusercontent.com">
+  <link rel="stylesheet" href="../css/main-base.css" />
+  <link rel="stylesheet" href="../css/main.css" />
+  <link rel="stylesheet" href="../css/main-modal.css" />
 
 </head>
 <!-- Header-->
@@ -33,31 +30,24 @@
 <body class="pt-5">
 
 <div class="modal">
-  <div class="modal_body">
-    <h2>Sign In</h2>
-    <form action="auth/login" method="post">
+  <div class="modal_body" style=" background: rgba(255,255,255,0.9); ">
+    <div class="out" style="margin: 05px;  float: right;">나가기</div>
+    <br>
+    <h2 style=" text-align: center;"> 로그인 </h2>
+
+    <form action="auth/login" method="post" >
       <p>ID</p>
       <input name="id" type="text" size="30" placeholder="ID를 입력해주세요." th:value="${id}">
-
+      <br> <!--공백-->
       <p>Password</p>
       <input name="password" type="password" size="20" placeholder="Password를 입력해주세요.">
       <br>
-      <button class="btn_login" type="submit">Login</button>
-
+      <br> <!--공백-->
+      <button class="btn_login" type="submit"
+              style="background-color: #ffca2c">Login</button>
 
       <div class="g-signin2" data-onsuccess="onSignIn"></div>
 
-      <script>
-        function onSignIn(googleUser) {
-          var profile = googleUser.getBasicProfile();
-          console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
-          console.log('Name: ' + profile.getName());
-          console.log('Image URL: ' + profile.getImageUrl());
-          console.log('Email: ' + profile.getEmail()); // This is null if the 'email' scope is not present.
-        }
-      </script>
-
-      <a href="#" onClick="signOut();">Sign out</a>
       <script>
         function signOut() {
           var auth2 = gapi.auth2.getAuthInstance();
@@ -67,22 +57,20 @@
         }
       </script>
 
-      <script src="https://apis.google.com/js/platform.js?onload=init" async defer></script>
 
       <div class="savecheck">
         <input id="savecheckbox" type="checkbox" name="saveEmail"><label for="savecheckbox">&nbsp;ID 저장</label>
-        <span><a href="#">ID 찾기</a></span><span> / </span><span><a href="#">Password 찾기</a></span>
+        <span><a href="/app/member/findid">ID 찾기</a></span><span> / </span><span><a href="/app/member/findpwd">Password 찾기</a></span>
       </div>
     </form>
 
     <form action="auth/register">
-      <button class="btn_signin" type="submit">회원가입</button>
+      <button class="btn_signin" type="submit"
+              style="background-color: #ffca2c">회원가입</button>
     </form>
   </div>
 </div>
-
-
-
+<!-- Navigation 사실상의 header -->
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
   <div class="container">
     <a class="navbar-brand" href="/app">가보자GO</a>
@@ -123,10 +111,13 @@
         </li>
 
         <li class="nav-item">
-          <a class="nav-link" href="#">
-            <img src="./images/mypage.png" width="90%" height="25"
-            /></a>
+          <a class="nav-link" href="/app/myPage/">
+            <img src="./images/mypage.png" width="90%" height="25"/></a>
         </li>
+        <!--어드민만 보일 수 있음-->
+        <span data-th-if="${session.loginMember} != null and ${session.loginMember.id} == 'admin'">
+              <a href='/app/member/list'>회원 관리</a></span>
+
       </ul>
     </div>
   </div>
@@ -172,30 +163,30 @@
       <label >시작날짜 : </label>
       <input name='stdate' type='text'
              value='2022-11-22'
-             data-th-text="${exhibition.stdate}"
-             size='20'
+             data-th-value="${exhibition.stdate}"
+             size='20' style="border: none;"
       >
 
       <label >종료날짜 :</label>
       <input name='eddate' type='text'
              value='2022-11-22'
-             data-th-text="${exhibition.eddate}"
-             size='20'>
+             data-th-value="${exhibition.eddate}"
+             size='20' style="border: none;">
     </div>
+    <br> <!--공백-->
 
     <div>
       <label style="width: 67px">금 액 : </label><input name='price' type='number'
                             value='10000' data-th-value="${exhibition.price}"
-                            size='20'>
+                            size='20' style="border: none;">
     </div>
 
     <br> <!--공백-->
 
     <div>
       <!--<th>내용</th>-->
-      <textarea name='cont' ></textarea>
+      <textarea name='cont'></textarea>
     </div>
-
   </table>
 
 
@@ -225,9 +216,10 @@
 
 
   <br> <!--////공백////-->
+  <br> <!--공백-->
 
   <p>
-    <button type='submit'>변경</button>
+    <button type='submit' class="btn btn-primary">변경</button>
     <a href='delete?exno=1'
        data-th-href="@{delete(exno=${exhibition.exno})}">삭제</a>
     <a href='exhibitionlist'>목록</a>

@@ -33,7 +33,7 @@
         <form action="auth/login" method="post">
           <p>ID</p>
           <input name="id" type="text" size="30" placeholder="ID를 입력해주세요." th:value="${id}">
-          
+
           <p>Password</p>
           <input name="password" type="password" size="20" placeholder="Password를 입력해주세요.">
           <br>
@@ -151,19 +151,19 @@
           </div>
         </div>
       </nav>
-      
-    
+
+
     <h1 class="alert alert-danger" style="padding: 30px">예외가 발생했습니다.</h1>
     <p>아래 폼의 상세 내용을 찍어 000-0000 으로 보내주시면, 빠른 해결이 가능합니다.</p>
-    
+
     <details>
 	    <summary class="btn btn-outline-danger">에러 내용 전문</summary>
 	    <p class="p-3 mb-2 bg-danger text-white" th:text="${stackTrace}">
         예기치 못한 예외가 발생했습니다.
       </p>
     </details>
-    
-    
+
+
 
     <!-- Footer-->
     <footer class="py-4 bg-dark">
@@ -171,7 +171,7 @@
         <p class="m-0 text-center text-white">Copyright &copy;가보자GO</p>
       </div>
     </footer>
-    
+
     <script>
       const body = document.querySelector("body");
       const modal = document.querySelector(".modal");

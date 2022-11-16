@@ -16,5 +16,7 @@ void exhibitionReviewInsert(ExhibitionReview exhibitionReview) throws Exception;
 boolean exhibitionReviewUpdate(ExhibitionReview exhibitionReview) throws Exception;
 
 ExhibitionReview get(int rvno) throws Exception;
+  int deleteReviewByExhibition (int exno) throws Exception;
+
 }
 

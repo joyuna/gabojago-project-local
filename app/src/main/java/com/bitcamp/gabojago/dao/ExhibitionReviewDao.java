@@ -22,6 +22,9 @@ int exhibitionReviewUpdate(ExhibitionReview exhibitionReview);
 
 int deleteByMember(int ID);
 
+
+ int deleteReviewByExhibition (int exno);
+
 /*  int deleteReviewsByMemberexhibitions(int ID);*/
 
 }

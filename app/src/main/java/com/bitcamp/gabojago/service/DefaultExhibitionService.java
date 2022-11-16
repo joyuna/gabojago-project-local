@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class DefaultExhibitionService implements ExhibitionService  {
@@ -48,8 +49,8 @@ if (exhibition.getExhibitionFiles().size()>0){
     exhibitionDao.deleteFiles(exno);
 
     // 2) 리뷰 삭제
-    exhibitionReviewDao.exhibitionReviewDelete(exno); // 테스트 필요
-
+ // 테스트 필요
+exhibitionReviewDao.deleteReviewByExhibition(exno);
     // 3) 게시글 삭제
     return exhibitionDao.delete(exno) > 0;
 
@@ -84,4 +85,16 @@ if (exhibition.getExhibitionFiles().size()>0){
   public boolean deleteExhibitionFile(int exfno) throws Exception {
     return exhibitionDao.deleteFile(exfno) > 0;
   }
+
+
+// 페이징
+
+  @Override
+  public List<Exhibition> exhibitionLimitList(Map<String, Object> map) throws Exception {
+    return exhibitionDao.exhibitionLimitList(map);
+  }
+  public int exhibitionCount () throws Exception{
+    return exhibitionDao.exhibitionCount();
+  }
+
 }

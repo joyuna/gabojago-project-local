@@ -1,14 +1,16 @@
 package com.bitcamp.gabojago.web;
 
 import com.bitcamp.gabojago.service.MemberService;
+import com.bitcamp.gabojago.vo.KakaoDTO;
 import com.bitcamp.gabojago.vo.Member;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpSession;
+import java.io.IOException;
+import java.util.HashMap;
 import java.util.Map;
 
 @Controller
@@ -17,7 +19,9 @@ public class MemberController {
 
   @Autowired
   MemberService memberService;
-
+  // HttpSession 클래스 주입.
+  @Autowired
+  private HttpSession session;
 
   @GetMapping("list")
   public void list(Model model) throws Exception {
@@ -53,4 +57,73 @@ public class MemberController {
 
     return "redirect:list";
   }
+
+  @GetMapping("findid/{name}/{email}")
+  @ResponseBody
+  public String findId(@PathVariable("name") String name, @PathVariable("email") String email) throws Exception {
+    Map<String, String> map = new HashMap();
+    map.put("name", name);
+    map.put("email", email);
+
+    Member member = memberService.findId(map);
+
+    if(member ==null){
+      return "입력한 정보에 일치하는 회원이 존재하지 않습니다";
+    }
+    return member.getId() ;
+  }
+
+  @GetMapping("findid")
+  public void findId()  throws Exception {
+
+  }
+
+
+
+  //  비밀번호 찾기
+  @GetMapping("findpwd/{id}/{name}/{email}")
+@ResponseBody
+  public String findpwd(@PathVariable("id") String id,@PathVariable("name") String name,@PathVariable("email") String email) throws Exception {
+    Map<String, String> map = new HashMap();
+    map.put("id", id);
+    map.put("name", name);
+    map.put("email", email);
+
+    Member member = memberService.findpwd(map);
+
+    if (member == null) {
+      return "입력한 정보에 일치하는 회원이 존재하지 않습니다";
+    }
+    return member.getPassword();
+  }
+
+  @GetMapping("findpwd")
+  public void findpwd()  throws Exception {
+
+  }
+
+
+
+/* public String sendEmailPwd(@PathVariable("email") String email){
+   MailDto dto = memberService.createMailAndChangePassword(email);
+   memberService.emailSend(dto);
+   return"/member/login"
+ }*/
+
+
+  @RequestMapping(value="/main/kakao_login.ajax")
+  public String kakaoLogin() {
+    StringBuffer loginUrl = new StringBuffer();
+    loginUrl.append("https://kauth.kakao.com/oauth/authorize?client_id=");
+    loginUrl.append("88b44f74865aa118de9f54888c85a112");
+    loginUrl.append("&redirect_uri=");
+    loginUrl.append("http://localhost:9999/app/kakao_callback");
+    loginUrl.append("&response_type=code");
+
+    return "redirect:"+loginUrl.toString();
+  }
+
+
+
+
 }

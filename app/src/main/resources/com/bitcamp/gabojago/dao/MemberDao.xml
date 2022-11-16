@@ -21,6 +21,10 @@
         <result column="STATUS" property="status"/>
     </resultMap>
 
+
+
+
+
     <select id="findByIdPassword" resultMap="memberMap">
         select
             ID,
@@ -79,7 +83,7 @@
 
 
 
-    <!--자현경 작업중 -->
+    <!--장현경 작업중 -->
     <select id="findAll" resultMap="memberMap">
         select
         *
@@ -103,20 +107,50 @@
         delete from jang_member
         where ID=#{id}
     </delete>
+ <!--   pwd=sha2(#{password},256)-->
+    <update id="update" parameterType="member">
+        update jang_member set
+        <!--   pwd=sha2(#{password},256)-->
+        nname=#{nickName},
+        name=#{name},
+        pnum=#{phoneNo},
+        birth=#{birthDay},
+        gender=#{gender},
+        sns=#{snsAddress},
+        mbti=#{mbti},
+        status=#{status}
+        where
+        id=#{id};
+    </update>
 
-    <update id="update" parameterType="Member">
+    <select id="findId" parameterType="map" resultMap="memberMap">
+        select
+        *
+        from
+        jang_member
+        where
+        name = #{name} and
+        email= #{email}
+    </select>
+
+    <select id="findpwd" parameterType="map" resultMap="memberMap">
+        select
+        *
+        from
+        jang_member
+        where
+        id=#{id} and
+        name = #{name} and
+        email= #{email}
+    </select>
+
+    <update id="findpwdupdate" parameterType="map">
         update jang_member set
         pwd=sha2(#{password},256)
-        nickName=#{nickName},
-        name=#{name},
-        phoneNo=#{phoneNo},
-        birthDay=#{birthDay},
-        birthDay=#{gender},
-        birthDay=#{snsAddress},
-        birthDay=#{mbti},
-        birthDay=#{status},
         where
-        id=#{id}
+        id=#{id} and
+        name = #{name} and
+        email= #{email}
     </update>
 
 

@@ -5,6 +5,7 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
+import java.util.Map;
 
 @Mapper
 public interface MemberDao {
@@ -31,4 +32,10 @@ public interface MemberDao {
   Member findByIdAll(String id);
 
   int update(Member member);
+
+  Member findId(Map<String, String> map);
+
+Member findpwd(Map<String, String> map);
+
+void findpwdupdate(Map<String, String> map);
 }

@@ -293,51 +293,63 @@ $(".ga-input-box3").keyup(doSearch3);
 $(".ga-input-box4").keyup(doSearch4);
 $(".ga-input-box5").keyup(doSearch5);
 
-
-
-//// ------------------------------------
-//// li 태그
-//var copiedform4 = document.querySelector(".copied-form4");
-//var copiedform3 = document.querySelector(".copied-form3");
-//var copiedform5 = document.querySelector(".copied-form5");
-//// review-add-btn 태그
-//var rvadbtn2 = document.querySelector(".review-add-btn2");
-//var rvadbtn3 = document.querySelector(".review-add-btn3");
-//var rvadbtn4 = document.querySelector(".review-add-btn4");
-//// review-remove-btn 태그
-//var rvrmbtn5 = document.querySelector(".review-remove-btn5");
-//var rvrmbtn4 = document.querySelector(".review-remove-btn4");
-//var rvrmbtn3 = document.querySelector(".review-remove-btn3");
-//
-//function addReview2() {
-//  copiedform3.style.display = "block";
-//  rvadbtn2.style.display = "none";
-//}
-//function addReview3() {
-//  copiedform4.style.display = "block";
-//  rvadbtn3.style.display = "none";
-//  rvrmbtn3.style.display = "none";
-//}
-//function addReview4() {
-//  copiedform5.style.display = "block";
-//  rvadbtn4.style.display = "none";
-//  rvrmbtn4.style.display = "none";
-//}
-//function removeReview5() {
-//  copiedform5.style.display = "none";
-//  document.querySelector(".cont5").value = null;
-//  rvadbtn4.style.display = "inline-block";
-//  rvrmbtn4.style.display = "inline-block";
-//}
-//function removeReview4() {
-//  copiedform4.style.display = "none";
-//  document.querySelector(".cont4").value = null;
-//  rvadbtn3.style.display = "inline-block";
-//  rvrmbtn3.style.display = "inline-block";
-//}
-//function removeReview3() {
-//  copiedform3.style.display = "none";
-//  document.querySelector(".cont3").value = null;
-//  rvadbtn2.style.display = "inline-block";
-//  rvrmbtn2.style.display = "inline-block";
-//}
+$("#ga-files1").on('change',function(){
+  let fileName1 = document.getElementById("ga-files1").files;
+  let fileName11 = "";
+    for (let i = 0; i < fileName1.length; i++) {
+      if (i === fileName1.length-1) {
+        fileName11 += fileName1[i].name;
+      } else {
+        fileName11 += fileName1[i].name + ' / ';
+      }
+    }
+      $(".ga-upload-namebox").eq(0).val(fileName11);
+});
+$("#ga-files2").on('change',function(){
+  let fileName2 = document.getElementById("ga-files2").files;
+  let fileName22 = "";
+    for (let i = 0; i < fileName2.length; i++) {
+      if (i === fileName2.length-1) {
+        fileName22 += fileName2[i].name;
+      } else {
+        fileName22 += fileName2[i].name + ' / ';
+      }
+    }
+      $(".ga-upload-namebox").eq(1).val(fileName22);
+});
+$("#ga-files3").on('change',function(){
+  let fileName3 = document.getElementById("ga-files3").files;
+  let fileName33 = "";
+    for (let i = 0; i < fileName3.length; i++) {
+      if (i === fileName3.length-1) {
+        fileName33 += fileName3[i].name;
+      } else {
+        fileName33 += fileName3[i].name + ' / ';
+      }
+    }
+      $(".ga-upload-namebox").eq(2).val(fileName33);
+});
+$("#ga-files4").on('change',function(){
+  let fileName4 = document.getElementById("ga-files4").files;
+  let fileName44 = "";
+    for (let i = 0; i < fileName4.length; i++) {
+      if (i === fileName4.length-1) {
+        fileName44 += fileName4[i].name;
+      } else {
+        fileName44 += fileName4[i].name + ' / ';
+      }
+    }
+      $(".ga-upload-namebox").eq(3).val(fileName44);
+});
+$("#ga-files5").on('change',function(){
+  let fileName5 = document.getElementById("ga-files5").files;
+  let fileName55 = "";
+    for (let i = 0; i < fileName5.length; i++) {
+      if (i === fileName5.length-1) {
+        fileName55 += fileName5[i].name;
+      } else {
+        fileName55 += fileName5[i].name + ' / ';
+      }
+    }
+      $(".ga-upload-namebox").eq(4).val(fileName55);
+});

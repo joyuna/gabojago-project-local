@@ -12,21 +12,12 @@
   <link rel="stylesheet" href="../css/main.css" />
   <link rel="stylesheet" href="../css/main-modal.css" />
 
-  <!--<meta name ="google-signin-client_id"
-        content="400828157542-5kee4rg9u2va7k0c5q762jqnl973c4dv.apps.googleusercontent.com">
--->
- <!-- <script src="https://cdn.jsdelivr.net/npm/@coreui/coreui@4.2.0/dist/js/coreui.bundle.min.js"
-          integrity="sha384-n0qOYeB4ohUPebL1M9qb/hfYkTp4lvnZM6U6phkRofqsMzK29IdkBJPegsyfj/r4" crossorigin="anonymous"></script>
-      <script src="https://apis.google.com/js/platform.js?onload=init" async defer></script>
+  <script
+      src="https://code.jquery.com/jquery-3.6.1.js"
+      integrity="sha256-3zlB5s2uwoUzrXK3BT7AX3FyvojsraNFxCc2vC/7pNI="
+      crossorigin="anonymous"></script>
 
--->
-<!--
-  <link href="https://cdn.jsdelivr.net/npm/@coreui/coreui@4.2.0/dist/css/coreui.min.css" rel="stylesheet" integrity="sha384-UkVD+zxJKGsZP3s/JuRzapi4dQrDDuEf/kHphzg8P3v8wuQ6m9RLjTkPGeFcglQU" crossorigin="anonymous">
--->
- <!-- <script src="https://cdn.jsdelivr.net/npm/@coreui/coreui@4.2.0/dist/js/coreui.bundle.min.js" integrity="sha384-n0qOYeB4ohUPebL1M9qb/hfYkTp4lvnZM6U6phkRofqsMzK29IdkBJPegsyfj/r4" crossorigin="anonymous"></script>
-  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.5/dist/umd/popper.min.js" integrity=" sha384-Xe+8cL9oJa6tN/veChSP7q+mnSPaj5Bcu9mPX5F5xIGE0DVittaqT5lorf0EI7Vk" crossorigin="anonymous"></script>
-  <script src="https://cdn.jsdelivr.net/npm/@coreui/coreui@4.2.0/dist/js/coreui.min.js" integrity="sha384-2hww80ziDjQXYpFulPf5tfdCCXLTxn70HdSwL9MfeEvpS0kjfHd1iaBRsLpnuaSC" crossorigin="anonymous"></script>
--->
+
 </head>
 
 <!-- Header-->
@@ -41,31 +32,26 @@
 </header>
 
 
-<body>  <!--class="pt-5"-->
+<body class="background">  <!--class="pt-5"-->
+
 <div class="modal">
-  <div class="modal_body">
-    <h2>Sign In</h2>
-    <form action="auth/login" method="post">
+  <div class="modal_body" style=" background: rgba(255,255,255,0.9); ">
+    <div class="out" style="margin: 05px;  float: right;">나가기</div>
+    <br>
+    <h2 style=" text-align: center;"> 로그인 </h2>
+
+    <form action="../auth/login" method="post" >
       <p>ID</p>
       <input name="id" type="text" size="30" placeholder="ID를 입력해주세요." th:value="${id}">
-
+      <br> <!--공백-->
       <p>Password</p>
       <input name="password" type="password" size="20" placeholder="Password를 입력해주세요.">
       <br>
-      <button class="btn_login" type="submit">Login</button>
-
+      <br> <!--공백-->
+      <button class="btn_login" type="submit"
+              style="background-color: #ffca2c">Login</button>
 
       <div class="g-signin2" data-onsuccess="onSignIn"></div>
-
-   <!--   <script>
-        function onSignIn(googleUser) {
-          var profile = googleUser.getBasicProfile();
-          console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
-          console.log('Name: ' + profile.getName());
-          console.log('Image URL: ' + profile.getImageUrl());
-          console.log('Email: ' + profile.getEmail()); // This is null if the 'email' scope is not present.
-        }
-      </script>-->
 
       <script>
         function signOut() {
@@ -79,12 +65,13 @@
 
       <div class="savecheck">
         <input id="savecheckbox" type="checkbox" name="saveEmail"><label for="savecheckbox">&nbsp;ID 저장</label>
-        <span><a href="#">ID 찾기</a></span><span> / </span><span><a href="#">Password 찾기</a></span>
+        <span><a href="/app/member/findid">ID 찾기</a></span><span> / </span><span><a href="/app/member/findpwd">Password 찾기</a></span>
       </div>
     </form>
 
     <form action="auth/register">
-      <button class="btn_signin" type="submit">회원가입</button>
+      <button class="btn_signin" type="submit"
+              style="background-color: #ffca2c">회원가입</button>
     </form>
   </div>
 </div>
@@ -105,7 +92,7 @@
 
 
           <li class="nav-item active">
-            <a class="nav-link" href="#">전시회
+            <a class="nav-link" href="/app/exhibition/exhibitionlist">전시회
               <span class="sr-only">(current)</span>
             </a>
           </li>
@@ -126,18 +113,24 @@
         </li>
 
         <li class="nav-item">
-          <a class="nav-link" href="#">
-            <img src="./images/mypage.png" width="90%" height="25"
-            /></a>
+          <a class="nav-link" href="/app/myPage/">
+            <img src="./images/mypage.png" width="90%" height="25"/></a>
         </li>
+        <!--어드민만 보일 수 있음-->
+        <span data-th-if="${session.loginMember} != null and ${session.loginMember.id} == 'admin'">
+              <a href='/app/member/list'>회원 관리</a></span>
+
       </ul>
     </div>
   </div>
 </nav>
+<!--width: 1150px; margin-top: 30px;-->
 
-<ul class="nav justify-content-end">
-  <li class="nav-item">
-    <a class="nav-link active" aria-current="page" href="form">전시회 글쓰기</a>
+<ul class="nav justify-content-end" >
+  <li class="nav-item" style="float: right; margin-top: 30px; width: 200px;">
+    <h5><a class="nav-link active" aria-current="page" href="form"
+       data-th-if="${session.loginMember} != null and ${session.loginMember.id} == 'admin'"
+       style="color: #ffffff">전시회 글쓰기</a></h5>
   </li>
 <!--  <li class="nav-item">
     <a class="nav-link" href="#">Link</a>
@@ -145,37 +138,13 @@
   <li class="nav-item">
     <a class="nav-link" href="#">Link</a>
   </li>-->
-  <li class="nav-item">
-    <a class="nav-link"  href="../">메인</a>
+  <li class="nav-item" style="float: right; margin-top: 30px; width: 200px;">
+   <h5> <a class="nav-link"  href="../"
+       style="color: #ffffff; ">메인</a></h5>
+
   </li>
 </ul>
 
-<!-- <p><a href='../'>메인</a></p>-->
-<!--<a href='form'>새 글</a>-->
-
-<!-- Section-->
-<!--<style>
-  .section {
-    overflow: auto;
-    white-space: nowrap;
-  }
-
-  .section {
-    overflow: auto;
-    white-space: nowrap;
-    margin: 10px;
-    padding: 20px;
-    align-content: stretch;
-    display: flex;
-    flex-wrap: wrap;
-  }
-</style>-->
-
-
-<!--<div style="  overflow: auto;
-    white-space: nowrap;">-->
-
-  <!-- class=" -->
 
 <section class="py-5 "  style=" width: 100%;">
 
@@ -183,31 +152,20 @@
     <div class="row  gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 ">
       <div class="col mb-5" data-th-each="exhibition : ${exhibitions}">
 
-        <div class="card h-100" >
+        <div class="card h-100"
+             style= "background: rgba(0,0,0,0.7); "><!--#FFFFFF50-->
 
           <td data-th-text="${exhibition.exno}">100</td>
 
           <!-- Product image 첨부파일 갤러리화 -->
-         <!-- class="card-img-top"-->
-         <!-- <img src="https://cdn.pixabay.com/photo/2016/03/27/16/23/woman-1283009__480.jpg"
-               alt="..." />-->
-
-       <!--   <a data-th-href="@{detail(no=${exhibition.exno})}">
-            <data-th-if="${exhibition.path != null}">
-          -->
-          <img
-                th:src="@{/board/files/}+${exhibition.exhibitionFiles.get(0).path}"/>
-
-      <!--    <img
-              th:src="@{/board/files/}+${exhibition.getExhibitionFiles().get(0).getPath()}"/>-->
-
+          <img th:src="@{/board/files/}+
+                ${exhibition.getExhibitionFiles().size()>0? exhibition.exhibitionFiles.get(0).path:''}"
+          onerror="this.src='https://cdn.pixabay.com/photo/2015/04/21/21/12/room-733785_960_720.jpg'"/>
           <!-- 전시 제목,날짜 정렬-->
           <div class="card-body p-4">
             <div class="text-center">
 
-
               <!-- 전시 name-->
-
               <h5>
                 <a href='detail?exno=1'
                    data-th-href="@{detail(exno=${exhibition.exno})}"
@@ -215,17 +173,18 @@
                    style="word-wrap: break-word"
                 >제목rlfldsdfasdfasdf</a>
               </h5>
-
-
-                <td data-th-text="${exhibition.stdate}"  >2022-1-1</td>
+              <br>
+              <td data-th-text="${exhibition.stdate}"  >2022-1-1</td>
               <td data-th-text="${exhibition.eddate}">2022-1-1</td>
-
             </div>
           </div>
 
           <!-- Product actions-->
           <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-            <div class="text-center"><a class="btn btn-outline-dark mt-auto"  data-th-href="@{detail(exno=${exhibition.exno})}">보러가기</a></div>
+            <div class="text-center">
+              <a class="btn btn-outline-dark mt-auto"  data-th-href="@{detail(exno=${exhibition.exno})}"
+                 style="color: #E0EBFF">보러가기</a>
+            </div>
           </div>
 
         </div>
@@ -234,34 +193,53 @@
   </div>
 </section>
 
+<div class="container d-flex justify-content-center" >
+  <ul class="pagination">
+    <li class="page-item"><a class="page-link" data-th-href="${'?count=1'}">처음으로</a></li>
 
-<!--
-<h1>전시회</h1>-->
+    <li class="page-item" data-th-if="${count>4}">
+      <a class="page-link" data-th-href="${'?count=' + count/5*5}" >이전</a></li>
 
-<!--  <table border='1'>
-    <tr>
-      <th>번호</th>
-      <th>제목</th>
-      <th>시작일</th>
-      <th>종료일</th>
-    </tr>
+    <!--th:classappend="${count}+1==${num}? 'active':''" : 현재 페이지에 대한 색 처리-->
+    <li class="page-item" th:classappend="${count}+1==${num}? 'active':''" data-th-each="num: ${#numbers.sequence(count/5*5+1,count/5*5+5<totalNumber+1? count/5*5+5:totalNumber+1)}">
+      <a class="page-link" data-th-href="${'?count=' + num}" data-th-text="${num}">1</a></li>
 
-    <tr data-th-each="exhibition : ${exhibitions}">
-      <td data-th-text="${exhibition.exno}">100</td>
+    <li class="page-item" data-th-if="${count<totalNumber/5*5}">
+      <a class="page-link" data-th-href="${'?count=' + ((count/5+1)*5+1)}">다음</a>
 
-      <td>
-        <a href='detail?exno=1'
-           data-th-href="@{detail(exno=${exhibition.exno})}"
-           data-th-text="${exhibition.exname == ''} ? '(제목없음)' : ${exhibition.exname}">제목</a>
-      </td>
+    <li class="page-item"><a class="page-link" data-th-href="${'?count='+(totalNumber+1)}">끝으로</a></li>
+  </ul>
+</div>
+<br>
+<br>
+<!--<div style="position: absolute; right: 0px; bottom: 0px;">-->
 
-      <td data-th-text="${exhibition.stdate}"  >2022-1-1</td>
-      <td data-th-text="${exhibition.eddate}">2022-1-1</td>
-    </tr>
-  </table>-->
- <!-- <p><a href='../'>메인</a></p>-->
+<div style="position: fixed; right: 10px; bottom: 280px;">
+<button type="button" class="btn btn-secondary"
+        id = go-top >위로</button></div>
 
 
+<script>
+  $(document).ready(function () {
+
+    // 1. 특정 위치에서 부터 버튼 나타고, 사라지게..효과는 fade로
+    $(window).scroll(function () {
+      if ($(this).scrollTop() > 200) {
+        $('#go-top').fadeIn(200);
+      } else {
+        $('#go-top').fadeOut(200);
+      }
+    });
+
+    // 2. 버튼 클릭하면 원하는 위치로 이동
+    $('#go-top').click(function (event) {
+      event.preventDefault();
+      $('html, body').animate({ scrollTop: 0 }, 300);
+    });
+
+  });
+
+</script>
 
 
   <!-- Footer-->
@@ -283,9 +261,31 @@
    margin-top:auto;
       text-align:center;
     }
+
+    /* // 백그라운드배경
+    https://cdn.pixabay.com/photo/2019/07/03/09/41/national-history-museum-4314035_1280.jpg)
+    https://images.pexels.com/photos/2425012/pexels-photo-2425012.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2
+    */
+
+
+    .background {
+      background-image: url(https://images.pexels.com/photos/3004909/pexels-photo-3004909.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2);
+      background-attachment: fixed;
+      background-repeat: no-repeat;
+      background-size: cover;
+      width: 100vw;
+      height: 100vh;
+    }
+/*
+    #E0EBFF*/
   </style>
 
+<style type="text/css">
+  section{color: #E0EBFF;}
+</style>
 
+
+<!--로그인창-->
 <script>
   const body = document.querySelector("body");
   const modal = document.querySelector(".modal");
@@ -308,10 +308,15 @@
       }
     }
   });
+
+  // 장현경 : 로그인 모달 창 나가기
+  $('.out').click(function() {
+    $('.modal').removeClass('show')
+  })
+
 </script>
 </body>
 </html>
 
 
 
-    

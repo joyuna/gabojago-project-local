@@ -4,6 +4,7 @@ import com.bitcamp.gabojago.vo.Exhibition;
 import com.bitcamp.gabojago.vo.ExhibitionFile;
 
 import java.util.List;
+import java.util.Map;
 
 
 public interface ExhibitionService {
@@ -25,6 +26,9 @@ ExhibitionFile getExhibitionFile(int exfno) throws Exception;
 
 boolean deleteExhibitionFile(int exfno) throws Exception;
 
+  List<Exhibition> exhibitionLimitList(Map<String, Object> map) throws Exception;
+
+  int exhibitionCount () throws Exception;
 
 
 }

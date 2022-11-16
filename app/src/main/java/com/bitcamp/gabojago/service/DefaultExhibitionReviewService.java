@@ -47,4 +47,9 @@ public class DefaultExhibitionReviewService implements ExhibitionReviewService {
     ExhibitionReview review =  exhibitionReviewDao.exhibitionReviewSelect(rvno);
     return review;
   }
+
+  @Override
+  public int deleteReviewByExhibition(int exno) throws Exception {
+    return exhibitionReviewDao.deleteReviewByExhibition(exno);
+  }
 }

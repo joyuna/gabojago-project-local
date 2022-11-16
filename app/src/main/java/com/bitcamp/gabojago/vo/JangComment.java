@@ -7,8 +7,8 @@ public class JangComment {
   private int cmno; //댓글번호
   private String cont; // 리뷰 내용
   private Date wdate; // 작성일
-  private String id; // 아이디
   private int recono; // 전시회 번호
+  private Member writer; // 글쓴 회원정보
 
   public int getCmno() {
     return cmno;
@@ -34,14 +34,6 @@ public class JangComment {
     this.wdate = wdate;
   }
 
-  public String getId() {
-    return id;
-  }
-
-  public void setId(String id) {
-    this.id = id;
-  }
-
   public int getRecono() {
     return recono;
   }
@@ -50,14 +42,22 @@ public class JangComment {
     this.recono = recono;
   }
 
+  public Member getWriter() {
+    return writer;
+  }
+
+  public void setWriter(Member writer) {
+    this.writer = writer;
+  }
+
   @Override
   public String toString() {
     return "JangComment{" +
             "cmno=" + cmno +
             ", cont='" + cont + '\'' +
             ", wdate=" + wdate +
-            ", id='" + id + '\'' +
             ", recono=" + recono +
+            ", writer=" + writer +
             '}';
   }
 }
