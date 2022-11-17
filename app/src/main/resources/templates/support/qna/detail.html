@@ -59,29 +59,32 @@
             <div class="container">
                 <div class="contact-form">
                     <div class="col-md-12 ftco-animate">
-                        <h5 class="mb-12">
+                        <h6 class="mb-12">
                             <p class="meta">
                                 <span>No.</span>
                                 <span data-th-text="${qnaBoard.no}">100</span>
                             <p class="meta">
-                        </h5>
-
-                        <div class="meta-wrap mt-3 text-right">
+                        </h6>
+                        <div class="meta-wrap mt-3 text-left">
                             <p class="meta">
                                 <span data-th-text="${qnaBoard.id}">홍길동</span>
                                 <span class="col-12"
                                       data-th-text="${qnaBoard.createdDate}">2022-1-1</span>
+                                <span class="col-12"
+                                      data-th-text="${qnaBoard.disclosure == true} ? '비공개' : '공개'">공개여부</span>
+
                             </p>
                         </div>
-                        <h2 class="mb-3 mt-3 font-weight-bold" data-th-text='${qnaBoard.title}'>
+
+                        <h2 class="font-weight-bold" data-th-text='${qnaBoard.title}'>
                             제목
                         </h2>
+
                         <div>
                             <h5 class="mb-3 mt-5 font-weight-bold"
                                 data-th-text='${qnaBoard.questionContent}'>문의내용
                             </h5>
                         </div>
-
 
                         <div class="form-group text-center mb-5 mt-5">
                                 <span class="col">
@@ -89,6 +92,12 @@
                                             onclick="location.href='editForm.html'"
                                             th:onclick="|location.href='@{/support/qna/editForm(no=${qnaBoard.no})}'|"
                                             type="button">수정</button>
+                                </span>
+                            <span class="col">
+                                    <button class="btn btn-info py-3 px-5"
+                                            onclick="location.href='list.html'"
+                                            th:onclick="|location.href='@{delete(no=${qnaBoard.no})}'|"
+                                            type="submit">삭제</button>
                                 </span>
                             <span class="col">
                                     <button class="btn btn-secondary py-3 px-5"
