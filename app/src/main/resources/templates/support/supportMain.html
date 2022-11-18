@@ -37,7 +37,11 @@
         <nav id="colorlib-main-menu" role="navigation">
             <ul>
                 <li><a onclick="location.href='list.html'"
+                       th:onclick="|location.href='@{/support/notice/noticeList}'|">Notice</a></li>
+                <li><a onclick="location.href='list.html'"
                        th:onclick="|location.href='@{/support/qna/list}'|">QnA</a></li>
+                <li><a onclick="location.href='list.html'"
+                       th:onclick="|location.href='@{/support/event/list}'|">Event</a></li>
             </ul>
         </nav>
     </aside> <!-- END COLORLIB-ASIDE -->

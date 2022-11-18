@@ -36,7 +36,11 @@
         <nav id="colorlib-main-menu" role="navigation">
             <ul>
                 <li><a onclick="location.href='list.html'"
+                       th:onclick="|location.href='@{/support/notice/noticeList}'|">Notice</a></li>
+                <li><a onclick="location.href='list.html'"
                        th:onclick="|location.href='@{/support/qna/list}'|">QnA</a></li>
+                <li><a onclick="location.href='list.html'"
+                       th:onclick="|location.href='@{/support/event/list}'|">Event</a></li>
             </ul>
         </nav>
     </aside> <!-- END COLORLIB-ASIDE -->
@@ -71,8 +75,7 @@
                         <div class="col-md-12">
                             <div class="text text-2">
                                 <div data-th-each="qnaBoard : ${qnaBoards}">
-                                    <span>No.</span>
-                                    <span data-th-text="${qnaBoard.no}">100</span>
+                                    <span data-th-text="'No. '+${qnaBoard.no}">100</span>
                                     <h3 class="mb-12">
                                         <a href='detail?no=1'
                                            data-th-href="@{detail(no=${qnaBoard.no})}"
@@ -87,7 +90,7 @@
                                     <p class="mb-4">
                                         <a href='detail?no=1'
                                            data-th-href="@{detail(no=${qnaBoard.no})}"
-                                           data-th-text="${qnaBoard.answerDate == '' || qnaBoard.answerDate == null} ? '미답변' : ${qnaBoard.answerDate}">답변상태</a>
+                                           data-th-text="${qnaBoard.answerDate == '' || qnaBoard.answerDate == null} ?'미답변' : ${qnaBoard.answerDate}">답변상태</a>
                                     </p>
                                     <hr class="my-4">
                                 </div>

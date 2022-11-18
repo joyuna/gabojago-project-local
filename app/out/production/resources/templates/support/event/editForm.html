@@ -1,85 +1,186 @@
-<!DOCTYPE HTML>
-<html xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
+    <title>가보자Go!!</title>
     <meta charset="utf-8">
-    <link th:href="@{/css/bootstrap.min.css}"
-          href="../css/bootstrap.min.css" rel="stylesheet">
-    <style>
-        .container {
-            max-width: 700px;
-        }
-    </style>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:300,400,500,700" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Herr+Von+Muellerhoff" rel="stylesheet">
+
+    <link rel="stylesheet" href="../../css/open-iconic-bootstrap.min.css">
+    <link rel="stylesheet" href="../../css/animate.css">
+
+    <link rel="stylesheet" href="../../css/owl.carousel.min.css">
+    <link rel="stylesheet" href="../../css/owl.theme.default.min.css">
+    <link rel="stylesheet" href="../../css/magnific-popup.css">
+
+    <link rel="stylesheet" href="../../css/aos.css">
+
+    <link rel="stylesheet" href="../../css/ionicons.min.css">
+
+    <link rel="stylesheet" href="../../css/bootstrap-datepicker.css">
+    <link rel="stylesheet" href="../../css/jquery.timepicker.css">
+
+
+    <link rel="stylesheet" href="../../css/flaticon.css">
+    <link rel="stylesheet" href="../../css/icomoon.css">
+    <link rel="stylesheet" href="../../css/style.css">
 </head>
 <body>
 
-<div class="container">
-
-    <div class="py-5 text-center">
-        <h2>이벤트 수정</h2>
-    </div>
-
-    <form action="update" method="post" enctype="multipart/form-data">
-
-        <div>
-            <laber for="eventCode">구분</laber>
-            <select class="form-select" id= "eventCode" name="eventCode">
-                <option value="">== 이벤트 구분 ==</option>
-                <option value="선착순"  data-th-selected="${event.eventCode == '선착순'} ? true : false">선착순</option>
-                <option value="차등지급"  data-th-selected="${event.eventCode == '차등지급'} ? true : false">차등지급</option>
-            </select>
-        </div>
-
-        <div>
-            <label>No.</label>
-            <input name='no' type='number' class="form-control"
-                   value='1'
-                   data-th-value="${event.no}"
-                   readonly>
-        </div>
-
-        <div>
-            <label for="title">제목</label>
-            <input type="text" id="title" name="title" class="form-control"  data-th-value='${event.title}'>
-        </div>
-        <div>
-            <label for="startDate">시작일</label>
-            <input type="datetime-local" id="startDate" name="startDate" data-th-value='${event.startDate}'>
-        </div>
-        <div>
-            <label for="endDate">종료일</label>
-            <input type="datetime-local" id="endDate" name="endDate" data-th-value='${event.endDate}'>
-        </div>
-        <div>
-            <label for="capacity">인원</label>
-            <input type="number" id="capacity" name="capacity" class="form-control" data-th-value='${event.capacity}'>
-        </div>
-        <div>
-            <label for="disclosure">비공개</label>
-            <input type="checkbox" id="disclosure" name="disclosure" data-th-checked='${event.disclosure == true}'>
-            <input type="hidden" name="_disclosure" value="on"/>
-        </div>
-        <div>
-            <label for="content">내용</label>
-            <textarea input type="text" id="content" name="content" class="form-control" rows='10' cols='60' data-th-text='${event.content}'></textarea>
-        </div>
-
-        <hr class="my-4">
-
-        <div class="row">
-            <div class="col">
-                <button class="w-100 btn btn-primary btn-lg" type="submit">등록</button>
+<div id="colorlib-page">
+    <a href="javascript" class="js-colorlib-nav-toggle colorlib-nav-toggle"><i></i></a>
+    <aside id="colorlib-aside" role="complementary" class="js-fullheight text-center">
+        <h1 id="colorlib-logo"><a href="/app/support/"><span class="img"></span>고객지원</a></h1>
+        <nav id="colorlib-main-menu" role="navigation">
+            <ul>
+                <li><a onclick="location.href='list.html'"
+                       th:onclick="|location.href='@{/support/notice/noticeList}'|">Notice</a></li>
+                <li><a onclick="location.href='list.html'"
+                       th:onclick="|location.href='@{/support/qna/list}'|">QnA</a></li>
+                <li><a onclick="location.href='list.html'"
+                       th:onclick="|location.href='@{/support/event/list}'|">Event</a></li>
+            </ul>
+        </nav>
+    </aside> <!-- END COLORLIB-ASIDE -->
+    <div id="colorlib-main">
+        <section class="ftco-bread">
+            <div class="container">
+                <div class="slider-text justify-content-center align-items-center">
+                    <div class="col-md-11 ftco-animate">
+                        <p class="breadcrumbs"><span class="mr-2"><a href="index.html">Support</a></span>
+                            <span>Event</span></p>
+                        <h1 class="bread">Event 수정</h1>
+                    </div>
+                </div>
             </div>
-            <div class="col">
-                <button class="w-100 btn btn-secondary btn-lg"
-                        onclick="location.href='list.html'"
-                        th:onclick="|location.href='@{/support/event/list}'|"
-                        type="button">취소</button>
+        </section>
+        <section class="ftco-section contact-section">
+            <div class="container">
+                <div class="row block-9">
+                    <div class="col-md-12 d-flex">
+                        <form action="update" method="post" enctype="multipart/form-data" class="contact-form">
+                            <div class="form-group">
+                                <div class="col-md-12 ftco-animate">
+                                    <p>
+                                        <span data-th-text="'No. '+${event.no}">100</span>
+                                        <input type="hidden" id="no" name="no" data-th-value="${event.no}"/>
+                                    </p>
+                                    <p>
+                                        <laber for="eventCode">구분</laber>
+                                        <select class="form-select" id="eventCode" name="eventCode">
+                                            <option value="" >== 이벤트 구분 ==</option>
+                                            <option value="선착순"
+                                                    data-th-selected="${event.eventCode == '선착순'} ? true : false">선착순
+                                            </option>
+                                            <option value="차등지급"
+                                                    data-th-selected="${event.eventCode == '차등지급'} ? true : false">차등지급
+                                            </option>
+                                        </select>
+                                    </p>
+                                    <p>
+                                        <label for="startDate">시작일</label>
+                                        <input type="datetime-local" id="startDate" name="startDate" class="form-select"
+                                               data-th-value='${event.startDate}'>
+                                    </p>
+                                    <p>
+                                        <label for="endDate">종료일</label>
+                                        <input type="datetime-local" id="endDate" name="endDate" class="form-select"
+                                               data-th-value='${event.endDate}'>
+                                    </p>
+
+                                    <p>
+                                        <label for="title">제목</label>
+                                        <input type="text" id="title" name="title" class="form-control"
+                                               data-th-value='${event.title}'>
+                                    </p>
+
+                                    <p>
+                                        <label for="capacity">인원</label>
+                                        <input type="number" id="capacity" name="capacity" class="form-control"
+                                               data-th-value='${event.capacity}'>
+                                    </p>
+
+                                    <div class="form-group">
+                                        <div>
+                                            <label for="content">내용</label>
+                                            <textarea input type="text" id="content" name="content"
+                                                      class="form-control" rows='10' cols='30'
+                                                      data-th-text='${event.content}'></textarea>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="disclosure" class="form-check-label">비공개</label>
+                                        <input type="checkbox" id="disclosure" name="disclosure"
+                                               class="form-check-input"
+                                               data-th-checked='${event.disclosure == true}'>
+                                        <input type="hidden" name="_disclosure" text="on"/>
+                                    </div>
+                                    <div class="form-group text-center">
+                                <span class="col">
+                                    <button class="btn btn-primary py-3 px-5" type="submit">등록</button>
+                                </span>
+                                        <span class="col">
+                                    <button class="btn btn-secondary py-3 px-5" fd
+                                            onclick="location.href='list.html'"
+                                            th:onclick="|location.href='@{/support/event/list}'|"
+                                            type="button">취소</button>
+                                </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
             </div>
-        </div>
+        </section>
+        <footer class="ftco-footer ftco-bg-dark ftco-section">
+            <div class="container px-md-5">
+                <div class="row mb-5">
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <p><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                            Copyright &copy;<script>document.write(new Date().getFullYear());</script>
+                            All rights reserved | This template is made with <i class="icon-heart"
+                                                                                aria-hidden="true"></i> by <a
+                                    href="https://colorlib.com" target="_blank">Colorlib</a>
+                            <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. --></p>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </div><!-- END COLORLIB-MAIN -->
+</div><!-- END COLORLIB-PAGE -->
 
-    </form>
+<!-- loader -->
+<div id="ftco-loader" class="show fullscreen">
+    <svg class="circular" width="48px" height="48px">
+        <circle class="path-bg" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke="#eeeeee"/>
+        <circle class="path" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke-miterlimit="10"
+                stroke="#F96D00"/>
+    </svg>
+</div>
 
-</div> <!-- /container -->
+<script src="../../js/jquery.min.js"></script>
+<script src="../../js/jquery-migrate-3.0.1.min.js"></script>
+<script src="../../js/popper.min.js"></script>
+<script src="../../js/bootstrap.min.js"></script>
+<script src="../../js/jquery.easing.1.3.js"></script>
+<script src="../../js/jquery.waypoints.min.js"></script>
+<script src="../../js/jquery.stellar.min.js"></script>
+<script src="../../js/owl.carousel.min.js"></script>
+<script src="../../js/jquery.magnific-popup.min.js"></script>
+<script src="../../js/aos.js"></script>
+<script src="../../js/jquery.animateNumber.min.js"></script>
+<script src="../../js/bootstrap-datepicker.js"></script>
+<script src="../../js/jquery.timepicker.min.js"></script>
+<script src="../../js/scrollax.min.js"></script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&sensor=false"></script>
+<script src="../../js/google-map.js"></script>
+<script src="../../js/main.js"></script>
 
 </body>
 </html>

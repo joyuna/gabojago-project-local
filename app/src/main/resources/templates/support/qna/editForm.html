@@ -37,7 +37,11 @@
         <nav id="colorlib-main-menu" role="navigation">
             <ul>
                 <li><a onclick="location.href='list.html'"
+                       th:onclick="|location.href='@{/support/notice/noticeList}'|">Notice</a></li>
+                <li><a onclick="location.href='list.html'"
                        th:onclick="|location.href='@{/support/qna/list}'|">QnA</a></li>
+                <li><a onclick="location.href='list.html'"
+                       th:onclick="|location.href='@{/support/event/list}'|">Event</a></li>
             </ul>
         </nav>
     </aside> <!-- END COLORLIB-ASIDE -->
@@ -61,7 +65,7 @@
                         <form action="update" method="post" enctype="multipart/form-data" class="contact-form">
                             <div class="form-group">
                                 <p>
-                                    <span data-th-text="'No.'+${qnaBoard.no}">100</span>
+                                    <span data-th-text="'No. '+${qnaBoard.no}">100</span>
                                     <input type="hidden" id="no" name="no" data-th-value="${qnaBoard.no}"/>
                                 </p>
                             </div>

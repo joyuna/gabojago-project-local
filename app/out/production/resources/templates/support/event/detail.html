@@ -1,153 +1,211 @@
-<!DOCTYPE HTML>
+<!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
+    <title>가보자Go!!</title>
     <meta charset="utf-8">
-    <link th:href="@{/css/bootstrap.min.css}"
-            href="../css/bootstrap.min.css" rel="stylesheet">
-    <style>
-        .container {
-            max-width: 700px;
-        }
-    </style>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:300,400,500,700" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Herr+Von+Muellerhoff" rel="stylesheet">
+
+    <link rel="stylesheet" href="../../css/open-iconic-bootstrap.min.css">
+    <link rel="stylesheet" href="../../css/animate.css">
+
+    <link rel="stylesheet" href="../../css/owl.carousel.min.css">
+    <link rel="stylesheet" href="../../css/owl.theme.default.min.css">
+    <link rel="stylesheet" href="../../css/magnific-popup.css">
+
+    <link rel="stylesheet" href="../../css/aos.css">
+
+    <link rel="stylesheet" href="../../css/ionicons.min.css">
+
+    <link rel="stylesheet" href="../../css/bootstrap-datepicker.css">
+    <link rel="stylesheet" href="../../css/jquery.timepicker.css">
+
+
+    <link rel="stylesheet" href="../../css/flaticon.css">
+    <link rel="stylesheet" href="../../css/icomoon.css">
+    <link rel="stylesheet" href="../../css/style.css">
 </head>
 <body>
 
-<div class="container">
+<div id="colorlib-page">
+    <a href="javascript" class="js-colorlib-nav-toggle colorlib-nav-toggle"><i></i></a>
+    <aside id="colorlib-aside" role="complementary" class="js-fullheight text-center">
+        <h1 id="colorlib-logo"><a href="/app/support/"><span class="img"></span>고객지원</a></h1>
+        <nav id="colorlib-main-menu" role="navigation">
+            <ul>
+                <li><a onclick="location.href='list.html'"
+                       th:onclick="|location.href='@{/support/notice/noticeList}'|">Notice</a></li>
+                <li><a onclick="location.href='list.html'"
+                       th:onclick="|location.href='@{/support/qna/list}'|">QnA</a></li>
+                <li><a onclick="location.href='list.html'"
+                       th:onclick="|location.href='@{/support/event/list}'|">Event</a></li>
+            </ul>
+        </nav>
+    </aside> <!-- END COLORLIB-ASIDE -->
 
-    <div class="py-5 text-center">
-        <h2>이벤트 상세</h2>
-    </div>
 
-    <div>
-        <label>No.</label>
-        <input name='no' type='number' class="form-control"
-         value='1'
-         data-th-value="${event.no}"
-         readonly>
-    </div>
-
-    <div>
-        <label>구분</label>
-        <input name='eventCode' type='text' class="form-control"
-               value='구분'
-               data-th-value="${event.eventCode}"
-               readonly>
-    </div>
-
-    <label>작성일</label>
-    <input name='createdDate' type='date' class="form-control"
-           value='2022-11-11'
-           data-th-value="${event.createdDate}" readonly>
-    </div>
-
-    <div>
-        <label>조회수</label>
-        <input name='viewCount' type='number' class="form-control"
-               data-th-value="${event.viewCount}" readonly>
-    </div>
-
-    <div>
-        <label>시작일</label>
-        <input name='startDate' type='datetime-local' class="form-control"
-               value='2022-11-11'
-               data-th-value="${event.startDate}" readonly>
-    </div>
-
-    <div>
-        <label>종료일</label>
-        <input name='endDate' type='datetime-local' class="form-control"
-               value='2022-11-11'
-               data-th-value="${event.endDate}" readonly>
-    </div>
-
-    <div>
-            <label>제목</label>
-            <input name='title' type='text' class="form-control"
-            value='제목'
-            data-th-value='${event.title}' readonly>
-    </div>
-
-    <div>
-        <label>내용</label>
-        <textarea name='content' rows='10' cols='60' class="form-control"
-        data-th-text='${event.content}' readonly></textarea>
-    </div>
-
-    <div>
-        <label>공개여부</label>
-        <input name='disclosure' type='text' class="form-control"
-               data-th-value="${event.disclosure == true} ? '비공개' : '공개'" readonly>
-    </div>
-
-<hr class="my-4">
-
-    <div class="py-5 text-center">
-        <h3>아이템</h3>
-    </div>
-
-    <div class="container" data-th-each= "eventItem : ${eventItems}">
-        <div class="row">
-                <div class="card">
-                    <div>
-                        <label>지급순위</label>
-                        <input name='ranking' type='number' class="form-control"
-                               value='1'
-                               data-th-value="${eventItem.ranking}"
-                               readonly>
-                    </div>
-
-<!--                    <div>-->
-<!--                        <label>Item No.</label>-->
-<!--                        <input name='itemNo' type='number' class="form-control"-->
-<!--                               value='1'-->
-<!--                               data-th-value="${eventItem.itemNo}"-->
-<!--                               readonly>-->
-<!--                    </div>-->
-                    <div>
-                        <label for="name">상품명</label>
-                        <input type="text" id="name" name="name" class="form-control"
-                               data-th-value="${eventItem.name}"
-                               readonly>
+    <div id="colorlib-main">
+        <section class="ftco-bread">
+            <div class="container">
+                <div class="slider-text justify-content-center align-items-center">
+                    <div class="col-md-11 ftco-animate">
+                        <p class="breadcrumbs"><span class="mr-2"><a href="index.html">Support</a></span>
+                            <span>Event</span>
+                        </p>
+                        <h1 class="bread">Event 상세보기</h1>
                     </div>
                 </div>
             </div>
+        </section>
+        <section class="ftco-section contact-section">
+            <div class="container">
+                <div class="contact-form">
+                    <div class="col-md-12 ftco-animate">
+                        <h6 class="mb-12 meta">
+                            <span data-th-text="'No. '+${event.no}">100</span>
+                        </h6>
+                        <div class="meta-wrap mt-3 text-left">
+                            <div class="meta-wrap mt-3 text-left">
+                                <p class="meta">
+                                    <span data-th-text="'구분 | '+${event.eventCode}">이벤트 구분</span>
+                                </p>
+                            </div>
+                            <div class="meta-wrap mt-3 text-left">
+                                <p class="meta">
+                                    <span data-th-text="'기간 | '+${event.startDate}+' ~ '+${event.endDate}">시작일 ~ 종료일</span>
+                                </p>
+                            </div>
+                            <p class="meta">
+                                <span data-th-text="'작성 | '+${event.createdDate}">2022-1-1</span>
+                            </p>
+                            <p class="meta">
+                                <span data-th-text="'조회수 '+${event.viewCount}">조회수</span>
+                                <span class="col-12"
+                                      data-th-text="${event.disclosure == true} ? '비공개' : '공개'">공개여부</span>
+                            </p>
+                            <h2 class="font-weight-bold" data-th-text='${event.title}'>
+                                제목
+                            </h2>
+                            <div>
+                                <h5 class="mb-3 mt-5 font-weight-bold"
+                                    data-th-text='${event.content}'>내용
+                                </h5>
+                            </div>
+
+                            <hr class="my-4">
+
+                            <section class="ftco-section-3">
+                                <div class="row justify-content-start">
+                                <div class="photography w-33"  data-th-each="eventItem : ${eventItems}">
+
+                                        <div class="card ftco-animate">
+                                            <a href="../../images/image_1.jpg"
+                                               class="photography-entry img image-popup d-flex justify-content-start align-items-end"
+                                               style="background-image: url(../../images/image_1.jpg);">
+                                                <div class="overlay"></div>
+                                                <div class="text ml-4 mb-4">
+                                                    <h3>
+                                                        <span data-th-text="'지급순위 : '+${eventItem.ranking}+'위'">1위</span>
+                                                        <input type="hidden" id="ranking" name="ranking"
+                                                               class="form-control"
+                                                               data-th-value="${eventItem.ranking}"/>
+                                                    </h3>
+                                                    <h6>
+                                                    <span data-th-text="${eventItem.name}">아이템 이름</span>
+                                                    <input type="hidden" id="name" name="name"
+                                                           class="form-control"
+                                                           data-th-value="${eventItem.name}"/>
+                                                    </h6>
+                                                </div>
+                                            </a>
+                                        </div>
+                                        </div>
+                                    </div>
+                            </section>
+
+                            <div class="form-group text-center mb-5 mt-5 col-12">
+                                        <span class="col">
+                                    <button class="btn btn-success py-3 px-5"
+                                            onclick="location.href='./item/addForm.html'"
+                                            th:onclick="|location.href='@{/support/event/item/addForm(no=${event.no})}'|"
+                                            type="button">상품등록</button>
+                                </span>
+                                <span class="col">
+                                    <button class="btn btn-primary py-3 px-5"
+                                            onclick="location.href='editForm.html'"
+                                            th:onclick="|location.href='@{/support/event/editForm(no=${event.no})}'|"
+                                            type="button">수정</button>
+                                </span>
+                                <span class="col">
+                                    <button class="btn btn-info py-3 px-5"
+                                            onclick="location.href='list.html'"
+                                            th:onclick="|location.href='@{delete(no=${event.no})}'|"
+                                            type="submit">삭제</button>
+                                </span>
+                                <span class="col">
+                                    <button class="btn btn-secondary py-3 px-5"
+                                            onclick="location.href='list.html'"
+                                            th:onclick="|location.href='@{/support/event/list}'|"
+                                            type="button">이전</button>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+        <footer class="ftco-footer ftco-bg-dark ftco-section">
+            <div class="container px-md-5">
+                <div class="row mb-5">
+                    <div class="row">
+                        <div class="col-md-12">
+
+                            <p><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                                Copyright &copy;<script>document.write(new Date().getFullYear());</script>
+                                All rights reserved | This template is made with <i class="icon-heart"
+                                                                                    aria-hidden="true"></i> by <a
+                                        href="https://colorlib.com" target="_blank">Colorlib</a>
+                                <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </footer>
     </div>
+</div>
 
 
-    <hr class="my-4">
+<!-- loader -->
+<div id="ftco-loader" class="show fullscreen">
+    <svg class="circular" width="48px" height="48px">
+        <circle class="path-bg" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke="#eeeeee"/>
+        <circle class="path" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke-miterlimit="10"
+                stroke="#F96D00"/>
+    </svg>
+</div>
 
-    <div class="row">
+<script src="../../js/jquery.min.js"></script>
+<script src="../../js/jquery-migrate-3.0.1.min.js"></script>
+<script src="../../js/popper.min.js"></script>
+<script src="../../js/bootstrap.min.js"></script>
+<script src="../../js/jquery.easing.1.3.js"></script>
+<script src="../../js/jquery.waypoints.min.js"></script>
+<script src="../../js/jquery.stellar.min.js"></script>
+<script src="../../js/owl.carousel.min.js"></script>
+<script src="../../js/jquery.magnific-popup.min.js"></script>
+<script src="../../js/aos.js"></script>
+<script src="../../js/jquery.animateNumber.min.js"></script>
+<script src="../../js/bootstrap-datepicker.js"></script>
+<script src="../../js/jquery.timepicker.min.js"></script>
+<script src="../../js/scrollax.min.js"></script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&sensor=false"></script>
+<script src="../../js/google-map.js"></script>
+<script src="../../js/main.js"></script>
 
-        <div class="col">
-            <button class="w-100 btn btn-primary btn-lg"
-                    onclick="location.href='./item/addForm.html'"
-                    th:onclick="|location.href='@{/support/event/item/addForm(no=${event.no})}'|"
-                    type="button">상품등록</button>
-        </div>
-
-        <div class="col">
-            <button class="w-100 btn btn-primary btn-lg"
-                    onclick="location.href='editForm.html'"
-                    th:onclick="|location.href='@{/support/event/editForm(no=${event.no})}'|"
-                    type="button">내용수정</button>
-        </div>
-
-        <div class="col">
-            <button class="w-100 btn btn-primary btn-lg"
-                    onclick="location.href='list.html'"
-                    th:onclick="|location.href='@{delete(no=${event.no})}'|"
-                    type="submit">삭제</button>
-        </div>
-
-        <div class="col">
-            <button class="w-100 btn btn-secondary btn-lg"
-                    onclick="location.href='list.html'"
-                    th:onclick="|location.href='@{/support/event/list}'|"
-                    type="button">목록으로</button>
-        </div>
-
-    </div>
-
-</div> <!-- /container -->
 </body>
 </html>
