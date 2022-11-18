@@ -98,5 +98,11 @@ public class ModifyMyPageController {
         return result;
     }
 
+    @PostMapping("resignMember")
+    public String resignMember(String memberId, HttpSession session) throws Exception {
+        System.out.println("resignMemberController = "+ memberId);
+        int result = modifyMyPageService.resignMember(memberId);
+        return "redirect:/";
+    }
 }
 

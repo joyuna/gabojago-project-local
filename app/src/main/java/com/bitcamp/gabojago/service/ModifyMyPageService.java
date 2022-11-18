@@ -14,5 +14,7 @@ public interface ModifyMyPageService {
 
     int nickCheck(String nickName) throws Exception;
 
+    int resignMember(String memberId) throws Exception;
+
 
 }

@@ -63,5 +63,10 @@
         NNAME=#{nickName}
     </select>
 
-
+    <update id="resignMemberStatus" parameterType="String">
+        update jang_member set
+        STATUS='탈퇴'
+        where
+        ID=#{memberId}
+    </update>
 </mapper>

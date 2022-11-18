@@ -15,4 +15,6 @@ public interface ModifyMyPageDao {
 
     int findByNickName(String nickName);
 
+    int resignMemberStatus(String memberId);
+
 }

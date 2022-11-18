@@ -37,5 +37,13 @@ public class ModifyMyPageServiceImpl implements ModifyMyPageService {
         int result = modifyMyPageDao.findByNickName(nickName);
         return result;
     }
+
+    @Override
+    public int resignMember(String memberId) throws Exception {
+        System.out.println("resignMemberService = "+ memberId);
+        int result = modifyMyPageDao.resignMemberStatus(memberId);
+        System.out.println("resignMemberResult = "+ result);
+        return result;
+    }
 }
 
