@@ -24,6 +24,7 @@ public class ModifyMyPageController {
 
     private MemberService memberService;
 
+
     public ModifyMyPageController(ServletContext sc,
                                   ModifyMyPageService modifyMyPageService,
                                   MemberService memberService) {
@@ -91,6 +92,7 @@ public class ModifyMyPageController {
         return "redirect:/myPage/";
     }
 
+    // 닉네임 중복 확인
     @ResponseBody
     @PostMapping("nickCheck")
     public int nickCheck(String nickName) throws Exception {
@@ -98,11 +100,29 @@ public class ModifyMyPageController {
         return result;
     }
 
-    @PostMapping("resignMember")
-    public String resignMember(String memberId, HttpSession session) throws Exception {
-        System.out.println("resignMemberController = "+ memberId);
-        int result = modifyMyPageService.resignMember(memberId);
-        return "redirect:/";
+
+    @GetMapping("memberDeleteForm")
+    public Map memberDeleteForm(HttpSession session) throws Exception {
+        Member loginMember = (Member) session.getAttribute("loginMember");
+        Member member = modifyMyPageService.get(loginMember.getId());
+
+        Map map = new HashMap();
+        map.put("member", member);
+        return map;
+    }
+
+    // 회원 탈퇴를 위한 비밀번호 확인
+    @ResponseBody
+    @PostMapping("passwordCheck")
+    public int passwordCheck(Member member) throws Exception {
+        int result = modifyMyPageService.passwordCheck(member);
+        return result;
+    }
+
+    @PostMapping("memberDelete")
+    public String memberDelete(Member member) throws Exception {
+        modifyMyPageService.memberDelete(member);
+        return "redirect:../";
     }
 }
 

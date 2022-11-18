@@ -27,12 +27,14 @@ public class MyPageController {
 
         if (member == null) {
 
-            model.addAttribute("message", "로그인이 필요한 항목입니다. 회원가입 또는 로그인해 주세요.");
+            model.addAttribute("myPageFailMessage", "로그인이 필요한 항목입니다. 회원가입 또는 로그인해 주세요.");
 
             return "myPage/myPageFail";
 
         } else {
 
+            model.addAttribute("id", member.getId());
+            model.addAttribute("name", member.getName());
             model.addAttribute("profileFig", member.getProfileFig());
             model.addAttribute("nickname", member.getNickName());
             model.addAttribute("mbti", member.getMbti());
@@ -41,11 +43,6 @@ public class MyPageController {
             return "myPage/myPage";
 
         }
-    }
-
-    @GetMapping()
-    public void TestMyPage () {
-
     }
 }
 

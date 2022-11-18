@@ -18,6 +18,8 @@ public class Recommendation {
   private String tpname; // 이동수단명
   private Member writer; // 글쓴 회원정보
 
+  private String path; // 파일경로
+
   private List<JangSoReview> jangSoReviews;
 
   public int getRecono() {
@@ -116,6 +118,14 @@ public class Recommendation {
     this.writer = writer;
   }
 
+  public String getPath() {
+    return path;
+  }
+
+  public void setPath(String path) {
+    this.path = path;
+  }
+
   public List<JangSoReview> getJangSoReviews() {
     return jangSoReviews;
   }
@@ -137,8 +147,9 @@ public class Recommendation {
             ", cple=" + cple +
             ", fmly=" + fmly +
             ", solo=" + solo +
-            ", tpno=" + tpname +
+            ", tpname='" + tpname + '\'' +
             ", writer=" + writer +
+            ", path='" + path + '\'' +
             ", jangSoReviews=" + jangSoReviews +
             '}';
   }

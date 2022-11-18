@@ -18,6 +18,8 @@
 <link rel="stylesheet" href="../css/main.css" />
 <link rel="stylesheet" href="../css/main-modal.css" />
 
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
 </head>
 <!-- Header-->
 <header class="bg-dark py-4">
@@ -34,17 +36,13 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
   <div class="container">
     <a class="navbar-brand" href="/app">가보자GO</a>
-
     <div class="collapse navbar-collapse" id="navbarResponsive">
-
       <ul class="navbar-nav ml-auto">
 
-        <li class="nav-item"><a class="nav-link" href="#">Search</a></li>
+        <li class="nav-item"><a class="nav-link" href="/app/search/searchForm">검색</a></li>
         <li class="nav-item">
           <a class="nav-link" href="/app/recommendation/recommendationList">코스추천</a>
         </li>
-
-
         <li class="nav-item ">
           <a class="nav-link" href="/app/exhibition/exhibitionlist">전시회
           </a>
@@ -57,9 +55,7 @@
           <a
               class="nav-link"
               href="/app/auth/logout"
-              th:text="${session.loginMember.name}+'(로그아웃)'"
-          >홍길동(로그아웃)</a
-          >
+              th:text="${session.loginMember.name}+'(로그아웃)'">홍길동(로그아웃)</a>
         </li>
         <li class="nav-item" th:if="${session.loginMember == null}">
           <span class="nav-link btn-open-popup">로그인</span>
@@ -67,66 +63,27 @@
 
         <li class="nav-item">
           <a class="nav-link" href="/app/myPage/">
-            <img src="./images/mypage.png" width="90%" height="25"/></a>
+            <img src="../images/mypage.png" width="90%" height="25"
+            /></a>
         </li>
         <!--어드민만 보일 수 있음-->
-        <span data-th-if="${session.loginMember} != null and ${session.loginMember.id} == 'admin'">
-              <a href='member/list'>회원 관리</a></span>
-
+        <li class="nav-item ">
+              <span data-th-if="${session.loginMember} != null and ${session.loginMember.id} == 'admin'">
+              <a class="nav-link" href='/app/member/list'>회원 관리</a></span> </li>
       </ul>
     </div>
   </div>
 </nav>
 
-<div class="modal">
-  <div class="modal_body" style=" background: rgba(255,255,255,0.9); ">
-    <div class="out" style="margin: 05px;  float: right;">나가기</div>
-    <br>
-    <h2 style=" text-align: center;"> 로그인 </h2>
 
-    <form action="auth/login" method="post" >
-      <p>ID</p>
-      <input name="id" type="text" size="30" placeholder="ID를 입력해주세요." th:value="${id}">
-      <br> <!--공백-->
-      <p>Password</p>
-      <input name="password" type="password" size="20" placeholder="Password를 입력해주세요.">
-      <br>
-      <br> <!--공백-->
-      <button class="btn_login" type="submit"
-              style="background-color: #ffca2c">Login</button>
-
-      <div class="g-signin2" data-onsuccess="onSignIn"></div>
-
-      <script>
-        function signOut() {
-          var auth2 = gapi.auth2.getAuthInstance();
-          auth2.signOut().then(function () {
-            console.log('User signed out.');
-          });
-        }
-      </script>
-
-      <div class="savecheck">
-        <input id="savecheckbox" type="checkbox" name="saveEmail"><label for="savecheckbox">&nbsp;ID 저장</label>
-        <span><a href="/app/member/findid">ID 찾기</a></span><span> / </span><span><a href="/app/member/findpwd">Password 찾기</a></span>
-      </div>
-    </form>
-
-    <form action="auth/register">
-      <button class="btn_signin" type="submit"
-              style="background-color: #ffca2c">회원가입</button>
-    </form>
-  </div>
-</div>
 
 <br>
 <br>
 
 
 <body>
-
 <div style="margin: 0 auto; width: 700px;">
-  <h1> </h1>
+
   <br>
 
   <div class="row mb-3">
@@ -161,6 +118,49 @@
   <p>Copyright &copy;가보자GO</p>
 </footer>
 
+
+<!--로그인 모달 창-->
+<div class="modal">
+  <div class="modal_body" style=" background: rgba(255,255,255,0.8); ">
+    <div class="out" style="margin: 05px; float: right;"><img src = "/app/images/X.png"></div>
+    <br>
+    <h2 style=" text-align: center;"> 로그인 </h2>
+
+    <form action="/app/auth/login" method="post" >
+      <p>ID</p>
+      <input name="id" type="text" size="30" placeholder="ID를 입력해주세요." th:value="${id}">
+      <br> <!--공백-->
+      <p>Password</p>
+      <input name="password" type="password" size="20" placeholder="Password를 입력해주세요.">
+      <br>
+      <br> <!--공백-->
+      <button class="btn_login" type="submit"
+              style="background-color: #ffca2c">Login</button>
+
+      <div class="g-signin2" data-onsuccess="onSignIn"></div>
+
+      <script>
+        function signOut() {
+          var auth2 = gapi.auth2.getAuthInstance();
+          auth2.signOut().then(function () {
+            console.log('User signed out.');
+          });
+        }
+      </script>
+
+      <div class="savecheck">
+        <input id="savecheckbox" type="checkbox" name="saveEmail"><label for="savecheckbox">&nbsp;ID 저장</label>
+        <span><a href="/app/member/findid">ID 찾기</a></span><span> / </span><span><a href="/app/member/findpwd">Password 찾기</a></span>
+      </div>
+    </form>
+
+    <form action="auth/register">
+      <button class="btn_signin" type="submit"
+              style="background-color: #ffca2c">회원가입</button>
+    </form>
+  </div>
+</div>
+
 <style>
   footer {
     /* footer를 aside위에 올리기 위해 사용(부유객체) */
@@ -186,15 +186,15 @@
       var email = $('#email').val()
 
       if(id ==''){
-        alert('아이디를 입력해주세요')
+        swal("",'아이디를 입력해주세요',"warning")
         return false
       }
       if(name ==''){
-        alert('이름을 입력해주세요')
+        swal("", '이름을 입력해주세요' ,"warning")
         return false
       }
       if(email =='') {
-        alert('이메일을 입력해주세요')
+        swal("",'이메일을 입력해주세요' ,"warning")
         return false
       }
 
@@ -202,7 +202,7 @@
         url:'/app/member/findpwd/'+id +'/'+name+'/'+email,
         type:'GET',
         success: function(result){
-          alert('임시비밀번호를 발송하였습니다.')
+          swal("",'임시비밀번호를 발송하였습니다.',"warning")
         }
       })
       /*    return true*/

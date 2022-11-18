@@ -24,6 +24,8 @@ public interface MemberDao {
 
   int join(Member member);
 
+  int updateStatus(Member member);
+
   /* 밑으로 꼉이 수정중*/
   int delete(String id);
 
@@ -35,7 +37,9 @@ public interface MemberDao {
 
   Member findId(Map<String, String> map);
 
-Member findpwd(Map<String, String> map);
+  Member findpwd(Map<String, String> map);
 
-void findpwdupdate(Map<String, String> map);
+  void findpwdupdate(Map<String, String> map);
+
+  Member checkCorrectUser(String id);
 }

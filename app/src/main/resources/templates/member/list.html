@@ -25,18 +25,14 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
   <div class="container">
     <a class="navbar-brand" href="/app">가보자GO</a>
-
     <div class="collapse navbar-collapse" id="navbarResponsive">
-
       <ul class="navbar-nav ml-auto">
 
-        <li class="nav-item"><a class="nav-link" href="#">Search</a></li>
+        <li class="nav-item"><a class="nav-link" href="/app/search/searchForm">검색</a></li>
         <li class="nav-item">
           <a class="nav-link" href="/app/recommendation/recommendationList">코스추천</a>
         </li>
-
-
-        <li class="nav-item">
+        <li class="nav-item ">
           <a class="nav-link" href="/app/exhibition/exhibitionlist">전시회
           </a>
         </li>
@@ -48,9 +44,7 @@
           <a
               class="nav-link"
               href="/app/auth/logout"
-              th:text="${session.loginMember.name}+'(로그아웃)'"
-          >홍길동(로그아웃)</a
-          >
+              th:text="${session.loginMember.name}+'(로그아웃)'">홍길동(로그아웃)</a>
         </li>
         <li class="nav-item" th:if="${session.loginMember == null}">
           <span class="nav-link btn-open-popup">로그인</span>
@@ -58,12 +52,13 @@
 
         <li class="nav-item">
           <a class="nav-link" href="/app/myPage/">
-            <img src="./images/mypage.png" width="90%" height="25"/></a>
+            <img src="../images/mypage.png" width="90%" height="25"
+            /></a>
         </li>
         <!--어드민만 보일 수 있음-->
-        <span data-th-if="${session.loginMember} != null and ${session.loginMember.id} == 'admin'">
-              <a href='/app/member/list'>회원 관리</a></span>
-
+        <li class="nav-item ">
+              <span data-th-if="${session.loginMember} != null and ${session.loginMember.id} == 'admin'">
+              <a class="nav-link" href='/app/member/list'>회원 관리</a></span> </li>
       </ul>
     </div>
   </div>
@@ -71,24 +66,20 @@
 
 
 
-
 <body>
 
-<br>
-<div style='width:80px;float: right;'>
-<button type="button" class="btn btn-outline-dark"
-        ><a href='../'>메인</a></button>
-<!--<a href='../'>메인</a>-->
-</div>
-<br>
-<br>
-
-
-<!--<a href='../'>메인</a>-->
 <!--<a href='form'>새 회원</a>-->
 <table border='1'
-       class="table table-striped table-hover"
-STYLE="width: 1700PX;">
+       class="table table-striped table-hover" style="width: 95%;">
+
+  <br>
+  <div style='width:80px;float: right;'>
+    <button type="button" class="btn btn-outline-dark"
+    ><a href='../'>메인</a></button>
+  </div>
+  <br>
+  <br>
+
   <tr>
     <th>아이디</th>
     <th>이름</th>
@@ -104,14 +95,11 @@ STYLE="width: 1700PX;">
     <th>활성여부</th>
   </tr>
 
-
-
-
   <tr data-th-each="member : ${members}">
 
     <td><a href='detail?id=${member.id}'
-   data-th-href="@{detail(id=${member.id})}"
-  <td data-th-text="${member.id}">user1</td>
+           data-th-href="@{detail(id=${member.id})}"
+      data-th-text="${member.id}">user1</a></td>
 
   <td><a href='detail?id=${member.id}'
          data-th-href="@{detail(id=${member.id})}"
@@ -141,15 +129,10 @@ STYLE="width: 1700PX;">
 
 </table>
 
-
-
 <!-- Footer-->
 <footer class="bg-dark">
   <p>Copyright &copy;가보자GO</p>
 </footer>
-
-
-
 
 <style>
   footer {
@@ -172,7 +155,6 @@ STYLE="width: 1700PX;">
     width: 1200px;
     margin: 0 auto;
   }
-
   a {
     text-decoration: none;
   }

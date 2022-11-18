@@ -82,6 +82,7 @@
 
   </script>
   </head>
+
   <body>
 
 	<div id="colorlib-page">
@@ -89,14 +90,14 @@
 		<aside id="colorlib-aside" role="complementary" class="js-fullheight text-center">
 			<h1 id="colorlib-logo"><span class="img" style="background-image: url(../../images/suzy.jpeg);"></span><div th:text="${nickname}"></div></a></h1>
 			<nav id="colorlib-main-menu" role="navigation">
-				<ul>
+				<ul class="p-0">
 					<li><a th:href="@{../../}">Main</a></li>
 					<li><a th:href="@{/myPage/}">About Me</a></li>
 					<li><a href="#">My Recommendation</a></li>
 					<li><a href="#">My Comment</a></li>
-					<!--				<li><a href="blog.html">Blog</a></li>-->
-					<!--				<li><a href="qna_addFormOriginal.html">Contact</a></li>-->
-					<br><br><br>
+					<li><a href="#">Shopping Bag</a></li>
+					<li><a href="#">My Purchase</a></li>
+					<br>
 					<li class="colorlib-active"><a th:href="@{/myPage/modify/contact}">My Profile</a></li>
 					<li><a th:href="@{/myPage/modify/myAccountDetail}">My Account</a></li>
 				</ul>
@@ -105,42 +106,41 @@
 		</aside> <!-- END COLORLIB-ASIDE -->
 		<div id="colorlib-main">
 			<section class="ftco-section ftco-bread">
-				<div class="container">
-					<div class="row no-gutters slider-text justify-content-center align-items-center">
-	          <div class="col-md-8 ftco-animate">
+				<div class="container pl-1">
+					<div class="slider-text justify-content-center align-items-center">
+	          <div class="col-md-11 ftco-animate">
 	            <p class="breadcrumbs"><span class="mr-2"><a th:href="@{/myPage/}">About Me</a></span> <span>My Profile</span></p>
 	            <h1 class="bread">My Profile</h1>
 	          </div>
 	        </div>
 				</div>
 			</section>
-			<section class="ftco-section contact-section">
+			<section class="ftco-section contact-section p-0">
 
 				<div class="row block-9">
 				<div class="col-md-9 d-flex">
 
 
-	            <form action='profileUpdate' method="post" enctype="multipart/form-data" id="profileModifyForm" class="bg-white p-5 contact-form">
+	            <form action='profileUpdate' method="post" enctype="multipart/form-data" id="profileModifyForm" class="bg-white pl-5 pr-5 pb-5 pt-0 contact-form">
 
-
-	              <div class="form-group">
-	                <input type="hidden" class="form-control" data-th-value="${member.id}">
-	              </div>
 	              <div class="form-group">
 				    <label>NICKNAME</label>
 	                <input name='nickName' type="text" class="form-control" id="nickName"
 						   data-th-value="${member.nickName}" onchange="nickNameOnChangeLogic()">
 	              </div>
+
 				  <div class="form-group">
 					<button class="nickCheck w-25 btn btn-primary btn-lg"
 					  style="background-color: black; border-color: black" id="nickCheckButton" type="button" onclick="nickNameDuplicate()">check</button>
 				  </div>
+
 	              <div class="form-group">
 				    <label>INSTAGRAM</label>
 	                <input name='snsAddress' type="text" class="form-control" id="snsAddress" onchange="snsAddressBlankCheck()"
 						   placeholder="인스타그램 아이디를 입력해 주세요."
 						   data-th-value="${member.snsAddress}">
 				  </div>
+
 			      <div class="form-group">
 				    <label>MBTI</label><br>
 					  <select name="mbti" id="mbti">
@@ -168,6 +168,10 @@
 					<label>Select your Picture!</label><br>
 					<input name="file" type="file" multiple>
 				  </div>
+
+				  <div class="form-group">
+					<input type="hidden" class="form-control" data-th-value="${member.id}">
+			      </div>
 
 					  <button class="w-25 btn btn-primary btn-lg"
 							  style="background-color: black; border-color: black"

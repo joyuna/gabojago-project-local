@@ -112,6 +112,39 @@
                 </div> <!-- .col-md-8 -->
 
             </div><!-- END COL -->
+            <!-- QnA Answer 보기(유민) -->
+
+            <hr class="my-4">
+            <h3 style="font-weight: bold">Answer:</h3>
+
+            <h5><div class="answer" input name='answerContent'
+                 data-th-text='${qnaBoard.answerContent}' readonly></div></h5>
+            <span type="text" name="answerDate"
+                  data-th-text="'답변일 | ' + ${qnaBoard.answerDate}"></span>
+            <input type="hidden" name="answerDate"
+                   value="2022-11-11"
+                   data-th-value="${qnaBoard.answerDate}" readonly>
+
+
+            <hr class="my-4">
+
+            <!-- QnA Comments 작성 양식(유민) -->
+            <div class="qnaAnswerCard my-4">
+                <h6 class="qnaAnswerCardHeader">Leave a Answer:</h6>
+                <div class="qnaAnswerCardBody">
+                    <form name="qnaAnswerForm" th:action="@{/support/qna/qnaAnswerUpdate}" method="post" autocomplete="off">
+                        <div class="answerGroup">
+                            <input type="hidden" name="no" th:value="${qnaBoard.no}">
+
+                            <div>
+                                <textarea name="answerContent" class="form-control" rows="3"></textarea>
+                            </div>
+
+                        </div><br>
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                    </form>
+                </div>
+            </div>
         </section>
         <footer class="ftco-footer ftco-bg-dark ftco-section">
             <div class="container px-md-5">

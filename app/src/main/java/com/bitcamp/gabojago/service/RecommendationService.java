@@ -2,6 +2,7 @@ package com.bitcamp.gabojago.service;
 
 import com.bitcamp.gabojago.vo.JangSoReview;
 import com.bitcamp.gabojago.vo.JangSoReviewAttachedFile;
+import com.bitcamp.gabojago.vo.Member;
 import com.bitcamp.gabojago.vo.Recommendation;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -17,6 +18,13 @@ public interface RecommendationService {
   // recommendationList
   List<Recommendation> recommendationList() throws Exception;
 
+  List<JangSoReviewAttachedFile> recommendationAttachedFiles() throws Exception;
+
+  List<Recommendation> recommendationListOrderByRecent() throws Exception;
+  List<Recommendation> recommendationListOrderByComments() throws Exception;
+  List<Recommendation> recommendationListOrderByCnt() throws Exception;
+
+
   // recommendationDetail - 1
   Recommendation getRecommendation(int recono) throws Exception;
 
@@ -31,4 +39,12 @@ public interface RecommendationService {
 
   // Comment Insert
   void setCntRecommendation(int recono) throws Exception;
+
+  void recommendationReportAdd(String id, int recono, String rsn) throws Exception;
+
+  int countReportById(String reportedId) throws Exception;
+
+  void updateStatus(Member reportedUser) throws Exception;
+
+  boolean checkCorrectUser(String id) throws Exception;
 }

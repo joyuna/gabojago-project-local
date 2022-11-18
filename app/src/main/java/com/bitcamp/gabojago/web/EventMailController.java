@@ -19,6 +19,8 @@ public class EventMailController {
 
     @GetMapping("/")
     public String testMailSender() {
+
+
         SimpleMailMessage simpleMailMessage = new SimpleMailMessage();
         simpleMailMessage.setTo("cfy113@naver.com");
         simpleMailMessage.setSubject("황망하다");

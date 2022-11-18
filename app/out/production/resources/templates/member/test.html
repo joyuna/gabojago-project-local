@@ -15,6 +15,25 @@
 </a>
 
 
+
+
+<h1>Kakao Login Test</h1>
+<span th:if="${member.id == null}">
+		<a href=
+           "http://localhost:9999/app/kakao/callback?code=f0NvZmoqAzkzK_VM6Nif8ElKQn-5ET-UBf3611Rydk8vnnGTBRddmxLirPMlBVd-riApPwopcBMAAAGEfgB8ZA
+">
+			<img src = "/static/images/kakao_login_medium_wide.png">
+		</a>
+	</span>
+<span th:if="${userId!=null}">
+		<form name="logout" action="http://localhost:9999/app/logout">
+			<input type="submit" value="로그아웃">
+		</form>
+	</span>
+
+
+
+
 <script>
   //OAuth.js
   const REST_API_KEY = "~~";

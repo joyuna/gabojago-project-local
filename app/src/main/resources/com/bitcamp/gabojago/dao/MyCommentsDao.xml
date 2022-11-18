@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bitcamp.gabojago.dao.MyCommentsDao">
+
+    <!--코스추천글 댓글-->
+    <resultMap type="jangComment" id="jangCommentMap">
+        <result column="CMNO" property="cmno"/>
+        <result column="CONT" property="cont"/>
+        <result column="WDATE" property="wdate"/>
+        <result column="RECONO" property="recono"/>
+
+        <association property="writer" javaType="member">
+            <id column="ID" property="id"/>
+            <result column="NNAME" property="nickName"/>
+        </association>
+    </resultMap>
+
+
+    <select id="myRecommendationCommentsList" resultMap="jangCommentMap">
+        select
+            jang_comment.*
+        from jang_comment
+        where jang_comment.ID= #{id}
+    </select>
+
+    <!--전시회 댓글-->
+    <resultMap type="exhibitionreview" id="exhibitionReviewMap">
+        <result column="RVNO" property="rvno"/>
+        <result column="CONT" property="cont"/>
+        <result column="WDATE" property="wdate"/>
+        <result column="ID" property="id"/>
+        <result column="EXNO" property="exno"/>
+
+        <association property="writer" javaType="member">
+            <id column="ID" property="id"/>
+            <result column="NNAME" property="nickName"/>
+        </association>
+
+    </resultMap>
+
+    <select id="myExhibitionCommentsList" resultMap="exhibitionReviewMap">
+        select
+            jang_exhibition_review.*
+        from jang_exhibition_review
+        where jang_exhibition_review.ID= #{id}
+    </select>
+
+
+<!--    <select id="jangCommentList" resultMap="jangCommentMap">-->
+<!--        select-->
+<!--        jang_comment.*,-->
+<!--        jang_member.id,-->
+<!--        jang_member.nname-->
+<!--        from jang_comment-->
+<!--        join jang_member on jang_member.id=jang_comment.id-->
+<!--        left outer join-->
+<!--        jang_so_recommendation-->
+<!--        on-->
+<!--        jang_comment.RECONO = jang_so_recommendation.RECONO-->
+<!--        where-->
+<!--        jang_so_recommendation.RECONO= #{RECONO}-->
+<!--    </select>-->
+<!--    <insert id="jangCommentInsert"  parameterType="jangComment" >-->
+<!--        INSERT INTO jang_comment (cont, id, recono)-->
+<!--        values (#{cont}, #{writer.id},  #{recono})-->
+<!--    </insert>-->
+
+<!--    <delete id="jangCommentDelete" parameterType="jangComment">-->
+<!--        delete from jang_comment-->
+<!--        where jang_comment.cmno = #{cmno}-->
+<!--    </delete>-->
+
+
+<!--    <select id="getJangCommentByCmno" resultMap="jangCommentMap">-->
+<!--        select-->
+<!--            *-->
+<!--        from-->
+<!--            jang_comment-->
+<!--        where-->
+<!--            cmno=#{cmno}-->
+<!--    </select>-->
+
+
+</mapper>

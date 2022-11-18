@@ -20,24 +20,20 @@
   </div>
 </header>
 
+
 <!-- Navigation 사실상의 header -->
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
   <div class="container">
     <a class="navbar-brand" href="/app">가보자GO</a>
-
     <div class="collapse navbar-collapse" id="navbarResponsive">
-
       <ul class="navbar-nav ml-auto">
 
-        <li class="nav-item"><a class="nav-link" href="#">Search</a></li>
+        <li class="nav-item"><a class="nav-link" href="/app/search/searchForm">검색</a></li>
         <li class="nav-item">
           <a class="nav-link" href="/app/recommendation/recommendationList">코스추천</a>
         </li>
-
-
-        <li class="nav-item active">
-          <a class="nav-link" href="#">전시회
-            <span class="sr-only">(current)</span>
+        <li class="nav-item ">
+          <a class="nav-link" href="/app/exhibition/exhibitionlist">전시회
           </a>
         </li>
 
@@ -48,9 +44,7 @@
           <a
               class="nav-link"
               href="/app/auth/logout"
-              th:text="${session.loginMember.name}+'(로그아웃)'"
-          >홍길동(로그아웃)</a
-          >
+              th:text="${session.loginMember.name}+'(로그아웃)'">홍길동(로그아웃)</a>
         </li>
         <li class="nav-item" th:if="${session.loginMember == null}">
           <span class="nav-link btn-open-popup">로그인</span>
@@ -58,20 +52,25 @@
 
         <li class="nav-item">
           <a class="nav-link" href="/app/myPage/">
-            <img src="./images/mypage.png" width="90%" height="25"
+            <img src="../images/mypage.png" width="90%" height="25"
             /></a>
         </li>
+        <!--어드민만 보일 수 있음-->
+        <li class="nav-item ">
+              <span data-th-if="${session.loginMember} != null and ${session.loginMember.id} == 'admin'">
+              <a class="nav-link" href='/app/member/list'>회원 관리</a></span> </li>
       </ul>
     </div>
   </div>
 </nav>
+
 <br>
 <br>
 
 <style>
   label {
     font-weight: bold ;
-  } f
+  }
 </style>
 
 <body>
@@ -162,7 +161,6 @@
       </div>
     </div>
 
-
     <div class="row mb-3 border rounded">
       <label for="phoneNo" class="col-sm-2 col-form-label"> 전화번호 </label>
       <div class="col-sm-10">
@@ -173,7 +171,6 @@
                 style=" border: none;">
       </div>
     </div>
-
 
     <div class="row mb-3 border rounded">
       <label for="birthDay" class="col-sm-2 col-form-label"> 생일 </label>
@@ -196,7 +193,6 @@
                 style=" border: none;">
       </div>
     </div>
-
 
     <div class="row mb-3 border rounded">
       <label for="snsAddress" class="col-sm-2 col-form-label"> SNS </label>
@@ -222,53 +218,38 @@
 
 
 <!--
-    <tr>
-      <th>status</th><td><input name='status' type='text'
-                              value='활성'
-                              data-th-value="${member.status}"
-                              size='60' ></td>
-    </tr>-->
-<!--<div >
-   <select th-field="${member.status}" data-th-value="${member.status}"
-       name="status"  style="height: 35px; width: 73px;">
-        <option data-th-value="'활성'">활성</option>
-        <option data-th-value="'신고'">신고</option>
-        <option data-th-value="'탈퇴'">탈퇴</option>
-      </select>
-  <br>
-</div>-->
 
+    <div class="row mb-3 border rounded">
+      <label for="rst" class="col-sm-2 col-form-label"> 신고사유 </label>
+      <div class="col-sm-10">
+        <input  id="rst" name='rst' type='text'
+                value='신고내용 이사람 욕함 !'
+                data-th-value="${report.rst}"
+                size='100'
+                style=" border: none;"
+                style="word-wrap:break-word">
+      </div>
+    </div>
+-->
+
+
+    <div class = "container  align-text-center g-3 p-3 "  style="float: right;">
+    <button type="submit m-4" class="btn btn-outline-primary"
+            style="float: right;"><a href='/app/member/list'> 목록 </a></button>
+
+    <button  class="btn btn-outline-none"  style="float: right;"  ></button>
+
+    <button type="submit m-4" class="btn btn-outline-primary"
+            style="float: right;">변경</button>
+      <button  class="btn btn-outline-none"  style="float: right;"  ></button>
+
+    <button type="button" class="btn btn-outline-secondary"
+            style="float: right;">
+      <a href='delete?id= user1'
+         data-th-href="@{delete(id=${member.id})}">삭제</a></button>
+    </div>
   </table>
-
-
-<div class = "container  align-text-center g-3 p-3  " >
-  <button  class="btn btn-outline-none"></button>
-  <button  class="btn btn-outline-none"></button>
-  <button  class="btn btn-outline-none"></button>
-  <button  class="btn btn-outline-none"></button>
-  <button  class="btn btn-outline-none"></button>
-  <button  class="btn btn-outline-none"></button>
-  <button  class="btn btn-outline-none"></button>
-  <button  class="btn btn-outline-none"></button>
-  <button  class="btn btn-outline-none"></button>
-  <button  class="btn btn-outline-none"></button>
-
-  <button type="submit m-4" class="btn btn-outline-secondary"><a href='/app/member/list'> 목록 </a></button>
-  <button  class="btn btn-outline-none"></button>
-
-  <button type="submit m-4" class="btn btn-outline-secondary">변경</button>
-  <button  class="btn btn-outline-none"></button>
-
-
-  <button type="button" class="btn btn-outline-primary">
-    <a href='delete?id= user1'
-       data-th-href="@{delete(id=${member.id})}">삭제</a></button>
-
-</div>
 </form>
-
-
-
 
 
 <!-- Footer-->

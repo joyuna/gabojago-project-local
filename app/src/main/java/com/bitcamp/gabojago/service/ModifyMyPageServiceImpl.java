@@ -32,18 +32,24 @@ public class ModifyMyPageServiceImpl implements ModifyMyPageService {
         return modifyMyPageDao.findById(id);
     }
 
+    // 닉네임 중복 확인
     @Override
     public int nickCheck(String nickName) throws Exception {
         int result = modifyMyPageDao.findByNickName(nickName);
         return result;
     }
 
+    // 회원 탈퇴를 위한 비밀번호 확인
     @Override
-    public int resignMember(String memberId) throws Exception {
-        System.out.println("resignMemberService = "+ memberId);
-        int result = modifyMyPageDao.resignMemberStatus(memberId);
-        System.out.println("resignMemberResult = "+ result);
+    public int passwordCheck(Member member) throws Exception {
+        int result = modifyMyPageDao.findByPassword(member.getId(), member.getPassword());
         return result;
     }
+
+    @Override
+    public boolean memberDelete(Member member) throws Exception {
+        return modifyMyPageDao.memberDelete(member.getId()) > 0;
+    }
+
 }
 

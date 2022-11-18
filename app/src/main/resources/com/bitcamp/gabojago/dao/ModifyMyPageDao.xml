@@ -17,6 +17,7 @@
         <result column="SNS" property="snsAddress"/>
         <result column="MBTI" property="mbti"/>
         <result column="STATUS" property="status"/>
+
     </resultMap>
 
     <update id="profileUpdate" parameterType="member">
@@ -63,10 +64,22 @@
         NNAME=#{nickName}
     </select>
 
-    <update id="resignMemberStatus" parameterType="String">
-        update jang_member set
-        STATUS='탈퇴'
+<!--회원 탈퇴를 위한 비밀번호 확인-->
+    <select id="findByPassword" resultType="int">
+        select count(*)
+        from jang_member
         where
-        ID=#{memberId}
+        ID=#{id}
+        and
+        PWD=sha2(#{password},256)
+    </select>
+
+    <update id="memberDelete" parameterType="String">
+        update jang_member set
+        PWD = 123456789101112131415,
+        STATUS = '탈퇴'
+        where
+        ID=#{id};
     </update>
+
 </mapper>

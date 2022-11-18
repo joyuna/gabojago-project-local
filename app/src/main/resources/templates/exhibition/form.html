@@ -32,13 +32,138 @@
 
 <body class="pt-5 ">
 
+
+<!-- Navigation 사실상의 header -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+  <div class="container">
+    <a class="navbar-brand" href="/app">가보자GO</a>
+    <div class="collapse navbar-collapse" id="navbarResponsive">
+      <ul class="navbar-nav ml-auto">
+
+        <li class="nav-item"><a class="nav-link" href="/app/search/searchForm">검색</a></li>
+        <li class="nav-item">
+          <a class="nav-link" href="/app/recommendation/recommendationList">코스추천</a>
+        </li>
+        <li class="nav-item active">
+          <a class="nav-link" href="/app/exhibition/exhibitionlist">전시회
+            <span class="sr-only">(current)</span>
+          </a>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link" href="/app/support/">고객지원</a>
+        </li>
+        <li class="nav-item" th:if="${session.loginMember != null}">
+          <a
+              class="nav-link"
+              href="/app/auth/logout"
+              th:text="${session.loginMember.name}+'(로그아웃)'">홍길동(로그아웃)</a>
+        </li>
+        <li class="nav-item" th:if="${session.loginMember == null}">
+          <span class="nav-link btn-open-popup">로그인</span>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link" href="/app/myPage/">
+            <img src="../images/mypage.png" width="90%" height="25"
+            /></a>
+        </li>
+        <!--어드민만 보일 수 있음-->
+        <li class="nav-item">
+              <span data-th-if="${session.loginMember} != null and ${session.loginMember.id} == 'admin'">
+              <a class="nav-link" href='/app/member/list'>회원 관리</a></span> </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+
+
+<div class="container">
+
+  <div class="py-5 text-center">
+  </div>
+
+  <form action='add' method="post" enctype="multipart/form-data">
+
+    <table>
+      <div>
+        <label for="exname">전시회 이름</label>
+        <input id="exname" name='exname' type='text'
+               class="form-control" placeholder="전시회 이름을 입력하세요">
+      </div>
+
+      <br><!-- 공백 -->
+      <div>
+        <label for="cont">내용</label>
+        <textarea id="cont"  class="form-control"
+                  name='cont' rows='10' cols='60'></textarea>
+      </div>
+      <br><!-- 공백 -->
+      <div>
+        <label for="stdate">시작일</label>
+        <input name='stdate' id="stdate" type='date' size='60'>
+        ~
+        <label for="eddate">종료일</label>
+        <input name='eddate'  id="eddate" type='date' size='60'>
+      </div>
+      <br> <!--////공백////-->
+      <div>
+        <label for="price">금액</label>
+        <input name='price' id="price" type='number' size='60'
+               placeholder="ex : 12000">
+      </div>
+      <div style="float: right;">
+        <button type='submit' class="btn btn-outline-secondary">등록</button>
+
+        <button type='submit' class="btn btn-outline-secondary">
+          <a href='exhibitionlist'> 목록 </a> </button>
+      </div>
+      <br> <!--////공백////-->
+
+      <!-- <p>
+          <label for="files">첨부파일</label>
+            <input name='files' id="files" type="file" multiple></p>-->
+
+    </table>
+
+ <!--   <button type='submit' class="btn btn-primary">등록</button>
+
+    <a href='exhibitionlist'>목록</a>-->
+  </form>
+</div> <!-- /container -->
+
+<br> <!--////공백////-->
+<!-- Footer-->
+<footer>
+  <p>Copyright &copy;가보자GO</p>
+</footer>
+
+<style>
+  footer {
+    /* footer를 aside위에 올리기 위해 사용(부유객체) */
+    position: relative;
+    height: 70px;
+    width: 100%;
+    padding: 0 25px;
+    line-height: 60px;
+    color: white;
+    border-top: 1px solid #dee5e7;
+    background-color: #343A40;
+    margin-top:auto;
+    text-align:center;
+  }
+
+</style>
+
+<!--로그인 모달 창-->
 <div class="modal">
-  <div class="modal_body" style=" background: rgba(255,255,255,0.9); ">
-    <div class="out" style="margin: 05px;  float: right;">나가기</div>
+  <div class="modal_body" style=" background: rgba(255,255,255,0.8); ">
+    <div class="out" style="margin: 05px; float: right;"><img src = "/app/images/X.png"></div>
     <br>
     <h2 style=" text-align: center;"> 로그인 </h2>
 
-    <form action="auth/login" method="post" >
+    <form action="/app/auth/login" method="post" >
       <p>ID</p>
       <input name="id" type="text" size="30" placeholder="ID를 입력해주세요." th:value="${id}">
       <br> <!--공백-->
@@ -73,130 +198,6 @@
   </div>
 </div>
 
-
-
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
-  <div class="container">
-    <a class="navbar-brand" href="/app">가보자GO</a>
-
-
-    <div class="collapse navbar-collapse" id="navbarResponsive">
-
-      <ul class="navbar-nav ml-auto">
-
-        <li class="nav-item"><a class="nav-link" href="#">Search</a></li>
-        <li class="nav-item">
-          <a class="nav-link" href="/app/recommendation/recommendationList">코스추천</a>
-        </li>
-
-
-        <li class="nav-item active">
-          <a class="nav-link" href="exhibitionlist">전시회
-            <span class="sr-only">(current)</span>
-          </a>
-        </li>
-
-        <li class="nav-item">
-          <a class="nav-link" href="/app/support/">고객지원</a>
-        </li>
-        <li class="nav-item" th:if="${session.loginMember != null}">
-          <a
-              class="nav-link"
-              href="/app/auth/logout"
-              th:text="${session.loginMember.name}+'(로그아웃)'"
-          >홍길동(로그아웃)</a
-          >
-        </li>
-        <li class="nav-item" th:if="${session.loginMember == null}">
-          <span class="nav-link btn-open-popup">로그인</span>
-        </li>
-
-        <li class="nav-item">
-          <a class="nav-link" href="/app/myPage/">
-            <img src="./images/mypage.png" width="90%" height="25"/></a>
-        </li>
-        <!--어드민만 보일 수 있음-->
-        <span data-th-if="${session.loginMember} != null and ${session.loginMember.id} == 'admin'">
-              <a href='/app/member/list'>회원 관리</a></span>
-      </ul>
-    </div>
-  </div>
-</nav>
-
-
-
-
-<div class="container">
-
-  <div class="py-5 text-center">
-
-    <h2>전시회 입력</h2>
-  </div>
-
-  <form action='add' method="post" enctype="multipart/form-data">
-
-    <table>
-      <div>
-        <label for="exname">전시회 이름</label>
-        <input id="exname" name='exname' type='text'
-               class="form-control" placeholder="전시회 이름을 입력하세요">
-      </div>
-
-      <br><!-- 공백 -->
-      <div>
-        <label for="cont">내용</label>
-        <textarea id="cont"  class="form-control"
-                  name='cont' rows='10' cols='60'></textarea>
-      </div>
-      <br><!-- 공백 -->
-      <div>
-        <label for="stdate">시작일</label>
-        <input name='stdate' id="stdate" type='date' size='60'>
-        ~
-        <label for="eddate">종료일</label>
-        <input name='eddate'  id="eddate" type='date' size='60'>
-      </div>
-      <br> <!--////공백////-->
-      <div>
-        <label for="price">금액</label>
-        <input name='price' id="price" type='number' size='60'
-               placeholder="ex : 12000">
-      </div>
-      <br> <!--////공백////-->
-
-      <!-- <p>
-          <label for="files">첨부파일</label>
-            <input name='files' id="files" type="file" multiple></p>-->
-    </table>
-
-    <button type='submit' class="btn btn-primary">등록</button>
-
-    <a href='exhibitionlist'>목록</a>
-  </form>
-</div> <!-- /container -->
-
-<br> <!--////공백////-->
-<!-- Footer-->
-<footer>
-  <p>Copyright &copy;가보자GO</p>
-</footer>
-
-<style>
-  footer {
-    /* footer를 aside위에 올리기 위해 사용(부유객체) */
-    position: relative;
-    height: 70px;
-    width: 100%;
-    padding: 0 25px;
-    line-height: 60px;
-    color: white;
-    border-top: 1px solid #dee5e7;
-    background-color: #343A40;
-    margin-top:auto;
-    text-align:center;
-  }
-
-</style>
 
 <script>
   $(document).ready(function() {

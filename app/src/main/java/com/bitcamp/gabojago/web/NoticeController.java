@@ -18,8 +18,8 @@ import java.util.Map;
 @RequestMapping("/support/notice/")
 public class NoticeController {
 
-    ServletContext sc;
-    NoticeService noticeService;
+    private ServletContext sc;
+    private NoticeService noticeService;
 
 
 

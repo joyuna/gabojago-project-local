@@ -8,134 +8,53 @@
     <link rel="stylesheet" href="../css/main-modal.css" />
     <link rel="stylesheet" href="../css/main.css" />
     <link rel="stylesheet" href="../css/recommendation/recommendationDetail.css" />
+    <link rel="stylesheet" href="../css/recommendation/recommendation-report-modal.css" />
     <link
         rel="stylesheet"
         href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
     />
 </head>
 <body>
-<div class="modal">
-    <div class="modal_body">
-        <h2>Sign In</h2>
-        <form action="/app/auth/login" method="post">
-            <p>ID</p>
-            <input name="id" type="text" size="30" placeholder="ID를 입력해주세요." th:value="${id}">
-
-            <p>Password</p>
-            <input name="password" type="password" size="20" placeholder="Password를 입력해주세요.">
-            <br>
-            <button class="btn_login" type="submit">Login</button>
-
-
-
-            <!--          <a href="http://localhost:9999/app/">구글 아이디로 로그인</a>-->
-
-            <div class="g-signin2" data-onsuccess="onSignIn"></div>
-
-            <script>
-            function onSignIn(googleUser) {
-              var profile = googleUser.getBasicProfile();
-              console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
-              console.log('Name: ' + profile.getName());
-              console.log('Image URL: ' + profile.getImageUrl());
-              console.log('Email: ' + profile.getEmail()); // This is null if the 'email' scope is not present.
-            }
-
-          </script>
-
-            <!-- <a href="#" onClick="signOut();">Sign out</a>-->
-            <script>
-            function signOut() {
-              var auth2 = gapi.auth2.getAuthInstance();
-              auth2.signOut().then(function () {
-                console.log('User signed out.');
-              });
-            }
-          </script>
-
-
-
-            <div class="savecheck">
-                <input id="savecheckbox" type="checkbox" name="saveEmail"><label for="savecheckbox">&nbsp;ID 저장</label>
-                <span><a href="#">ID 찾기</a></span><span> / </span><span><a href="#">Password 찾기</a></span>
-            </div>
-        </form>
-
-        <!--
-        <div class="loginimages">
-          <ul>
-            <li>
-
-              <a href="#">
-                <img src="./images/googlebtn.png" alt="google login button">
-              </a>
-
-            </li>
-            <li>
-              <a href="#">
-                <img src="./images/naverbtn.png" alt="naver login button">
-              </a>
-            </li>
-          </ul>
-        </div>
-         -->
-
-        <form action="/app/auth/register">
-            <button class="btn_signin" type="submit">회원가입</button>
-        </form>
-
-    </div>
-</div>
-
 <!-- Navigation 사실상의 header -->
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
     <div class="container">
         <a class="navbar-brand" href="/app">가보자GO</a>
         <div class="collapse navbar-collapse" id="navbarResponsive">
             <ul class="navbar-nav ml-auto">
+
+                <li class="nav-item"><a class="nav-link" href="/app/search/searchForm">검색</a></li>
                 <li class="nav-item active">
-                    <a class="nav-link" href="/etc"
-                    >홈
-                        <span class="sr-only">(current)</span>
-                    </a>
+                    <a class="nav-link" href="/app/recommendation/recommendationList">코스추천</a>
                 </li>
-                <li class="nav-item"><a class="nav-link" href="#">Search</a></li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/app/recommendation/recommendationList"
-                    >코스추천</a
-                    >
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/app/exhibition/exhibitionlist">전시회</a>
-                </li>
+                <li class="nav-item"><a class="nav-link" href="/app/exhibition/exhibitionlist">전시회</a></li>
                 <li class="nav-item">
                     <a class="nav-link" href="/app/support/">고객지원</a>
                 </li>
                 <li class="nav-item" th:if="${session.loginMember != null}">
                     <a
-                        class="nav-link"
-                        href="/app/auth/logout"
-                        th:text="${session.loginMember.name}+'(로그아웃)'"
-                    >홍길동(로그아웃)</a
-                    >
+                      class="nav-link"
+                      href="/app/auth/logout"
+                      th:text="${session.loginMember.name}+'(로그아웃)'">홍길동(로그아웃)</a>
                 </li>
                 <li class="nav-item" th:if="${session.loginMember == null}">
                     <span class="nav-link btn-open-popup">로그인</span>
                 </li>
 
                 <li class="nav-item">
-                    <a class="nav-link" href="#">
+                    <a class="nav-link" href="/app/myPage/">
                         <img src="/app/images/mypage.png" width="90%" height="25"
                         /></a>
                 </li>
 
-                <!--테스트 중-->
-
-                <li><a href="member/list">회원</a></li>
+                <!--어드민만 보일 수 있음-->
+                <li class="nav-item">
+              <span data-th-if="${session.loginMember} != null and ${session.loginMember.id} == 'admin'">
+              <a class="nav-link" href='/app/member/list'>회원 관리</a></span> </li>
             </ul>
         </div>
     </div>
 </nav>
+<!-- Navigation 사실상의 header 끝 -->
 
 <div class="ga-content-detail">
     <div class="ga-selectbtn">
@@ -144,12 +63,17 @@
                    data-th-href="@{recommendationUpdateForm(recono=${recommendation.recono})}">수정</a></button>
         <button><a href="disableRecommend?recono=${recommendation.recono}"
                    data-th-href="@{disableRecommend(recono=${recommendation.recono})}">삭제</a></button>
+        <button><a href="reportRecommendation?recono=${recommendation.recono}"
+                   data-th-href="@{reportRecommendation(recono=${recommendation.recono})}">신고</a></button>
     </div>
 
-    <div class="ga-reco-info1">
-        <h2 data-th-text="${recommendation.title == ''} ? '(제목없음)' : ${recommendation.title}">먹깨비가 간다!</h2>
+    <div class="ga-reco-info1-1">
         <h3 data-th-text="${recommendation.writer.nickName} +' 님'">초밥킬러 님</h3>
-        <h4 data-th-text="${recommendation.wdate}">2022-09-09</h3>
+        <h2 data-th-text="${recommendation.title == ''} ? '(제목없음)' : ${recommendation.title}">먹깨비가 간다!</h2>
+        <button class="reportBtn-open-popup" type="button">신고하기</button>
+    </div>
+    <div class="ga-reco-info1-2">
+        <h4 data-th-text="${recommendation.wdate}">2022-09-09</h4>
     </div>
 
     <span class="ga-reco-plusdata">>> 추가정보</span>
@@ -228,6 +152,79 @@
         </div>
     </footer>
 
+    <!--신고하기 모달 창-->
+    <div class="modal-report">
+        <div class="modal-report-body">
+            <br>
+            <h2 style=" text-align: center;"> 게시글 신고하기 </h2>
+            <form class="modal-report-form" action="recommendationReport" method="post">
+                <input type="hidden" name="recono" data-th-value="${recommendation.recono}" readonly>
+                <div class="modal-report-form-rsn1">
+                    <span>• 신고사유 : </span>
+
+                    <select class="modal-report-rsn1" name="rsn1">
+                        <option value="0">회원비난/비하</option>
+                        <option value="1">욕설/비속어</option>
+                        <option value="2">허위사실 유포</option>
+                        <option value="3">무단광고/홍보</option>
+                        <option value="4">외설적 표현물</option>
+                        <option value="5">불법행위</option>
+                        <option value="6">게시판 용도 부적절</option>
+                        <option value="7">이용방해 행위</option>
+                    </select>
+                </div>
+                <textarea class="modal-report-form-rsn2" name="rsn2" placeholder="상세한 사유를 적어주세요."></textarea>
+                <div class="modal-report-form-notice">
+                    <span>• 정상적인 게시물을 신고하시는 경우 본인이 제재를 당할 수 있습니다.</span>
+                    <span>• 신고하게 된 이유를 자세히 써주시면 운영자의 관련 결정에 도움이 됩니다.</span>
+                </div>
+                <button class="modal-report-form-submitBtn" type="submit">신고하기</button>
+            </form>
+        </div>
+    </div>
+
+    <!--로그인 모달 창-->
+    <div class="modal">
+        <div class="modal_body" style=" background: rgba(255,255,255,0.8); ">
+            <div class="out" style="margin: 05px;  float: right;">나가기</div>
+            <br>
+            <h2 style=" text-align: center;"> 로그인 </h2>
+
+            <form action="/app/auth/login" method="post" >
+                <p>ID</p>
+                <input name="id" type="text" size="30" placeholder="ID를 입력해주세요." th:value="${id}">
+                <br> <!--공백-->
+                <p>Password</p>
+                <input name="password" type="password" size="20" placeholder="Password를 입력해주세요.">
+                <br>
+                <br> <!--공백-->
+                <button class="btn_login" type="submit"
+                        style="background-color: #ffca2c">Login</button>
+
+                <div class="g-signin2" data-onsuccess="onSignIn"></div>
+
+                <script>
+                function signOut() {
+                  var auth2 = gapi.auth2.getAuthInstance();
+                  auth2.signOut().then(function () {
+                    console.log('User signed out.');
+                  });
+                }
+              </script>
+
+                <div class="savecheck">
+                    <input id="savecheckbox" type="checkbox" name="saveEmail"><label for="savecheckbox">&nbsp;ID 저장</label>
+                    <span><a href="/app/member/findid">ID 찾기</a></span><span> / </span><span><a href="/app/member/findpwd">Password 찾기</a></span>
+                </div>
+            </form>
+
+            <form action="auth/register">
+                <button class="btn_signin" type="submit"
+                        style="background-color: #ffca2c">회원가입</button>
+            </form>
+        </div>
+    </div>
+
     <!--login modal script-->
     <script>
       const body = document.querySelector("body");
@@ -251,7 +248,41 @@
           }
         }
       });
+
+      // 장현경 : 로그인 모달 창 "나가기"
+      $('.out').click(function() {
+        $('.modal').removeClass('show')
+      })
     </script>
+    <!--로그인 모달 창 끝-->
+
+    <!--신고하기 모달 창-->
+    <script>
+      const reportBody = document.querySelector(".modal-report-body");
+      const reportModal = document.querySelector(".modal-report");
+      const reportBtnOpenPopup = document.querySelector(".reportBtn-open-popup");
+
+      reportBtnOpenPopup.addEventListener("click", () => {
+        reportModal.classList.toggle("show");
+
+        if (reportModal.classList.contains("show")) {
+          body.style.overflow = "hidden";
+        }
+      });
+
+      reportModal.addEventListener("click", (event) => {
+        if (event.target === reportModal) {
+          reportModal.classList.toggle("show");
+
+          if (!reportModal.classList.contains("show")) {
+            body.style.overflow = "auto";
+          }
+        }
+      });
+    </script>
+    <!--신고하기 모달 창 끝-->
+
+<script src="../js/recommendation/recommendationReport.js"></script>
 
 </body>
 </html>

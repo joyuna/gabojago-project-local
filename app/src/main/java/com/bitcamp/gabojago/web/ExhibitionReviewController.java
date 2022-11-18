@@ -60,6 +60,7 @@ ExhibitionReviewService exhibitionReviewService;
     if (!exhibitionReviewService.get(rvno).getId().equals(loginMember.getId())) {
       throw new Exception("리뷰 작성자가 아닙니다.");
     }
+
     return review.getExno();
   }
 

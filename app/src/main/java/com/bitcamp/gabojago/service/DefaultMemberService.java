@@ -123,7 +123,7 @@ public class DefaultMemberService implements MemberService {
     message.setText("안녕하세요 회원님 가보자Go의 임시비밀번호 발송해드립니다\n" + " 회원님의 임시비밀번호는" +
                     "임시 비밀번호: " + newPw);
     Transport.send(message);
-    System.out.println("메일 전송 완료");
+    System.out.println("임시비밀번호 메일 전송 완료");
 
     return member;
   }
