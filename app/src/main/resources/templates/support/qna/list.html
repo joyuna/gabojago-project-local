@@ -90,7 +90,7 @@
                                     <p class="mb-4">
                                         <a href='detail?no=1'
                                            data-th-href="@{detail(no=${qnaBoard.no})}"
-                                           data-th-text="${qnaBoard.answerDate == '' || qnaBoard.answerDate == null} ?'미답변' : ${qnaBoard.answerDate}">답변상태</a>
+                                           data-th-text="${qnaBoard.answerDate == '' || qnaBoard.answerDate == null} ?'미답변' : '답변완료 | '+${qnaBoard.answerDate}">답변상태</a>
                                     </p>
                                     <hr class="my-4">
                                 </div>

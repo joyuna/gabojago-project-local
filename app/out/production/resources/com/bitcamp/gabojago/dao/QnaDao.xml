@@ -27,7 +27,9 @@
             ID,
             TITLE,
             CONT,
-            WDATE
+            WDATE,
+            ANSCONT,
+            ANSDATE
         from jang_qna
         order by QNANO desc;
     </select>
