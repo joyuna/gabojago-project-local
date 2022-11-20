@@ -39,17 +39,30 @@ public class ModifyMyPageServiceImpl implements ModifyMyPageService {
         return result;
     }
 
-    // 회원 탈퇴를 위한 비밀번호 확인
+//    // 회원 탈퇴를 위한 비밀번호 확인
+//    @Override
+//    public int passwordCheck(Member member) throws Exception {
+//        int result = modifyMyPageDao.findByPassword(member.getId(), member.getPassword());
+//        return result;
+//    }
+//
+//    @Override
+//    public boolean memberDelete(Member member) throws Exception {
+//        return modifyMyPageDao.memberDelete(member.getId()) > 0;
+//    }
+
     @Override
-    public int passwordCheck(Member member) throws Exception {
-        int result = modifyMyPageDao.findByPassword(member.getId(), member.getPassword());
+    public int pwCheck(String memberId, String memberPw) throws Exception {
+        int result = modifyMyPageDao.checkPassword(memberId, memberPw);
+        System.out.println("pwCheckServiceImpl = " + result);
         return result;
     }
-
     @Override
-    public boolean memberDelete(Member member) throws Exception {
-        return modifyMyPageDao.memberDelete(member.getId()) > 0;
+    public int resignMember(String memberId, String memberPw) throws Exception {
+        System.out.println("resignMemberServiceImpl = "+ memberId+", "+memberPw);
+        int result = modifyMyPageDao.resignMemberStatus(memberId, memberPw);
+        System.out.println("resignMemberResult = " + result);
+        return result;
     }
-
 }
 
