@@ -129,19 +129,19 @@
                             <div class="form-group text-center mb-5 mt-5 col-12">
                                         <span class="col">
                                     <button class="btn btn-success py-3 px-5"
-                                            onclick="location.href='./item/addForm.html'"
+                                            data-th-hidden="${session.loginMember} == null or ${session.loginMember.id} != 'admin'"
                                             th:onclick="|location.href='@{/support/event/item/addForm(no=${event.no})}'|"
                                             type="button">상품등록</button>
                                 </span>
                                 <span class="col">
                                     <button class="btn btn-primary py-3 px-5"
-                                            onclick="location.href='editForm.html'"
+                                            data-th-hidden="${session.loginMember} == null or ${session.loginMember.id} != 'admin'"
                                             th:onclick="|location.href='@{/support/event/editForm(no=${event.no})}'|"
                                             type="button">수정</button>
                                 </span>
                                 <span class="col">
                                     <button class="btn btn-info py-3 px-5"
-                                            onclick="location.href='list.html'"
+                                            data-th-hidden="${session.loginMember} == null or ${session.loginMember.id} != 'admin'"
                                             th:onclick="|location.href='@{delete(no=${event.no})}'|"
                                             type="submit">삭제</button>
                                 </span>
