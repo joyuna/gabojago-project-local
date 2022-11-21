@@ -50,10 +50,19 @@
         values (#{title},#{content},#{startDate},#{endDate},#{disclosure},#{eventCode},#{capacity},now())
     </insert>
 
-    <delete id="deleteByNo">
+    <delete id="deleteByNo" parameterType="int">
         delete from jang_event
         where EVTNO=#{no}
     </delete>
+
+    <delete id="deleteJoinByEventNo" parameterType="int">
+        delete from jang_join
+        where EVTNO=#{no}
+    </delete>
+
+
+
+
 
     <update id="update" parameterType="event">
         update jang_event set

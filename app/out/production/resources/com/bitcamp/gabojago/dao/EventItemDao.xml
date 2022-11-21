@@ -12,17 +12,32 @@
         <id column="RANK" property="ranking"/>
     </resultMap>
 
+    <resultMap type="eventAttachedFile" id="eventAttachedFileMap">
+        <id column="ITFNO" property="fileNo"/>
+        <id column="PATH" property="filePath"/>
+        <id column="FNAME" property="fileName"/>
+        <id column="ITMNO" property="itemNo"/>
+    </resultMap>
+
     <insert id="insert" parameterType="eventItem"
             useGeneratedKeys="true" keyColumn="itemno" keyProperty="itemNo">
         insert into jang_item(NAME,CNT,EVTNO,RANK)
         values (#{name},#{stock},#{eventNo},#{ranking})
     </insert>
+    <!--<insert id="insert" parameterType="eventItem"
+            useGeneratedKeys="true" keyColumn="itemno" keyProperty="itemNo">
+        <selectKey keyProperty="itemNo" resultType="int" order="BEFORE">
+            SELECT MAX(TO_NUMBER(ITMNO))+1 FROM jang_item
+        </selectKey>
+        insert into jang_item(ITMNO, NAME,CNT,EVTNO,RANK)
+        values (#{itemNo},#{name},#{stock},#{eventNo},#{ranking})
+    </insert>-->
 
     <select id="getItemsCountByEventNo" resultType="int" parameterType="int">
         select
             count(*)
         from jang_item
-        where EVTNO=#{no}
+        where EVTNO=#{eventNo}
     </select>
 
     <select id="getItemListByEventNo" resultMap="eventItemMap" parameterType="int">
@@ -33,6 +48,23 @@
             EVTNO,
             RANK
         from jang_item
-        where EVTNO=#{no}
+        where EVTNO=#{eventNo}
     </select>
+
+    <delete id="deleteItemByEventNo" parameterType="int">
+        delete from jang_item
+        where EVTNO=#{eventNo}
+    </delete>
+
+    <delete id="deleteFileByEventNo" parameterType="int">
+        delete from jang_event_file
+        where ITMNO in (select ITMNO from jang_item where EVTNO=#{eventNo})
+    </delete>
+
+    <insert id="insertEventFile" parameterType="eventAttachedFile">
+            useGeneratedKeys="true" keyColumn="fileNo" keyProperty="fileNo">
+        insert into jang_event_file(PATH, FNAME, ITMNO)
+        values (#{filePath},#{fileName},#{itemNo})
+    </insert>
+
 </mapper>

@@ -16,4 +16,6 @@ public interface EventDao {
     int deleteByNo(int no);
 
     int update(Event event);
+
+    int deleteJoinByEventNo(int eventNo);
 }

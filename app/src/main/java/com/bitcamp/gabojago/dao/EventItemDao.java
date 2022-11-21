@@ -1,6 +1,7 @@
 package com.bitcamp.gabojago.dao;
 
 import com.bitcamp.gabojago.vo.event.Event;
+import com.bitcamp.gabojago.vo.event.EventAttachedFile;
 import com.bitcamp.gabojago.vo.event.EventItem;
 import org.apache.ibatis.annotations.Mapper;
 
@@ -12,12 +13,14 @@ public interface EventItemDao {
 
     int insert(EventItem eventItem);
 
-    int getItemsCountByEventNo(int no);
+    int getItemsCountByEventNo(int eventNo);
 
-    List<EventItem> getItemListByEventNo(int no);
+    List<EventItem> getItemListByEventNo(int eventNo);
+    int deleteItemByEventNo(int eventNo);
 
-//
-//    int deleteByNo(int no);
-//
+    int deleteFileByEventNo(int eventNo);
+
 //    int update(EventItem eventItem);
+
+    int insertEventFile(EventAttachedFile eventAttachedFile);
 }

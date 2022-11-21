@@ -3,6 +3,7 @@ package com.bitcamp.gabojago.service;
 import com.bitcamp.gabojago.dao.EventDao;
 import com.bitcamp.gabojago.dao.EventItemDao;
 import com.bitcamp.gabojago.vo.event.Event;
+import com.bitcamp.gabojago.vo.event.EventAttachedFile;
 import com.bitcamp.gabojago.vo.event.EventItem;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -40,6 +41,13 @@ public class EventServiceImpl implements EventService {
 
     @Override
     public boolean delete(int no) throws Exception {
+        System.out.println("EventServiceImpl delete : " + no);
+        int deleteFileResult = eventItemDao.deleteFileByEventNo(no);
+        System.out.println("EventServiceImpl delete deleteFileResult : " + deleteFileResult);
+        int deleteItemResult = eventItemDao.deleteItemByEventNo(no);
+        System.out.println("EventServiceImpl delete deleteItemResult : " + deleteItemResult);
+        int deleteJoinResult = eventDao.deleteJoinByEventNo(no);
+        System.out.println("EventServiceImpl delete deleteJoinResult : " + deleteJoinResult);
         return eventDao.deleteByNo(no) > 0;
     }
 
@@ -64,10 +72,14 @@ public class EventServiceImpl implements EventService {
         // 신규 이벤트 아이템 지급 순위 세팅
         eventItem.setRanking(ranking);
         System.out.println("EventServiceImpl_item after :" +eventItem.toString());
-
-        if (eventItemDao.insert(eventItem) == 0) {
-            throw new Exception("게시글 등록 실패!!");
+        int newItemNo = eventItemDao.insert(eventItem);
+        if (newItemNo == 0) {
+            throw new Exception("아이템 등록 실패!!");
         }
+
+        EventAttachedFile eventAttachedFile = eventItem.getEventAttachedFile();
+        eventAttachedFile.setItemNo(newItemNo);
+        eventItemDao.insertEventFile(eventAttachedFile);
     }
 
     @Transactional
