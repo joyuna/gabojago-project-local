@@ -79,7 +79,8 @@
                                     <h3 class="mb-12">
                                         <a href='detail?no=1'
                                            data-th-href="@{detail(no=${qnaBoard.no})}"
-                                           data-th-text="${qnaBoard.title == ''} ? '(제목없음)' : ${qnaBoard.title}">제목</a>
+                                           data-th-text="${qnaBoard.disclosure == true } ? '비공개 게시글 입니다.' : ${qnaBoard.title}">제목</a>
+
                                     </h3>
                                     <div class="meta-wrap">
                                         <p class="meta">
@@ -88,9 +89,8 @@
                                         </p>
                                     </div>
                                     <p class="mb-4">
-                                        <a href='detail?no=1'
-                                           data-th-href="@{detail(no=${qnaBoard.no})}"
-                                           data-th-text="${qnaBoard.answerDate == '' || qnaBoard.answerDate == null} ?'미답변' : '답변완료 | '+${qnaBoard.answerDate}">답변상태</a>
+                                        <div data-th-href="@{detail(no=${qnaBoard.no})}"
+                                             data-th-text="${qnaBoard.answerDate == '' || qnaBoard.answerDate == null} ?'미답변' : '답변완료'">답변상태</div>
                                     </p>
                                     <hr class="my-4">
                                 </div>
