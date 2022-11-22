@@ -22,23 +22,14 @@
             <id column="id" property="id"/>
             <result column="nname" property="nickName"/>
         </association>
-
     </resultMap>
 
-    <select id="myRecommendationList" parameterType="java.util.Map" resultMap="recommendationMap">
+
+    <select id="myRecommendationList" resultMap="recommendationMap">
         select
-        jang_so_recommendation.ID,
-        jang_so_recommendation.TITLE,
-        jang_so_review_file.PATH
-        from
-        jang_so_recommendation
-        join
-        jang_so_review on jang_so_recommendation.RECONO = jang_so_review.RECONO
-        join
-        jang_so_review_file on jang_so_review.PRVNO = jang_so_review_file.PRVNO
-        where
-        ID = #{id}
-        LIMIT 1 OFFSET 0;
+        jang_so_recommendation.*
+        from jang_so_recommendation
+        where jang_so_recommendation.ID = #{id}
     </select>
 
 </mapper>

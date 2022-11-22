@@ -46,4 +46,22 @@ public class NoticeServiceImpl implements NoticeService {
     public List<Notice> noticeList() throws Exception {
         return noticeDao.findAll();
     }
+
+    // 조회수
+    @Override
+    public void addHits(int no) throws Exception {
+        noticeDao.addHits(no);
+    }
+
+    // paging_게시물 총개수
+    @Override
+    public int count() throws Exception {
+        return noticeDao.count();
+    }
+
+    // 게시물 목록 + paging
+    @Override
+    public List<Notice> noticeListPage(int displayPost, int size) throws Exception {
+        return noticeDao.noticeListPage(displayPost, size);
+    }
 }

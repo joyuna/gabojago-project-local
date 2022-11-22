@@ -37,7 +37,7 @@
         <nav id="colorlib-main-menu" role="navigation">
             <ul>
                 <li><a onclick="location.href='list.html'"
-                       th:onclick="|location.href='@{/support/notice/noticeList}'|">Notice</a></li>
+                       th:onclick="|location.href='@{/support/notice/noticeListPage?page=1}'|">Notice</a></li>
                 <li><a onclick="location.href='list.html'"
                        th:onclick="|location.href='@{/support/qna/list}'|">QnA</a></li>
                 <li><a onclick="location.href='list.html'"
@@ -50,7 +50,7 @@
             <div class="container">
                 <div class="slider-text justify-content-center align-items-center">
                     <div class="col-md-11 ftco-animate">
-                        <p class="breadcrumbs"><span class="mr-2"><a href="index.html">Support</a></span>
+                        <p class="breadcrumbs"><span class="mr-2"><a href="/app/support/">Support</a></span>
                             <span>Notice</span></p>
                         <h1 class="bread">Notice 등록</h1>
                     </div>

@@ -17,4 +17,13 @@ public interface NoticeService {
     Notice getEdit(int no) throws Exception;
 
     List<Notice> noticeList() throws Exception;
+
+    // 조회수
+    void addHits(int no) throws Exception;
+
+    // paging_게시물 총개수
+    int count() throws Exception;
+
+    // 게시물 목록 + paging
+    List<Notice> noticeListPage(int displayPost, int size) throws Exception;
 }

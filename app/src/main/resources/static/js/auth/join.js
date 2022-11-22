@@ -99,6 +99,10 @@ passwordConfirm.onkeyup = validatePassword;
         phoneNoCheckBox.innerHTML = "이미 사용중인 번호에요.";
         phoneNoCheckBox.style.color = "red";
         window.cphoneno = 0;
+      } else if (result == "short") {
+        phoneNoCheckBox.innerHTML = "유효하지 않은 번호에요.";
+        phoneNoCheckBox.style.color = "red";
+        window.cphoneno = 0;
       }
     },
   });
@@ -163,6 +167,11 @@ passwordConfirm.onkeyup = validatePassword;
 // 최종 확인
   var doJoin = function () {
   var finalCheck;
+  if ($("input.id").val().length < 4 || $("input.nickName").val().length < 4
+   || $("input.cellphoneNo").val().length < 4 || $("input.email").val().length < 4) {
+    alert("유효한 정보를 입력해주세요.");
+    window.location.reload();
+  }
   if (cid==1 && cnickname==1 && cphoneno==1 && cemail==1) {
     finalCheck = 1;
   } else {
@@ -175,7 +184,7 @@ passwordConfirm.onkeyup = validatePassword;
     data: { finalCheck: finalCheck},
     success: function (result) {
       if(result == "true") {
-        document.getElementById("joinForm").submit();
+        document.getElementById("join_Form").submit();
       } else if (result == "false") {
         alert("올바른 정보를 입력해주세요.");
         window.location.reload();
@@ -183,4 +192,4 @@ passwordConfirm.onkeyup = validatePassword;
     },
   });
 };
-  $(".joinForm").submit(doJoin);
+  $("#submitBtn").click(doJoin);

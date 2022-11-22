@@ -144,13 +144,13 @@
 
 <!--누구랑 갈지 선택-->
 
-<a href='recommendationListForFamily'>가족</a>
+<a class="reco-family" href='recommendationListForFamily'>가족</a>
 <br>
-<a href='recommendationListForFriend'>친구</a>
+<a class="reco-friend" href='recommendationListForFriend'>친구</a>
 <br>
-<a href='recommendationListForCouple'>연인</a>
+<a class="reco-couple" href='recommendationListForCouple'>연인</a>
 <br>
-<a href='recommendationListForAlone'>혼자</a>
+<a class="reco-alone" href='recommendationListForAlone'>혼자</a>
 <br>
 <br>
 <br>
@@ -175,13 +175,12 @@
     <h5>최신순</h5>
 </a>
 <div style="float:right; margin-right: 40px">
-    <a href='recommendationListOrderByRecentAll?page=1'>전체보기</a>
+    <a href='recommendationListOrderByRecentAll'>전체보기</a>
 </div>
 <section class="py-5 " id="section1"  style=" width: 100%;">
     <div class="container  px-4 px-lg-5 mt-5" >
-        <h5 style="color: black;">최신순</h5>
         <div class="row  gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 ">
-            <div class="col mb-5" data-th-each="recommendation : ${recommendationsOrderByRecent}">
+            <div class="col mb-5" data-th-each="recommendation : ${recommendationsOrderByRecentForFriend}">
 
                 <div class="card h-100"
                      style= "background: rgba(0,0,0,0.7); "><!--#FFFFFF50-->
@@ -243,7 +242,7 @@
 
     <div class="container  px-4 px-lg-5 mt-5" >
         <div class="row  gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 ">
-            <div class="col mb-5" data-th-each="recommendation : ${recommendationsOrderByComments}">
+            <div class="col mb-5" data-th-each="recommendation : ${recommendationsOrderByCommentsForFriend}">
 
                 <div class="card h-100"
                      style= "background: rgba(0,0,0,0.7); "><!--#FFFFFF50-->
@@ -304,7 +303,7 @@
 <section class="py-5 " id="section3" style=" width: 100%;">
     <div class="container  px-4 px-lg-5 mt-5" >
         <div class="row  gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 ">
-            <div class="col mb-5" data-th-each="recommendation : ${recommendationsOrderByCnt}">
+            <div class="col mb-5" data-th-each="recommendation : ${recommendationsOrderByCntForFriend}">
 
                 <div class="card h-100"
                      style= "background: rgba(0,0,0,0.7); "><!--#FFFFFF50-->
@@ -361,9 +360,9 @@
 <br>
 <!--<div style="position: absolute; right: 0px; bottom: 0px;">-->
 
-<div style="position: fixed; right: 70px; bottom: 103px;">
+<div style="position: fixed; right: 10px; bottom: 280px;">
     <button type="button" class="btn btn-secondary"
-            id = "go-top" >위로</button></div>
+            id = go-top >위로</button></div>
 
 
 <script>
@@ -395,6 +394,11 @@
 </footer>
 
 <style>
+    .reco-friend {
+        font-weight: bold;
+        font-size: large;
+    }
+
     footer {
         /* footer를 aside위에 올리기 위해 사용(부유객체) */
         position: relative;

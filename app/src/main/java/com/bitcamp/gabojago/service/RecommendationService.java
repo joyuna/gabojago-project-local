@@ -1,9 +1,6 @@
 package com.bitcamp.gabojago.service;
 
-import com.bitcamp.gabojago.vo.JangSoReview;
-import com.bitcamp.gabojago.vo.JangSoReviewAttachedFile;
-import com.bitcamp.gabojago.vo.Member;
-import com.bitcamp.gabojago.vo.Recommendation;
+import com.bitcamp.gabojago.vo.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpSession;
@@ -20,10 +17,31 @@ public interface RecommendationService {
 
   List<JangSoReviewAttachedFile> recommendationAttachedFiles() throws Exception;
 
+  // Origianl
   List<Recommendation> recommendationListOrderByRecent() throws Exception;
   List<Recommendation> recommendationListOrderByComments() throws Exception;
   List<Recommendation> recommendationListOrderByCnt() throws Exception;
+  // Alone
+  List<Recommendation> recommendationListOrderByRecentForAlone() throws Exception;
+  List<Recommendation> recommendationListOrderByCommentsForAlone() throws Exception;
+  List<Recommendation> recommendationListOrderByCntForAlone() throws Exception;
+  // Couple
+  List<Recommendation> recommendationListOrderByRecentForCouple() throws Exception;
+  List<Recommendation> recommendationListOrderByCommentsForCouple() throws Exception;
+  List<Recommendation> recommendationListOrderByCntForCouple() throws Exception;
+  // Family
+  List<Recommendation> recommendationListOrderByRecentForFamily() throws Exception;
+  List<Recommendation> recommendationListOrderByCommentsForFamily() throws Exception;
+  List<Recommendation> recommendationListOrderByCntForFamily() throws Exception;
+  // Friend
+  List<Recommendation> recommendationListOrderByRecentForFriend() throws Exception;
+  List<Recommendation> recommendationListOrderByCommentsForFriend() throws Exception;
+  List<Recommendation> recommendationListOrderByCntForFriend() throws Exception;
 
+  // 전체보기용
+  List<Recommendation> recommendationListOrderByRecentAll() throws Exception;
+  List<Recommendation> recommendationListOrderByCommentsAll() throws Exception;
+  List<Recommendation> recommendationListOrderByCntAll() throws Exception;
 
   // recommendationDetail - 1
   Recommendation getRecommendation(int recono) throws Exception;
@@ -47,4 +65,11 @@ public interface RecommendationService {
   void updateStatus(Member reportedUser) throws Exception;
 
   boolean checkCorrectUser(String id) throws Exception;
+
+  int countRecommendationReport(int recono);
+
+  //paging
+  int getTotal();
+
+  List<Recommendation> recommendationListPage(int displayPost, int postNum) throws Exception;
 }

@@ -36,7 +36,7 @@
         <nav id="colorlib-main-menu" role="navigation">
             <ul>
                 <li><a onclick="location.href='list.html'"
-                       th:onclick="|location.href='@{/support/notice/noticeList}'|">Notice</a></li>
+                       th:onclick="|location.href='@{/support/notice/noticeListPage?page=1}'|">Notice</a></li>
                 <li><a onclick="location.href='list.html'"
                        th:onclick="|location.href='@{/support/qna/list}'|">QnA</a></li>
                 <li><a onclick="location.href='list.html'"
@@ -50,7 +50,7 @@
             <div class="container">
                 <div class="slider-text justify-content-center align-items-center">
                     <div class="col-md-11 ftco-animate">
-                        <p class="breadcrumbs"><span class="mr-2"><a href="index.html">Support</a></span>
+                        <p class="breadcrumbs"><span class="mr-2"><a href="/app/support/">Support</a></span>
                             <span>Notice</span></p>
                         <h1 class="bread">Notice</h1>
                     </div>
@@ -60,7 +60,8 @@
 
         <div class="row">
             <div class="col-md-11 col-md-1 text-right">
-                <button class="btn btn-primary float-end"
+                <button class="btn btn-primary btn-lg" style="background-color: black; border-color: black"
+                        th:if="${session.loginMember} != null and ${session.loginMember.id} == 'admin'"
                         onclick="location.href='noticeForm.html'"
                         th:onclick="|location.href='@{/support/notice/noticeForm}'|"
                         type="button">새 글
@@ -85,6 +86,7 @@
                                         <p class="meta">
                                             <span data-th-text="${notice.createdDate}">2022-1-1</span>
                                         </p>
+                                      <span data-th-text="'조회수  ' + ${notice.hits}">100</span>
                                     </div>
                                     <hr class="my-4">
                                 </div>
@@ -93,20 +95,45 @@
                     </div>
                 </div><!-- END-->
                 <div class="row">
-                    <div class="col-md-12 text-center">
+                    <div class="col-md-12 text-center
+">
                         <div class="block-27">
                             <ul>
-                                <li><a href="#">&lt;</a></li>
-                                <li class="active"><span>1</span></li>
-                                <li><a href="#">2</a></li>
-                                <li><a href="#">3</a></li>
-                                <li><a href="#">4</a></li>
-                                <li><a href="#">5</a></li>
-                                <li><a href="#">&gt;</a></li>
+                        <li class="bt-color"><a th:if="${prev}==true"
+                                 data-th-href="@{noticeListPage(page=${pageStart - 1})}"
+                                 th:text="'<'">1</a></li>
+
+                    <li><th:block class="page-item"
+                        data-th-each="pageNum : ${#numbers.sequence(pageStart, pageEnd)}">
+                        <a data-th-href="@{noticeListPage(page=${pageNum})}"
+                                 th:text="${pageNum}">1</a>
+
+                    </th:block></li>
+
+                        <li><a th:if="${next}==true"
+                                 data-th-href="@{noticeListPage(page=${pageEnd + 1})}"
+                                 th:text="'>'">1</a></li>
                             </ul>
                         </div>
                     </div>
                 </div>
+
+<!--                <div class="row">-->
+<!--                    <div class="col-md-12 text-center">-->
+<!--                        <div class="block-27">-->
+<!--                            <ul>-->
+<!--                                <li><a href="#">&lt;</a></li>-->
+<!--                                <li class="active"><span>1</span></li>-->
+<!--                                <li><a href="#">2</a></li>-->
+<!--                                <li><a href="#">3</a></li>-->
+<!--                                <li><a href="#">4</a></li>-->
+<!--                                <li><a href="#">5</a></li>-->
+<!--                                <li><a href="#">&gt;</a></li>-->
+<!--                            </ul>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                </div>-->
+
             </div>
         </section>
         <footer class="ftco-footer ftco-bg-dark ftco-section">

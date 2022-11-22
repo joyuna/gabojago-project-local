@@ -9,7 +9,7 @@ import java.util.List;
 @Mapper
 public interface MyCommentsDao {
 
-    // 코스추천글 댓글
+    // 코스추천 댓글
     List<JangComment> myRecommendationCommentsList(String id);
 
     // 전시회 댓글

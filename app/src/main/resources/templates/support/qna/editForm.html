@@ -27,8 +27,51 @@
     <link rel="stylesheet" href="../../css/flaticon.css">
     <link rel="stylesheet" href="../../css/icomoon.css">
     <link rel="stylesheet" href="../../css/style.css">
+
+    <link rel="stylesheet" href="../../css/main-base.css"/>
+    <link rel="stylesheet" href="../../css/main.css"/>
+    <link rel="stylesheet" href="../../css/main-modal.css"/>
 </head>
-<body>
+<body class="pt-5">
+<!-- Navigation 사실상의 header -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+    <div class="container">
+        <a class="navbar-brand" href="/app">가보자GO</a>
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+            <ul class="navbar-nav ml-auto">
+
+                <li class="nav-item"><a class="nav-link" href="/app/search/searchForm">검색</a></li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/app/recommendation/recommendationList">코스추천</a>
+                </li>
+                <li class="nav-item"><a class="nav-link" href="/app/exhibition/exhibitionlist">전시회</a></li>
+                <li class="nav-item">
+                    <a class="nav-link active" href="/app/support/">고객지원</a>
+                </li>
+                <li class="nav-item" th:if="${session.loginMember != null}">
+                    <a
+                            class="nav-link"
+                            href="/app/auth/logout"
+                            th:text="${session.loginMember.name}+'(로그아웃)'">홍길동(로그아웃)</a>
+                </li>
+                <li class="nav-item" th:if="${session.loginMember == null}">
+                    <span class="nav-link btn-open-popup">로그인</span>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="/app/myPage/">
+                        <img src="/app/images/mypage.png" width="90%" height="25"
+                        /></a>
+                </li>
+
+                <!--어드민만 보일 수 있음-->
+                <li class="nav-item">
+              <span data-th-if="${session.loginMember} != null and ${session.loginMember.id} == 'admin'">
+              <a class="nav-link" href='/app/member/list'>회원 관리</a></span> </li>
+            </ul>
+        </div>
+    </div>
+</nav>
 
 <div id="colorlib-page">
     <a href="javascript" class="js-colorlib-nav-toggle colorlib-nav-toggle"><i></i></a>
@@ -113,24 +156,64 @@
                 </div>
             </div>
         </section>
-        <footer class="ftco-footer ftco-bg-dark ftco-section">
-            <div class="container px-md-5">
-                <div class="row mb-5">
-                </div>
-                <div class="row">
-                    <div class="col-md-12">
-                        <p><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-                            Copyright &copy;<script>document.write(new Date().getFullYear());</script>
-                            All rights reserved | This template is made with <i class="icon-heart"
-                                                                                aria-hidden="true"></i> by <a
-                                    href="https://colorlib.com" target="_blank">Colorlib</a>
-                            <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. --></p>
-                    </div>
-                </div>
-            </div>
-        </footer>
     </div><!-- END COLORLIB-MAIN -->
 </div><!-- END COLORLIB-PAGE -->
+<!-- Footer-->
+<footer class="py-4 bg-dark">
+    <div class="container">
+        <p class="m-0 text-center text-white">Copyright &copy;가보자GO</p>
+    </div>
+</footer>
+
+<!--로그인 모달 창-->
+<div class="modal">
+    <div class="modal_body" style=" background: rgba(255,255,255,0.8); ">
+        <div class="out" style=" float: right;"><img src = "/app/images/X.png"></div>
+        <!--나가기-->
+        <br>
+        <h2 style=" text-align: center;"> 로그인 </h2>
+
+        <form action="/app/auth/login" method="post" >
+            <p>ID</p>
+            <input name="id" type="text" size="30" placeholder="ID를 입력해주세요." th:value="${id}">
+            <br> <!--공백-->
+            <p>Password</p>
+            <input name="password" type="password" size="20" placeholder="Password를 입력해주세요.">
+            <br>
+            <br> <!--공백-->
+
+            <button class="btn_login" type="submit"
+                    style="background-color: #ffca2c">Login</button>
+            <br> <!--공백-->
+
+            <a href="/app/member/kakaoLoginPage">
+                <img src = "../../images/kakao_login_medium_wide.png" class="btn_login">
+            </a>
+
+
+            <div class="g-signin2" data-onsuccess="onSignIn"></div>
+
+            <script>
+                function signOut() {
+                    var auth2 = gapi.auth2.getAuthInstance();
+                    auth2.signOut().then(function () {
+                        console.log('User signed out.');
+                    });
+                }
+            </script>
+
+            <div class="savecheck">
+                <input id="savecheckbox" type="checkbox" name="saveEmail"><label for="savecheckbox">&nbsp;ID 저장</label>
+                <span><a href="/app/member/findid">ID 찾기</a></span><span> / </span><span><a href="/app/member/findpwd">Password 찾기</a></span>
+            </div>
+        </form>
+
+        <form action="auth/register">
+            <button class="btn_signin" type="submit"
+                    style="background-color: #ffca2c">회원가입</button>
+        </form>
+    </div>
+</div>
 
 <!-- loader -->
 <div id="ftco-loader" class="show fullscreen">
@@ -140,6 +223,37 @@
                 stroke="#F96D00"/>
     </svg>
 </div>
+
+<!--login modal script-->
+<script>
+    const body = document.querySelector("body");
+    const modal = document.querySelector(".modal");
+    const btnOpenPopup = document.querySelector(".btn-open-popup");
+
+    btnOpenPopup.addEventListener("click", () => {
+        modal.classList.toggle("show");
+
+        if (modal.classList.contains("show")) {
+            body.style.overflow = "hidden";
+        }
+    });
+
+    modal.addEventListener("click", (event) => {
+        if (event.target === modal) {
+            modal.classList.toggle("show");
+
+            if (!modal.classList.contains("show")) {
+                body.style.overflow = "auto";
+            }
+        }
+    });
+
+    // 장현경 : 로그인 모달 창 "나가기"
+    $('.out').click(function() {
+        $('.modal').removeClass('show')
+    })
+</script>
+<!--로그인 모달 창 끝-->
 
 <script src="../../js/jquery.min.js"></script>
 <script src="../../js/jquery-migrate-3.0.1.min.js"></script>

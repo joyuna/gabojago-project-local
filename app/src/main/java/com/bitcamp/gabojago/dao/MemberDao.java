@@ -1,6 +1,7 @@
 package com.bitcamp.gabojago.dao;
 
 import com.bitcamp.gabojago.vo.Member;
+import com.bitcamp.gabojago.vo.Report;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
@@ -42,4 +43,9 @@ public interface MemberDao {
   void findpwdupdate(Map<String, String> map);
 
   Member checkCorrectUser(String id);
+
+Report findByIdReport(String id) ;
+List<Report>  findAllReport(String id);
+
+  Member selectKakaoId(long kakaoId);
 }

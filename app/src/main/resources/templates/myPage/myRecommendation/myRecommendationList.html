@@ -33,9 +33,21 @@
 
 
     <style>
-        tr:hover {
-            background-color: black;
-            color: white;
+        #colorlib-aside #colorlib-logo {
+            width: 180px;
+            height: 180px;
+            -webkit-border-radius: 50%;
+            -moz-border-radius: 50%;
+            -ms-border-radius: 50%;
+            border-radius: 50%;
+            margin: 0 auto;
+            margin-bottom: 10px;
+            overflow: hidden;
+        }
+        .profile {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
         }
 
     </style>
@@ -45,14 +57,13 @@
 
 <div id="colorlib-page">
 
-    <a href="#" class="js-colorlib-nav-toggle colorlib-nav-toggle"><i></i></a>
     <aside id="colorlib-aside" role="complementary" class="js-fullheight text-center">
-        <h1 id="colorlib-logo"><span class="img" style="background-image: url(../../images/suzy.jpeg);"></span><div th:text="${nickname}"></div></a></h1>
+        <h1 id="colorlib-logo"><span><img class="profile" th:src="@{/board/files/} + ${profileFig}"/></span></h1>
+        <div><h6 style="color: black; font-weight: bold; font-size: xx-large;" th:text="${nickName}"></h6></div>
         <nav id="colorlib-main-menu" role="navigation">
-            <ul>
-                <li><a th:href="@{../../}">Main</a></li>
-                <li class="colorlib-active"><a th:href="@{/myPage/}">About Me</a></li>
-                <li><a th:href="@{/myPage/myRecommendation/myRecommendationList}">My Recommendation</a></li>
+            <ul class="pt-4 pl-0 pr-0">
+                <li><a th:href="@{/myPage/}">About Me</a></li>
+                <li class="colorlib-active"><a th:href="@{/myPage/myRecommendation/myRecommendationList}">My Recommendation</a></li>
                 <li><a th:href="@{/myPage/myComments/myRecommendationCommentsList}">My Comments</a></li>
                 <li><a href="#">Shopping Bag</a></li>
                 <li><a href="#">My Purchase</a></li>
@@ -68,44 +79,44 @@
         <div class="container pl-1" >
             <div class="slider-text justify-content-center align-items-center">
                 <div class="col-md-11 ftco-animate">
-                    <p class="breadcrumbs"><span class="mr-2">Recommendation</span> <span><a th:href="@{/myPage/myComments/myExhibitionCommentsList}">Exhibition</a></span></p>
+                    <p class="breadcrumbs"><span class="mr-2">Recommendation</span></p>
                     <h1 class="bread">My Recommendation</h1>
                 </div>
             </div>
         </div>
     </section>
-<div class="container" style="max-width: 600px">
-    <div class="py-5 text-center">
-        <h2></h2>
+
+        <section class="ftco-section ">
+            <div class="container">
+                <div class="col-lg-8">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="text text-2">
+                                <div data-th-each="recommendation : ${recommendations}">
+                                    <h5 class="mb-12" >
+                                        <span><a href='recommendationDetail?recono=1' style="color: black"
+                                                 data-th-href="@{../../recommendation/recommendationDetail(recono=${recommendation.recono})}"
+                                                 data-th-text="${recommendation.title}">제목</a></span>
+                                    </h5>
+                                    <div class="meta-wrap">
+                                        <p class="meta">
+                                            <span data-th-text="${recommendation.wdate}">2022-11-3</span>
+                                        </p>
+                                    </div>
+                                    <span><a href='recommendationDetail?recono=1' style="color: black"
+                                             data-th-href="@{../../recommendation/recommendationDetail(recono=${recommendation.recono})}"
+                                             data-th-text="'코스추천글 No.' + ${recommendation.recono} + ' | ' + '조회수  ' + ${recommendation.cnt}">100</a></span>
+
+                                    <hr class="my-4" style="">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div><!-- END-->
+            </div><!-- /container -->
+        </section>
+
     </div>
-
-    <div>
-        <table class="table">
-            <thead>
-            <tr>
-                <th>제목</th>
-<!--                <th>작성일</th>-->
-<!--                <th>코스추천글</th>-->
-            </tr>
-            </thead>
-            <tbody>
-
-            <tr data-th-each="myRecommendation : ${myRecommendations}">
-<!--                <td data-th-text="${myRecommendation.path}">이미지</td>-->
-                <td data-th-text="${myRecommendation.title}">제목</td>
-<!--                <td data-th-text="${jangComment.wdate}">2022-11-03</td>-->
-<!--                <td data-th-text="${jangComment.recono}">100</td>-->
-            </tr>
-
-            </tbody>
-        </table>
-
-        <!-- <p><a href='../'>메인</a></p> -->
-   </div>
-
-</div>  <!-- /container -->
-    </div>
-</div>
 <!-- loader -->
 <div id="ftco-loader" class="show fullscreen"><svg class="circular" width="48px" height="48px"><circle class="path-bg" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke="#eeeeee"/><circle class="path" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke-miterlimit="10" stroke="#F96D00"/></svg></div>
 
@@ -126,5 +137,6 @@
 <script src="../../../app/js/scrollax.min.js"></script>
 <script src="../../../app/js/main.js"></script>
 
+</div>
 </body>
 </html>

@@ -44,6 +44,7 @@ public class AdminCheckFilter implements Filter {
     if (httpServletRequest.getServletPath().startsWith("/member") //회원관리페이지
         && !httpServletRequest.getServletPath().startsWith("/member/findid") // 아이디찾기엔 필터넘어감
         && !httpServletRequest.getServletPath().startsWith("/member/findpwd")// 비밀번호찾기엔 필터넘어감
+        && !httpServletRequest.getServletPath().startsWith("/member/kakaoLogin") // 카카오 로그인 필터넘어감
     ) {
       Member loginMember = (Member) httpServletRequest.getSession().getAttribute("loginMember");
       if (loginMember == null || // 로그인이 안됐거나

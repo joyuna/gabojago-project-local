@@ -36,6 +36,7 @@ public class MailController {
     Member result = memberService.emailCheck(address);
     if (result == null) {
     int certificateNum = new Random().nextInt(88888888) + 11111111;
+    System.out.println("민구 Email Authentication Number: " + certificateNum);
 
     mailDto.setTitle("가보자GO 이메일 인증 번호");
     mailDto.setAddress(address);

@@ -49,7 +49,7 @@ public class AuthController {
 
   private String inputCheck(String inputString, Member result, String filter) throws Exception {
     if (
-        Pattern.matches(filter, inputString) == true &&
+        Pattern.matches(filter, inputString) &&
             inputString.length() >= 4 &&
             inputString.length() <= 12) {
       if (result == null) {
@@ -65,6 +65,9 @@ public class AuthController {
   @ResponseBody
   @GetMapping("phoneNoCheck")
   public String phoneNoCheck(String phoneNo) throws Exception {
+    if (phoneNo.length() < 11) {
+      return "short";
+    }
     Member result = memberService.phoneNoCheck(phoneNo);
     if (result == null) {
       return "true";
@@ -86,12 +89,19 @@ public class AuthController {
 
   @PostMapping("join")
   public String join(String email, String phoneNo, Member member, Model model) throws Exception {
-      if(memberService.join(email, phoneNo, member)) {
-        return "/auth/joinResult";
-    } else {
-        model.addAttribute("checkResult", "false");
-        return "/auth/register";
+    // 가입정보가 제대로된 정보인지 확인
+    if (email.length() < 5 || phoneNo.length() < 5) {
+      return "/auth/register";
     }
+
+    // 가입정보가 중복인지 확인하고 문제없다면 가입처리
+    if(memberService.join(email, phoneNo, member)) {
+      return "/auth/joinResult";
+    }
+
+    // 이 외의 모든 올바르지 않은 가입정보에 대해 가입정보 재입력 강제하기
+    model.addAttribute("checkResult", "false");
+    return "/auth/register";
   }
 
   @GetMapping("loginfail")

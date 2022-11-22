@@ -16,7 +16,7 @@ public class MyCommentsServiceImpl implements MyCommentsService {
         this.myCommentsDao = myCommentsDao;
     }
 
-    // 코스추천글 댓글
+    // 코스추천 댓글
     @Override
     public List<JangComment> myRecommendationCommentsList(String id) throws Exception {
         return myCommentsDao.myRecommendationCommentsList(id);
@@ -27,4 +27,5 @@ public class MyCommentsServiceImpl implements MyCommentsService {
     public List<ExhibitionReview> myExhibitionCommentsList(String id) throws Exception {
         return myCommentsDao.myExhibitionCommentsList(id);
     }
+
 }

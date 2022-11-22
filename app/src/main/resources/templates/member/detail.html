@@ -217,21 +217,20 @@
     </div>
 
 
-<!--
+    <div class="row mb-3 border rounded" style="flex-direction: column">
+      <label for="rsn"style="" class="col-sm-2 col-form-label"> 신고사유 </label>
 
-    <div class="row mb-3 border rounded">
-      <label for="rst" class="col-sm-2 col-form-label"> 신고사유 </label>
-      <div class="col-sm-10">
-        <input  id="rst" name='rst' type='text'
+      <div class="col-sm-10"
+      data-th-each="report : ${reports}">
+
+        <div  id="rsn" name='rsn' type='text'
                 value='신고내용 이사람 욕함 !'
-                data-th-value="${report.rst}"
+                data-th-text="${report!=null? report.rsn:''}"
                 size='100'
-                style=" border: none;"
-                style="word-wrap:break-word">
+                style=" border: none;">
       </div>
     </div>
--->
-
+    </div>
 
     <div class = "container  align-text-center g-3 p-3 "  style="float: right;">
     <button type="submit m-4" class="btn btn-outline-primary"

@@ -7363,7 +7363,8 @@ h1, h2, h3, h4, h5,
       -ms-border-radius: 50%;
       border-radius: 50%;
       margin: 0 auto;
-      margin-bottom: 10px; }
+      margin-bottom: 10px;
+      object-fit: fill;}
     @media (max-width: 991.98px) {
       #colorlib-aside #colorlib-logo {
         margin-bottom: 20px; } }
@@ -7429,6 +7430,12 @@ h1, h2, h3, h4, h5,
           -ms-transform: scaleX(1);
           -o-transform: scaleX(1);
           transform: scaleX(1); }
+
+
+
+
+
+
   #colorlib-aside .colorlib-footer {
     position: absolute;
     bottom: 40px;
@@ -7523,6 +7530,10 @@ h1, h2, h3, h4, h5,
   @media (min-width: 992px) {
     #colorlib-main {
       width: 78%; } }
+
+.bt-color li a:hover {
+  text-decoration: none;
+  background-color: red !important;}
 
 .colorlib-nav-toggle {
   cursor: pointer;
@@ -8197,7 +8208,7 @@ textarea.form-control {
   font-size: 20px; }
 
 .ftco-section {
-  padding: 5em 1.8em;
+  padding: 3.6em 1.8em;
   position: relative; }
   @media (max-width: 991.98px) {
     .ftco-section {

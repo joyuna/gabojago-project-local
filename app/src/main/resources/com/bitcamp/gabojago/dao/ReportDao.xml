@@ -33,4 +33,13 @@
       jang_so_recommendation.id=#{id}
   </select>
 
+  <select id="countRecommendationReport" resultType="int">
+    select
+      count(*)
+    from
+      jang_report
+    where
+      recono=#{recono}
+  </select>
+
 </mapper>

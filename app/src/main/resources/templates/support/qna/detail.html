@@ -123,7 +123,7 @@
                      data-th-text='${qnaBoard.answerContent}' readonly></div>
             </h5>
             <span type="text" name="answerDate"
-                  data-th-text="'답변일 | ' + ${qnaBoard.answerDate}"></span>
+                  data-th-text="${qnaBoard.answerDate == null} ? '' : '답변일 | ' + ${qnaBoard.answerDate}">답변일</span>
             <input type="hidden" name="answerDate"
                    value="2022-11-11"
                    data-th-value="${qnaBoard.answerDate}" readonly>

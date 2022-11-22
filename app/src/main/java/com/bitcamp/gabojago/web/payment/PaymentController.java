@@ -25,12 +25,22 @@ public class PaymentController {
   }
   
   @GetMapping("paymentPage")
-  public String searchResult(Model model, HttpSession session, Integer price) throws Exception {
+  public String paymentPage (Model model, HttpSession session) throws Exception {
     Member member = (Member) session.getAttribute("loginMember");
     
     model.addAttribute("member", member);
-    model.addAttribute("price", price);
     
     return "payment/paymentPage";
+  }
+  
+  @GetMapping("paymentSuccessful")
+  public String paymentSuccessful (Model model, HttpSession session, String paymentType, Integer price) throws Exception {
+    Member member = (Member) session.getAttribute("loginMember");
+    
+    model.addAttribute("member", member);
+    model.addAttribute("paymentType", paymentType);
+    model.addAttribute("price", price);
+    
+    return "payment/paymentSuccessful";
   }
 }

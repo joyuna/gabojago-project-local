@@ -19,8 +19,18 @@
         <result column="SNS" property="snsAddress"/>
         <result column="MBTI" property="mbti"/>
         <result column="STATUS" property="status"/>
+        <result column="KAKAOID" property="kakaoId"/>
+
     </resultMap>
 
+    <resultMap type="report" id="reportMap">
+        <id column="rpno" property="rpno"/>
+        <result column="recono" property="recono"/>
+        <result column="id" property="id"/>
+        <result column="rsn" property="rsn"/>
+        <result column="rst" property="rst"/>
+        <result column="rstdate" property="rstdate"/>
+    </resultMap>
 
 
 
@@ -38,6 +48,7 @@
             jang_member
         where
             ID=#{id} and PWD=sha2(#{password},256)
+            and STATUS = 'A'
     </select>
 
     <select id="findById" resultMap="memberMap">
@@ -76,10 +87,7 @@
             PNUM=#{phoneNo}
     </select>
 
-    <insert id="join" parameterType="Member">
-        insert into jang_member(ID,PWD,NAME,EMAIL,NNAME,PNUM)
-        values(#{id},sha2(#{password},256),#{name},#{email},#{nickName},#{phoneNo})
-    </insert>
+
 
     <update id="updateStatus" parameterType="Member">
         update jang_member set
@@ -109,12 +117,33 @@
     </select>
 
     <select id="findByIdAll" resultMap="memberMap">
+      <!--  select
+        jang_member.*,
+        jr.rsn
+        from
+        jang_member
+        join jang_report jr on jang_member.ID = jr.ID
+        where
+        jang_member.ID =#{id}-->
+
         select
         *
         from
         jang_member
         where
         ID = #{id}
+    </select>
+
+    <select id="findByIdReport" resultMap="reportMap">
+        select *
+        from jang_report
+        where ID =#{id}
+    </select>
+
+    <select id="findAllReport" resultMap="reportMap">
+        select *
+        from jang_report
+        where ID =#{id}
     </select>
 
 
@@ -169,5 +198,8 @@
     </update>
 
 
+    <select id="selectKakaoId" parameterType="long" resultMap="memberMap">
+        SELECT * FROM jang_member WHERE KAKAOID = #{value}
+    </select>
 
 </mapper>

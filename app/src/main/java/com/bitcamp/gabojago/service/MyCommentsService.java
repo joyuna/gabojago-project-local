@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface MyCommentsService {
 
-    // 코스추천글 댓글
+    // 코스추천 댓글
     List<JangComment> myRecommendationCommentsList(String id) throws Exception;
 
     // 전시회 댓글

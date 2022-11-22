@@ -5,7 +5,10 @@
 	<meta charset="utf-8">
 	<link th:href="@{/css/bootstrap.min.css}"
 		  href="../css/bootstrap.min.css" rel="stylesheet">
-	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 
 	<link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700" rel="stylesheet">
 	<link href="https://fonts.googleapis.com/css?family=Montserrat:300,400,500,700" rel="stylesheet">
@@ -31,17 +34,104 @@
 
 	<link rel="stylesheet" href="../css/yuminstyle.css">
 
+	<style>
+		#colorlib-aside #colorlib-logo {
+			width: 180px;
+			height: 180px;
+			-webkit-border-radius: 50%;
+			-moz-border-radius: 50%;
+			-ms-border-radius: 50%;
+			border-radius: 50%;
+			margin: 0 auto;
+			margin-bottom: 10px;
+			overflow: hidden;
+		}
+
+		.profile {
+			width: 100%;
+			height: 100%;
+			object-fit: cover;
+		}
+
+		.big-profile {
+			width: 100%;
+			height: 100%;
+			border-radius: 50%;
+			object-fit: cover;
+		}
+
+	</style>
+
+	<style>
+		footer {
+			/* footer를 aside위에 올리기 위해 사용(부유객체) */
+			position: relative;
+			height: 70px;
+			width: 100%;
+			padding: 0 25px;
+			line-height: 60px;
+			color: white;
+			border-top: 1px solid #dee5e7;
+			background-color: #343A40;
+			margin-top:auto;
+			text-align:center;
+		}
+	</style>
+
 </head>
 <body>
 
+<!--Header-->
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top float-lg-none">
+	<div class="container">
+		<a class="navbar-brand" href="/app">가보자GO</a>
+		<div class="collapse navbar-collapse" id="navbarResponsive">
+			<ul class="navbar-nav ml-auto">
+
+				<li class="nav-item"><a class="nav-link" href="/app/search/searchForm">검색</a></li>
+				<li class="nav-item">
+					<a class="nav-link" href="/app/recommendation/recommendationList">코스추천</a>
+				</li>
+				<li class="nav-item active">
+					<a class="nav-link" href="/app/exhibition/exhibitionlist">전시회
+					</a>
+				</li>
+
+				<li class="nav-item">
+					<a class="nav-link" href="/app/support/">고객지원</a>
+				</li>
+				<li class="nav-item" th:if="${session.loginMember != null}">
+					<a
+							class="nav-link"
+							href="/app/auth/logout"
+							th:text="${session.loginMember.name}+'(로그아웃)'">홍길동(로그아웃)</a>
+				</li>
+				<li class="nav-item" th:if="${session.loginMember == null}">
+					<span class="nav-link btn-open-popup">로그인</span>
+				</li>
+
+				<li class="nav-item">
+					<a class="nav-link" href="/app/myPage/">
+						<span class="sr-only">(current)</span>
+						<img src="../images/mypage.png" width="90%" height="25"
+						/></a>
+				</li>
+				<!--어드민만 보일 수 있음-->
+				<li class="nav-item">
+              <span data-th-if="${session.loginMember} != null and ${session.loginMember.id} == 'admin'">
+              <a class="nav-link" href='/app/member/list'>회원 관리</a></span> </li>
+			</ul>
+		</div>
+	</div>
+</nav>
+
 <div id="colorlib-page">
 
-    <a href="#" class="js-colorlib-nav-toggle colorlib-nav-toggle"><i></i></a>
-	<aside id="colorlib-aside" role="complementary" class="js-fullheight text-center">
-		<h1 id="colorlib-logo"><span class="img" style="background-image: url(../images/suzy.jpeg);"></span><div th:text="${nickname}"></div></a></h1>
+	<aside id="colorlib-aside" role="complementary" class="js-fullheight text-center pt-5">
+		<h1 id="colorlib-logo"><span><img class="profile" th:src="@{/board/files/} + ${profileFig}"/></span></h1>
+		<div><h6 style="color: black; font-weight: bold; font-size: xx-large;" th:text="${nickName}"></h6></div>
 		<nav id="colorlib-main-menu" role="navigation">
-			<ul>
-				<li><a th:href="@{../}">Main</a></li>
+			<ul class="pt-4 pl-0 pr-0">
 				<li class="colorlib-active"><a th:href="@{/myPage/}">About Me</a></li>
 				<li><a th:href="@{/myPage/myRecommendation/myRecommendationList}">My Recommendation</a></li>
 				<li><a th:href="@{/myPage/myComments/myRecommendationCommentsList}">My Comments</a></li>
@@ -51,39 +141,31 @@
 				<li><a th:href="@{/myPage/modify/profileDetail}">My Profile</a></li>
 				<li><a th:href="@{/myPage/modify/myAccountDetail}">My Account</a></li>
 			</ul>
-
-
 		</nav>
-
-
 	</aside> <!-- END COLORLIB-ASIDE -->
-	<div id="colorlib-main">
+
+	  <div id="colorlib-main">
 		<section class="ftco-section-no-padding bg-white">
 			<div class="hero-wrap">
 				<div class="overlay"></div>
 				<div class="d-flex">
 
-					<div class="author-image text img p-md-5" style="background-image: url(../images/suzy.jpeg);">
-
-					</div>
+					<div class="author-image text img pt-0 pl-5 p-md-5"><img class="big-profile" th:src="@{/board/files/} + ${profileFig}"/></div>
 					<div class="author-info text p-4 p-md-5 mt-5 mb-5">
-						<div class="desc">
-							<h1 class="big-letter"><div th:text="${nickname}"></div></h1>
-							<h1 class="mb-4"><span><div th:text="${nickname}"></div></span></h1>
-							<h2 class="mb-4" style="color: grey;"><span><div th:text="${mbti}"></div></span></h2><br><br><br><br>
+						<div class="desc pl-5">
+							<h1 class="big-letter pl-3" ><div th:text="${nickName}"></div></h1>
+							<h1 class="mb-4 pl-3"><span><div th:text="${nickName}"></div></span></h1>
+							<h2 class="mb-4 pl-3" style="color: grey;"><span><div th:text="${mbti}"></div></span></h2><br><br><br>
 							<ul class="ftco-social mt-3">
 
-								<li class="ftco-animate"><a th:href="@{https://www.instagram.com/{snsAddress}(snsAddress=${snsAddress})}"><span class="icon-instagram"></span></a></li>
+								<li class="ftco-animate pl-3"><a th:href="@{https://www.instagram.com/{snsAddress}(snsAddress=${snsAddress})}"><span class="icon-instagram"></span></a></li>
 							</ul>
 						</div>
 					</div>
 				</div>
 			</div>
 		</section>
-
-
-
-</div><!-- END COLORLIB-MAIN -->
+	  </div><!-- END COLORLIB-MAIN -->
 </div><!-- END COLORLIB-PAGE -->
 
 
@@ -106,6 +188,12 @@
 <script src="../js/jquery.timepicker.min.js"></script>
 <script src="../js/scrollax.min.js"></script>
 <script src="../js/main.js"></script>
+
+
+<!--<footer>-->
+<!--	<p>Copyright &copy;가보자GO</p>-->
+<!--</footer>-->
+
 
 </body>
 </html>

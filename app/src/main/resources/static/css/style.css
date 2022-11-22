@@ -5069,6 +5069,14 @@ button.bg-light:hover,
 button.bg-light:focus {
   background-color: #dae0e5 !important; }
 
+.bg-lightgray {
+  background-color: #bbbbbb !important; }
+
+a.bg-lightgray:hover, a.bg-light:focus,
+button.bg-light:hover,
+button.bg-light:focus {
+  background-color: #bbbbbb !important; }
+
 .bg-dark {
   background-color: #343a40 !important; }
 
@@ -6006,6 +6014,10 @@ button.bg-dark:focus {
   .align-self-xl-stretch {
     -ms-flex-item-align: stretch !important;
     align-self: stretch !important; } }
+
+.float-top {
+  float: top !important; }
+
 
 .float-left {
   float: left !important; }
@@ -7408,7 +7420,7 @@ h1, h2, h3, h4, h5,
   right: 0;
   overflow-y: hidden;
   z-index: 1001;
-  background: #ffffff;
+  /*background: #ffffff;*/
   -moz-transition: all 0.5s ease;
   -o-transition: all 0.5s ease;
   -webkit-transition: all 0.5s ease;

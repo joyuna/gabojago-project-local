@@ -353,3 +353,10 @@ $("#ga-files5").on('change',function(){
     }
       $(".ga-upload-namebox").eq(4).val(fileName55);
 });
+
+// enter키로 submit 방지
+$('input[type="text"]').keydown(function() {
+  if (event.keyCode === 13) {
+    event.preventDefault();
+  };
+});

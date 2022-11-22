@@ -9,9 +9,9 @@
 
 
 </head>
+
 <!-- Header-->
 <header class="bg-dark py-4">
-
   <div class="container px-4 px-lg-5 my-5">
     <div class="text-center text-white">
       <h2 class="display-4 fw-bolder">결제</h2>
@@ -19,6 +19,69 @@
     </div>
   </div>
 </header>
+
+<script>
+  let paymentType;
+  
+  // 다음부터 타임리프 #numbers.sequence 사용
+  function showExhibition (){
+    alert(sessionStorage.getItem('resultCount'));
+      for(let i = 0; i<sessionStorage.getItem('resultCount'); i++){
+        alert("showExhibition()");
+
+        let str;
+        let list = JSON.parse(sessionStorage.getItem('exhibition_' + i));
+
+        str += "<div class=" + "shadow-lg w-100 my-5 py-4 px-4 bg-body rounded"  + "style=" + "position: relative;" + ">";
+
+        str += "<h5 style=" + "position: absolute; top: 10px; right: 10px;" + ">";
+        str += "<p id=" + "EXNAME" + "style=" + "word-wrap: break-word" + ">" + list[0].value + "</p></h5>";
+
+        str += "<h5 id=" + "STDATE" + "style=" + "position: absolute; top: 40px; right: 115px" + ">" + list[1].value + "</h5>";
+
+        str += "<h5 id=" + "EDDATE" + "style=" + "position: absolute; top: 40px; right: 10px" + ">"+ list[2].value +"</h5>";
+
+        str += "<h5 id=" + "CNT" + "style=" + "position: absolute; top: 190px; right: 10px" + ">"
+          + list[3].value +
+        "</h5>";
+
+        str += "<span id=" + "PRICE" + "style=" + "position: absolute; top: 220px; right: 10px" + ">"
+          + list[4].value +
+        "</span>";
+
+        str += "<img style=" + "width:200px; height:200px" + "src=" + "https://cdn.pixabay.com/photo/2016/03/27/16/23/woman-1283009__480.jpg" + "alt=" + "..." + "/>";
+
+        str += "</div>";
+
+        console.log(str);
+        document.getElementById('exhibitionForm').innerHTML = str;
+      }
+    }
+
+  function getPayType(payType){
+    paymentType = payType;
+  }
+
+  function doPayment(){
+    if(paymentType == "accountTransfer"){
+      location.replace("http://localhost:9999/app/payment/paymentSuccessful?paymentType=accountTransfer&price=");
+    }
+    else if(paymentType == "depositWithoutBankbook"){
+      location.replace("http://localhost:9999/app/payment/paymentSuccessful?paymentType=depositWithoutBankbook");
+    }
+    else if(paymentType == "kakao"){
+      location.replace("http://localhost:9999/app/payment/paymentSuccessful?paymentType=kakao");
+    }
+    else if(paymentType == "mobilePayment"){
+      location.replace("http://localhost:9999/app/payment/paymentSuccessful?paymentType=mobilePayment");
+    }
+    else{
+      alert("결제 방식을 선택해 주세요.");
+    }
+  }
+
+  showExhibition();
+</script>
 
 
 <!-- Navigation 사실상의 header -->
@@ -74,8 +137,27 @@
 </style>
 
 <body>
+      <div class="colume align-items-center flex-fill mx-5">
 
-  <div class="container w-100">
+       <!-- <table class="table table-bordered">
+        <thead>
+          <tr>
+            <th> 전시회 이름 </th>
+            <th> 전시회 시작일 </th>
+            <th> 전시회 종료일 </th>
+            <th> 티켓 수량 </th>
+            <th> 가격 </th>
+          </tr>
+        </thead>
+        <tbody id="exhibitionList">
+
+        </tbody>
+       </table> -->
+
+    <section id="exhibitionForm">
+
+    </section>
+
     <div class="shadow-lg w-100 my-5 py-4 px-4 bg-body rounded">
       <h4 style="text-align: center; padding-bottom: 30px;"><b>필수 입력 사항</b></h4>
 
@@ -106,31 +188,7 @@
     
     </div>
 
-    <script>
-      let paymentType;
 
-      function getPayType(payType){
-        paymentType = payType;
-      }
-
-      function doPayment(){
-        if(paymentType == "accountTransfer"){
-          alert("계좌");
-        }
-        else if(paymentType == "depositWithoutBankbook"){
-          alert("무통");
-        }
-        else if(paymentType == "kakao"){
-          alert("카카오");
-        }
-        else if(paymentType == "mobilePayment"){
-          alert("휴대폰");
-        }
-        else{
-          alert("결제 방식을 선택해 주세요.");
-        }
-      }
-    </script>
 
     <div class="shadow-lg w-100 my-5 py-4 px-4 bg-body rounded">
       <h4 style="text-align: center; padding-bottom: 30px;"><b>결제 수단</b></h4>

@@ -5,6 +5,8 @@
     <meta charset="utf-8">
     <link th:href="@{/css/bootstrap.min.css}" href="../css/bootstrap.min.css" rel="stylesheet">
 
+    <script src="http://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 
@@ -34,6 +36,26 @@
     <link rel="stylesheet" href="../../../app/css/icomoon.css">
     <link rel="stylesheet" href="../../../app/css/yuminstyle.css">
 
+	  <style>
+		  #colorlib-aside #colorlib-logo {
+			  width: 180px;
+			  height: 180px;
+			  -webkit-border-radius: 50%;
+			  -moz-border-radius: 50%;
+			  -ms-border-radius: 50%;
+			  border-radius: 50%;
+			  margin: 0 auto;
+			  margin-bottom: 10px;
+			  overflow: hidden;
+		  }
+		  .profile {
+			  width: 100%;
+			  height: 100%;
+			  object-fit: cover;
+		  }
+
+	  </style>
+
 
   <script>
 
@@ -49,11 +71,25 @@
 			  data : {'nickName': $('#nickName').val()},
 			  success : function (data) {
 				  if(data == 1) {
-					  alert('사용할 수 없는 닉네임입니다.');
+
+					  swal({
+
+						  title : "사용할 수 없는 닉네임입니다.",
+						  icon : 'warning'
+
+					  });
+
 				  } else if(data == 0) {
 					  $('#nickCheck').attr('value', 'Y');
 					  isNickNameDuplicateCheck = true;
-					  alert('사용 가능한 닉네임입니다.')
+
+					  swal({
+
+						  title : "사용 가능한 닉네임입니다.",
+						  icon : 'success'
+
+					  });
+
 				  }
 			  }
 		  })
@@ -66,7 +102,14 @@
 	  function modifyMemberInfoLogic() {
 		  if (isNickNameChange) {
 			  if (!isNickNameDuplicateCheck) {
-				  alert('닉네임 중복 확인해 주세요.')
+
+				  swal({
+
+					  title : "닉네임 중복 확인해 주세요.",
+					  icon : 'info'
+
+				  });
+
 				  return;
 			  }
 		  }
@@ -86,19 +129,19 @@
   <body>
 
 	<div id="colorlib-page">
-		<a href="#" class="js-colorlib-nav-toggle colorlib-nav-toggle"><i></i></a>
+
 		<aside id="colorlib-aside" role="complementary" class="js-fullheight text-center">
-			<h1 id="colorlib-logo"><span class="img" style="background-image: url(../../images/suzy.jpeg);"></span><div th:text="${nickname}"></div></a></h1>
+			<h1 id="colorlib-logo"><span><img class="profile" th:src="@{/board/files/} + ${member.profileFig}"/></span></h1>
+			<div><h6 style="color: black; font-weight: bold; font-size: xx-large;" th:text="${member.nickName}"></h6></div>
 			<nav id="colorlib-main-menu" role="navigation">
-				<ul class="p-0">
-					<li><a th:href="@{../../}">Main</a></li>
+				<ul class="pt-4 pl-0 pr-0">
 					<li><a th:href="@{/myPage/}">About Me</a></li>
-					<li><a href="#">My Recommendation</a></li>
-					<li><a href="#">My Comment</a></li>
+					<li><a th:href="@{/myPage/myRecommendation/myRecommendationList}">My Recommendation</a></li>
+					<li><a th:href="@{/myPage/myComments/myRecommendationCommentsList}">My Comments</a></li>
 					<li><a href="#">Shopping Bag</a></li>
 					<li><a href="#">My Purchase</a></li>
 					<br>
-					<li class="colorlib-active"><a th:href="@{/myPage/modify/contact}">My Profile</a></li>
+					<li class="colorlib-active"><a th:href="@{/myPage/modify/profileDetail}">My Profile</a></li>
 					<li><a th:href="@{/myPage/modify/myAccountDetail}">My Account</a></li>
 				</ul>
 			</nav>
@@ -115,13 +158,13 @@
 	        </div>
 				</div>
 			</section>
-			<section class="ftco-section contact-section p-0">
+			<section class="ftco-section contact-section pl-4 pr-5 pb-5 pt-4">
 
 				<div class="row block-9">
 				<div class="col-md-9 d-flex">
 
 
-	            <form action='profileUpdate' method="post" enctype="multipart/form-data" id="profileModifyForm" class="bg-white pl-5 pr-5 pb-5 pt-0 contact-form">
+	            <form action='profileUpdate' method="post" enctype="multipart/form-data" id="profileModifyForm" class="bg-white pl-4 pr-5 pb-5 pt-0 contact-form">
 
 	              <div class="form-group">
 				    <label>NICKNAME</label>

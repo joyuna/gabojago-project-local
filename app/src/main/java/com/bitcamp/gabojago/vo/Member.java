@@ -20,6 +20,8 @@ public class Member implements Serializable {
   private String status;
   private Date outDate;
 
+  private long kakaoId;
+
   @Override
   public String toString() {
     return "Member{" +
@@ -37,7 +39,16 @@ public class Member implements Serializable {
         ", mbti='" + mbti + '\'' +
         ", status='" + status + '\'' +
         ", outDate=" + outDate +
+        ", kakaoId=" + kakaoId +
         '}';
+  }
+
+  public long getKakaoId() {
+    return kakaoId;
+  }
+
+  public void setKakaoId(long kakaoId) {
+    this.kakaoId = kakaoId;
   }
 
   public String getId() {

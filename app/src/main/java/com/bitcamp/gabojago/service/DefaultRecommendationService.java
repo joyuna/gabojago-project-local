@@ -3,11 +3,10 @@ package com.bitcamp.gabojago.service;
 import com.bitcamp.gabojago.dao.MemberDao;
 import com.bitcamp.gabojago.dao.RecommendationDao;
 import com.bitcamp.gabojago.dao.ReportDao;
-import com.bitcamp.gabojago.vo.JangSoReview;
-import com.bitcamp.gabojago.vo.JangSoReviewAttachedFile;
-import com.bitcamp.gabojago.vo.Member;
-import com.bitcamp.gabojago.vo.Recommendation;
-import com.bitcamp.gabojago.vo.Report;
+import com.bitcamp.gabojago.vo.*;
+
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -75,6 +74,7 @@ public class DefaultRecommendationService implements RecommendationService  {
     return recommendationDao.recommendationAttachedFiles();
   }
 
+  // Original
   @Override
   public List<Recommendation> recommendationListOrderByRecent() throws Exception {
     return recommendationDao.recommendationListOrderByRecent();
@@ -87,6 +87,75 @@ public class DefaultRecommendationService implements RecommendationService  {
   public List<Recommendation> recommendationListOrderByCnt() throws Exception{
     return recommendationDao.recommendationListOrderByCnt();
   }
+
+  // Alone
+  @Override
+  public List<Recommendation> recommendationListOrderByRecentForAlone() throws Exception {
+    return recommendationDao.recommendationListOrderByRecentForAlone();
+  }
+  @Override
+  public List<Recommendation> recommendationListOrderByCommentsForAlone() throws Exception{
+    return recommendationDao.recommendationListOrderByCommentsForAlone();
+  }
+  @Override
+  public List<Recommendation> recommendationListOrderByCntForAlone() throws Exception{
+    return recommendationDao.recommendationListOrderByCntForAlone();
+  }
+
+
+  // Couple
+  @Override
+  public List<Recommendation> recommendationListOrderByRecentForCouple() throws Exception {
+    return recommendationDao.recommendationListOrderByRecentForCouple();
+  }
+  @Override
+  public List<Recommendation> recommendationListOrderByCommentsForCouple() throws Exception{
+    return recommendationDao.recommendationListOrderByCommentsForCouple();
+  }
+  @Override
+  public List<Recommendation> recommendationListOrderByCntForCouple() throws Exception{
+    return recommendationDao.recommendationListOrderByCntForCouple();
+  }
+
+  // Family
+  @Override
+  public List<Recommendation> recommendationListOrderByRecentForFamily() throws Exception {
+    return recommendationDao.recommendationListOrderByRecentForFamily();
+  }
+  @Override
+  public List<Recommendation> recommendationListOrderByCommentsForFamily() throws Exception{
+    return recommendationDao.recommendationListOrderByCommentsForFamily();
+  }
+  @Override
+  public List<Recommendation> recommendationListOrderByCntForFamily() throws Exception{
+    return recommendationDao.recommendationListOrderByCntForFamily();
+  }
+
+  // Friend
+  @Override
+  public List<Recommendation> recommendationListOrderByRecentForFriend() throws Exception {
+    return recommendationDao.recommendationListOrderByRecentForFriend();
+  }
+  @Override
+  public List<Recommendation> recommendationListOrderByCommentsForFriend() throws Exception{
+    return recommendationDao.recommendationListOrderByCommentsForFriend();
+  }
+  @Override
+  public List<Recommendation> recommendationListOrderByCntForFriend() throws Exception{
+    return recommendationDao.recommendationListOrderByCntForFriend();
+  }
+
+  // 전체보기용
+  public List<Recommendation> recommendationListOrderByRecentAll() throws Exception {
+    return recommendationDao.recommendationListOrderByRecentAll();
+  }
+  public List<Recommendation> recommendationListOrderByCommentsAll() throws Exception {
+    return recommendationDao.recommendationListOrderByCommentsAll();
+  }
+  public List<Recommendation> recommendationListOrderByCntAll() throws Exception {
+    return recommendationDao.recommendationListOrderByCntAll();
+  }
+
 
   // recommendationDetail - 1
   @Override
@@ -183,9 +252,25 @@ public class DefaultRecommendationService implements RecommendationService  {
     }
   }
 
+  // 이미 신고를 5회 받은 게시글은 신고할 수 없다.
+  @Override
+  public int countRecommendationReport(int recono) {
+    return reportDao.countRecommendationReport(recono);
+  }
+
   @Override
   public boolean checkCorrectUser(String id) throws Exception {
     return (memberDao.checkCorrectUser(id) == null);
+  }
+
+  @Override
+  public int getTotal() {
+    return recommendationDao.getTotal();
+  }
+
+  @Override
+  public List<Recommendation> recommendationListPage(int displayPost, int size) throws Exception{
+    return recommendationDao.recommendationListPage(displayPost, size);
   }
 
 }

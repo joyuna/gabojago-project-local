@@ -1,10 +1,8 @@
 package com.bitcamp.gabojago.dao;
 
-import com.bitcamp.gabojago.vo.JangSoReview;
-import com.bitcamp.gabojago.vo.JangSoReviewAttachedFile;
-import com.bitcamp.gabojago.vo.Recommendation;
-import com.bitcamp.gabojago.vo.Report;
+import com.bitcamp.gabojago.vo.*;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -29,6 +27,31 @@ public interface RecommendationDao {
   List<Recommendation> recommendationListOrderByComments();
   List<Recommendation> recommendationListOrderByCnt();
 
+  // 혼자
+  List<Recommendation> recommendationListOrderByRecentForAlone();
+  List<Recommendation> recommendationListOrderByCommentsForAlone();
+  List<Recommendation> recommendationListOrderByCntForAlone();
+
+  // 커플
+  List<Recommendation> recommendationListOrderByRecentForCouple();
+  List<Recommendation> recommendationListOrderByCommentsForCouple();
+  List<Recommendation> recommendationListOrderByCntForCouple();
+
+  // 가족
+  List<Recommendation> recommendationListOrderByRecentForFamily();
+  List<Recommendation> recommendationListOrderByCommentsForFamily();
+  List<Recommendation> recommendationListOrderByCntForFamily();
+
+  // 친구
+  List<Recommendation> recommendationListOrderByRecentForFriend();
+  List<Recommendation> recommendationListOrderByCommentsForFriend();
+  List<Recommendation> recommendationListOrderByCntForFriend();
+
+  // 전체보기용
+  List<Recommendation> recommendationListOrderByRecentAll();
+  List<Recommendation> recommendationListOrderByCommentsAll();
+  List<Recommendation> recommendationListOrderByCntAll();
+
   // recommendationDetail - 1
   Recommendation getRecommendation(int recono);
 
@@ -49,5 +72,10 @@ public interface RecommendationDao {
 
   // comment Insert
   int setCntRecommendation(int recono);
+
+  int getTotal();
+
+  /* 게시판 목록(페이징 적용) */
+  List<Recommendation> recommendationListPage(@Param("displayPost") int displayPost, @Param("size") int size);
 
 }

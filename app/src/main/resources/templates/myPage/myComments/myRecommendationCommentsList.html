@@ -1,7 +1,7 @@
 <!DOCTYPE HTML>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
 <head>
-    <title>noticeList</title>
+    <title>myRecommendationComments</title>
     <meta charset="utf-8">
     <link th:href="@{/css/bootstrap.min.css}"
             href="../css/bootstrap.min.css" rel="stylesheet">
@@ -30,30 +30,39 @@
     <link rel="stylesheet" href="../../../app/css/flaticon.css">
     <link rel="stylesheet" href="../../../app/css/icomoon.css">
     <link rel="stylesheet" href="../../../app/css/yuminstyle.css">
-
-
-    <style>
-        tr:hover {
-            background-color: black;
-            color: white;
-        }
-
-    </style>
 </head>
+
+<style>
+    #colorlib-aside #colorlib-logo {
+        width: 180px;
+        height: 180px;
+        -webkit-border-radius: 50%;
+        -moz-border-radius: 50%;
+        -ms-border-radius: 50%;
+        border-radius: 50%;
+        margin: 0 auto;
+        margin-bottom: 10px;
+        overflow: hidden;
+    }
+    .profile {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+
+</style>
 
 <body>
 
 <div id="colorlib-page">
-
-    <a href="#" class="js-colorlib-nav-toggle colorlib-nav-toggle"><i></i></a>
     <aside id="colorlib-aside" role="complementary" class="js-fullheight text-center">
-        <h1 id="colorlib-logo"><span class="img" style="background-image: url(../../images/suzy.jpeg);"></span><div th:text="${nickname}"></div></a></h1>
+        <h1 id="colorlib-logo"><span><img class="profile" th:src="@{/board/files/} + ${profileFig}"/></span></h1>
+        <div><h6 style="color: black; font-weight: bold; font-size: xx-large;" th:text="${nickName}"></h6></div>
         <nav id="colorlib-main-menu" role="navigation">
-            <ul>
-                <li><a th:href="@{../../}">Main</a></li>
-                <li class="colorlib-active"><a th:href="@{/myPage/}">About Me</a></li>
+            <ul class="pt-4 pl-0 pr-0">
+                <li><a th:href="@{/myPage/}">About Me</a></li>
                 <li><a th:href="@{/myPage/myRecommendation/myRecommendationList}">My Recommendation</a></li>
-                <li><a th:href="@{/myPage/myComments/myRecommendationCommentsList}">My Comments</a></li>
+                <li class="colorlib-active"><a th:href="@{/myPage/myComments/myRecommendationCommentsList}">My Comments</a></li>
                 <li><a href="#">Shopping Bag</a></li>
                 <li><a href="#">My Purchase</a></li>
                 <br>
@@ -62,52 +71,49 @@
             </ul>
         </nav>
     </aside> <!-- END COLORLIB-ASIDE -->
+
     <div id="colorlib-main">
-
-    <section class="ftco-section ftco-bread">
+      <section class="ftco-section ftco-bread">
         <div class="container pl-1" >
-            <div class="slider-text justify-content-center align-items-center">
-                <div class="col-md-11 ftco-animate">
-                    <p class="breadcrumbs"><span class="mr-2">Recommendation</span> <span><a th:href="@{/myPage/myComments/myExhibitionCommentsList}">Exhibition</a></span></p>
-                    <h1 class="bread">My Recommendation Comments</h1>
-                </div>
+          <div class="slider-text justify-content-center align-items-center">
+            <div class="col-md-11 ftco-animate">
+                <p class="breadcrumbs"><span class="mr-2">Recommendation</span> <span><a th:href="@{/myPage/myComments/myExhibitionCommentsList}">Exhibition</a></span></p>
+                <h1 class="bread">My Recommendation Comments</h1>
             </div>
+          </div>
         </div>
-    </section>
-<div class="container" style="max-width: 600px">
-    <div class="py-5 text-center">
-        <h2></h2>
+      </section>
+
+        <section class="ftco-section pl-4 pr-5 pb-5 pt-4">
+            <div class="container">
+                <div class="col-lg-8">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="text text-2">
+                                <div data-th-each="jangComment : ${jangComments}">
+                                    <h5 class="mb-12" >
+                                        <span><a href='recommendationDetail?recono=1' style="color: black"
+                                                 data-th-href="@{../../recommendation/recommendationDetail(recono=${jangComment.recono})}"
+                                                 data-th-text="${jangComment.cont}">내용</a></span>
+                                    </h5>
+                                    <div class="meta-wrap">
+                                        <p class="meta">
+                                            <span data-th-text="${jangComment.wdate}">2022-11-3</span>
+                                        </p>
+                                    </div>
+                                    <span><a href='recommendationDetail?recono=1' style="color: black"
+                                             data-th-href="@{../../recommendation/recommendationDetail(recono=${jangComment.recono})}"
+                                             data-th-text="'코스추천글 No.' + ${jangComment.recono}">100</a></span>
+                                    <hr class="my-4" style="">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div><!-- END-->
+
+            </div><!-- /container -->
+        </section>
     </div>
-
-    <div>
-        <table class="table">
-            <thead>
-            <tr>
-                <th>내용</th>
-                <th>작성일</th>
-                <th>코스추천글</th>
-            </tr>
-            </thead>
-            <tbody>
-
-            <tr data-th-each="jangComment : ${jangComments}">
-                <td data-th-text="${jangComment.cont}">내용</td>
-                <td data-th-text="${jangComment.wdate}">2022-11-03</td>
-                <td><a href='recommendationDetail?recono=1'
-                    data-th-href="@{../../recommendation/recommendationDetail(recono=${jangComment.recono})}"
-                    data-th-text="${jangComment.recono}">100</a></td>
-            </tr>
-
-            </tbody>
-        </table>
-
-        <!-- <p><a href='../'>메인</a></p> -->
-   </div>
-
-</div>  <!-- /container -->
-    </div>
-</div>
-
 <!-- loader -->
 <div id="ftco-loader" class="show fullscreen"><svg class="circular" width="48px" height="48px"><circle class="path-bg" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke="#eeeeee"/><circle class="path" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke-miterlimit="10" stroke="#F96D00"/></svg></div>
 
@@ -128,5 +134,6 @@
 <script src="../../../app/js/scrollax.min.js"></script>
 <script src="../../../app/js/main.js"></script>
 
+</div>
 </body>
 </html>

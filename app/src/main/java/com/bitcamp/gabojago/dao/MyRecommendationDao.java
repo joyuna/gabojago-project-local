@@ -1,7 +1,7 @@
 package com.bitcamp.gabojago.dao;
 
 
-import com.bitcamp.gabojago.vo.MyRecommendation;
+import com.bitcamp.gabojago.vo.Recommendation;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
@@ -9,7 +9,7 @@ import java.util.List;
 @Mapper
 public interface MyRecommendationDao {
 
-    List<MyRecommendation> myRecommendationList(String id);
+    List<Recommendation> myRecommendationList(String id);
 
 
 }
