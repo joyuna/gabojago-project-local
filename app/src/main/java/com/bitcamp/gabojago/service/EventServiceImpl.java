@@ -78,7 +78,7 @@ public class EventServiceImpl implements EventService {
         }
 
         EventAttachedFile eventAttachedFile = eventItem.getEventAttachedFile();
-        eventAttachedFile.setItemNo(newItemNo);
+        eventAttachedFile.setItemNo(eventItem.getItemNo());
         eventItemDao.insertEventFile(eventAttachedFile);
     }
 

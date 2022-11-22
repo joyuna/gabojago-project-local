@@ -7,6 +7,10 @@ public class EventAttachedFile {
     private String fileName;
     private Integer itemNo;
 
+    public EventAttachedFile() {
+
+    }
+
     public EventAttachedFile(String filePath) {
         this.filePath = filePath;
     }

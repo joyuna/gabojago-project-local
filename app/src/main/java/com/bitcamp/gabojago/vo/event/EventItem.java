@@ -1,5 +1,7 @@
 package com.bitcamp.gabojago.vo.event;
 
+import java.util.List;
+
 public class EventItem {
 
     private Integer itemNo;
@@ -7,6 +9,8 @@ public class EventItem {
     private Integer stock;
     private Integer eventNo;
     private Integer ranking;
+
+    private EventAttachedFile eventAttachedFile;
 
     @Override
     public String toString() {
@@ -16,9 +20,9 @@ public class EventItem {
                 ", stock=" + stock +
                 ", eventNo=" + eventNo +
                 ", ranking=" + ranking +
+                ", eventAttachedFile=" + eventAttachedFile +
                 '}';
     }
-
     public Integer getItemNo() {
         return itemNo;
     }
@@ -57,5 +61,13 @@ public class EventItem {
 
     public void setRanking(Integer ranking) {
         this.ranking = ranking;
+    }
+
+    public EventAttachedFile getEventAttachedFile() {
+        return eventAttachedFile;
+    }
+
+    public void setEventAttachedFile(EventAttachedFile eventAttachedFile) {
+        this.eventAttachedFile = eventAttachedFile;
     }
 }
