@@ -80,11 +80,11 @@
         <nav id="colorlib-main-menu" role="navigation">
             <ul>
                 <li><a onclick="location.href='list.html'"
-                       th:onclick="|location.href='@{/support/notice/noticeList}'|">Notice</a></li>
+                       th:onclick="|location.href='@{/support/notice/noticeListPage?page=1}'|">Notice</a></li>
                 <li><a onclick="location.href='list.html'"
-                       th:onclick="|location.href='@{/support/qna/list}'|">QnA</a></li>
+                       th:onclick="|location.href='@{/support/qna/list?page=1}'|">QnA</a></li>
                 <li><a onclick="location.href='list.html'"
-                       th:onclick="|location.href='@{/support/event/list}'|">Event</a></li>
+                       th:onclick="|location.href='@{/support/event/list?page=1}'|">Event</a></li>
             </ul>
         </nav>
     </aside> <!-- END COLORLIB-ASIDE -->
@@ -93,7 +93,7 @@
             <div class="container">
                 <div class="slider-text justify-content-center align-items-center">
                     <div class="col-md-11 ftco-animate">
-                        <p class="breadcrumbs"><span class="mr-2"><a href="index.html">Support</a></span>
+                        <p class="breadcrumbs"><span class="mr-2"><a href="/app/support/">Support</a></span>
                             <span>Event</span></p>
                         <h1 class="bread">Event 수정</h1>
                     </div>

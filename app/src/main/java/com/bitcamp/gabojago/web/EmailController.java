@@ -8,13 +8,12 @@ import com.bitcamp.gabojago.service.EmailService;
 import com.bitcamp.gabojago.vo.event.EmailMessage;
 import lombok.RequiredArgsConstructor;
 
-@RestController
+//@RestController
 @RequiredArgsConstructor
 public class EmailController {
 
     private final EmailService emailService;
-
-
+    
     @GetMapping("/send-mail")
     public ResponseEntity sendMail() {
         System.out.println("sendMail Controller");

@@ -67,7 +67,7 @@
                 <!--어드민만 보일 수 있음-->
                 <li class="nav-item">
               <span data-th-if="${session.loginMember} != null and ${session.loginMember.id} == 'admin'">
-              <a class="nav-link" href='/app/member/list'>회원 관리</a></span> </li>
+              <a class="nav-link" href='/app/member/list'>회원 관리</a></span></li>
             </ul>
         </div>
     </div>
@@ -80,11 +80,11 @@
         <nav id="colorlib-main-menu" role="navigation">
             <ul>
                 <li><a onclick="location.href='list.html'"
-                       th:onclick="|location.href='@{/support/notice/noticeList}'|">Notice</a></li>
+                       th:onclick="|location.href='@{/support/notice/noticeListPage?page=1}'|">Notice</a></li>
                 <li><a onclick="location.href='list.html'"
-                       th:onclick="|location.href='@{/support/qna/list}'|">QnA</a></li>
+                       th:onclick="|location.href='@{/support/qna/list?page=1}'|">QnA</a></li>
                 <li><a onclick="location.href='list.html'"
-                       th:onclick="|location.href='@{/support/event/list}'|">Event</a></li>
+                       th:onclick="|location.href='@{/support/event/list?page=1}'|">Event</a></li>
             </ul>
         </nav>
     </aside> <!-- END COLORLIB-ASIDE -->
@@ -93,7 +93,7 @@
             <div class="container">
                 <div class="slider-text justify-content-center align-items-center">
                     <div class="col-md-11 ftco-animate">
-                        <p class="breadcrumbs"><span class="mr-2"><a href="index.html">Support</a></span>
+                        <p class="breadcrumbs"><span class="mr-2"><a href="/app/support">Support</a></span>
                             <span>QnA</span></p>
                         <h1 class="bread">QnA 등록</h1>
                     </div>
@@ -133,7 +133,7 @@
                                 <span class="col">
                                     <button class="btn btn-secondary py-3 px-5"
                                             onclick="location.href='list.html'"
-                                            th:onclick="|location.href='@{/support/qna/list}'|"
+                                            th:onclick="|location.href='@{/support/qna/list?page=1}'|"
                                             type="button">취소</button>
                                 </span>
                             </div>
@@ -155,12 +155,12 @@
 <!--로그인 모달 창-->
 <div class="modal">
     <div class="modal_body" style=" background: rgba(255,255,255,0.8); ">
-        <div class="out" style=" float: right;"><img src = "/app/images/X.png"></div>
+        <div class="out" style=" float: right;"><img src="/app/images/X.png"></div>
         <!--나가기-->
         <br>
         <h2 style=" text-align: center;"> 로그인 </h2>
 
-        <form action="/app/auth/login" method="post" >
+        <form action="/app/auth/login" method="post">
             <p>ID</p>
             <input name="id" type="text" size="30" placeholder="ID를 입력해주세요." th:value="${id}">
             <br> <!--공백-->
@@ -170,11 +170,12 @@
             <br> <!--공백-->
 
             <button class="btn_login" type="submit"
-                    style="background-color: #ffca2c">Login</button>
+                    style="background-color: #ffca2c">Login
+            </button>
             <br> <!--공백-->
 
             <a href="/app/member/kakaoLoginPage">
-                <img src = "../../images/kakao_login_medium_wide.png" class="btn_login">
+                <img src="../../images/kakao_login_medium_wide.png" class="btn_login">
             </a>
 
 
@@ -197,7 +198,8 @@
 
         <form action="auth/register">
             <button class="btn_signin" type="submit"
-                    style="background-color: #ffca2c">회원가입</button>
+                    style="background-color: #ffca2c">회원가입
+            </button>
         </form>
     </div>
 </div>
@@ -236,7 +238,7 @@
     });
 
     // 장현경 : 로그인 모달 창 "나가기"
-    $('.out').click(function() {
+    $('.out').click(function () {
         $('.modal').removeClass('show')
     })
 </script>

@@ -80,6 +80,7 @@
             STDATE,
             EDDATE,
             EVCODE,
+            PBL,
             VCNT
         from jang_event
         order by EVTNO desc

@@ -67,7 +67,7 @@
                 <!--어드민만 보일 수 있음-->
                 <li class="nav-item">
               <span data-th-if="${session.loginMember} != null and ${session.loginMember.id} == 'admin'">
-              <a class="nav-link" href='/app/member/list'>회원 관리</a></span> </li>
+              <a class="nav-link" href='/app/member/list'>회원 관리</a></span></li>
             </ul>
         </div>
     </div>
@@ -79,11 +79,11 @@
         <nav id="colorlib-main-menu" role="navigation">
             <ul>
                 <li><a onclick="location.href='list.html'"
-                       th:onclick="|location.href='@{/support/notice/noticeList}'|">Notice</a></li>
+                       th:onclick="|location.href='@{/support/notice/noticeListPage?page=1}'|">Notice</a></li>
                 <li><a onclick="location.href='list.html'"
-                       th:onclick="|location.href='@{/support/qna/list}'|">QnA</a></li>
+                       th:onclick="|location.href='@{/support/qna/list?page=1}'|">QnA</a></li>
                 <li><a onclick="location.href='list.html'"
-                       th:onclick="|location.href='@{/support/event/list}'|">Event</a></li>
+                       th:onclick="|location.href='@{/support/event/list?page=1}'|">Event</a></li>
             </ul>
         </nav>
     </aside> <!-- END COLORLIB-ASIDE -->
@@ -93,7 +93,7 @@
             <div class="container">
                 <div class="slider-text justify-content-center align-items-center">
                     <div class="col-md-11 ftco-animate">
-                        <p class="breadcrumbs"><span class="mr-2"><a href="index.html">Support</a></span>
+                        <p class="breadcrumbs"><span class="mr-2"><a href="/app/support/">Support</a></span>
                             <span>QnA</span></p>
                         <h1 class="bread">QnA</h1>
                     </div>
@@ -132,8 +132,10 @@
                                         </p>
                                     </div>
                                     <p class="mb-4">
-                                        <div data-th-href="@{detail(no=${qnaBoard.no})}"
-                                             data-th-text="${qnaBoard.answerDate == '' || qnaBoard.answerDate == null} ?'미답변' : '답변완료'">답변상태</div>
+                                    <div data-th-href="@{detail(no=${qnaBoard.no})}"
+                                         data-th-text="${qnaBoard.answerDate == '' || qnaBoard.answerDate == null} ?'미답변' : '답변완료'">
+                                        답변상태
+                                    </div>
                                     </p>
                                     <hr class="my-4">
                                 </div>
@@ -149,12 +151,14 @@
                                                         data-th-href="@{list(page=${pageStart - 1})}"
                                                         th:text="'<'">1</a></li>
 
-                                <li><th:block class="page-item"
+                                <li>
+                                    <th:block class="page-item"
                                               data-th-each="pageNum : ${#numbers.sequence(pageStart, pageEnd)}">
-                                    <a data-th-href="@{list(page=${pageNum})}"
-                                       th:text="${pageNum}">1</a>
+                                        <a data-th-href="@{list(page=${pageNum})}"
+                                           th:text="${pageNum}">1</a>
 
-                                </th:block></li>
+                                    </th:block>
+                                </li>
 
                                 <li><a th:if="${next}==true"
                                        data-th-href="@{list(page=${pageEnd + 1})}"
@@ -178,12 +182,12 @@
 <!--로그인 모달 창-->
 <div class="modal">
     <div class="modal_body" style=" background: rgba(255,255,255,0.8); ">
-        <div class="out" style=" float: right;"><img src = "/app/images/X.png"></div>
+        <div class="out" style=" float: right;"><img src="/app/images/X.png"></div>
         <!--나가기-->
         <br>
         <h2 style=" text-align: center;"> 로그인 </h2>
 
-        <form action="/app/auth/login" method="post" >
+        <form action="/app/auth/login" method="post">
             <p>ID</p>
             <input name="id" type="text" size="30" placeholder="ID를 입력해주세요." th:value="${id}">
             <br> <!--공백-->
@@ -193,11 +197,12 @@
             <br> <!--공백-->
 
             <button class="btn_login" type="submit"
-                    style="background-color: #ffca2c">Login</button>
+                    style="background-color: #ffca2c">Login
+            </button>
             <br> <!--공백-->
 
             <a href="/app/member/kakaoLoginPage">
-                <img src = "../../images/kakao_login_medium_wide.png" class="btn_login">
+                <img src="../../images/kakao_login_medium_wide.png" class="btn_login">
             </a>
 
 
@@ -220,7 +225,8 @@
 
         <form action="auth/register">
             <button class="btn_signin" type="submit"
-                    style="background-color: #ffca2c">회원가입</button>
+                    style="background-color: #ffca2c">회원가입
+            </button>
         </form>
     </div>
 </div>
@@ -259,7 +265,7 @@
     });
 
     // 장현경 : 로그인 모달 창 "나가기"
-    $('.out').click(function() {
+    $('.out').click(function () {
         $('.modal').removeClass('show')
     })
 </script>

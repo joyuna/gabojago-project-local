@@ -81,7 +81,7 @@
                 <li><a onclick="location.href='list.html'"
                        th:onclick="|location.href='@{/support/notice/noticeListPage?page=1}'|">Notice</a></li>
                 <li><a onclick="location.href='list.html'"
-                       th:onclick="|location.href='@{/support/qna/list}'|">QnA</a></li>
+                       th:onclick="|location.href='@{/support/qna/list?page=1}'|">QnA</a></li>
                 <li><a onclick="location.href='list.html'"
                        th:onclick="|location.href='@{/support/event/list?page=1}'|">Event</a></li>
             </ul>
@@ -93,7 +93,7 @@
             <div class="container">
                 <div class="slider-text justify-content-center align-items-center">
                     <div class="col-md-11 ftco-animate">
-                        <p class="breadcrumbs"><span class="mr-2"><a href="index.html">Support</a></span>
+                        <p class="breadcrumbs"><span class="mr-2"><a href="/app/support/">Support</a></span>
                             <span>Event</span></p>
                         <h1 class="bread">Event</h1>
                     </div>
@@ -118,22 +118,25 @@
                         <div class="col-md-12">
                             <div class="text text-2">
                                 <div data-th-each="event : ${events}">
-                                    <span data-th-text="'No. '+${event.no}">100</span>
-                                    <h3 class="mb-12">
-                                        <a href='detail?no=1'
-                                           data-th-href="@{detail(no=${event.no})}"
-                                           data-th-text="${event.title == ''} ? '(제목없음)' : ${event.title}">제목</a>
-                                    </h3>
-                                    <div class="meta-wrap">
-                                        <p class="meta">
-                                            <span data-th-text="${event.eventCode}">선착순or차등지급</span>
-                                        </p>
-                                        <p class="meta">
-                                            <!--                                            <span data-th-text="${#temporals.format(event.startDate, 'yyyy-MM-dd hh:mm')}+' ~ '+${#temporals.format(event.endDate, 'yyyy-MM-dd hh:mm')}">2022-12-01~2022-12-31</span>-->
-                                            <span data-th-text="${event.startDate}+' ~ '+${event.endDate}">2022-12-01~2022-12-31</span>
-                                        </p>
+                                    <div th:if="(${session.loginMember} != null and ${session.loginMember.id} == 'admin')
+                                                or (${event.disclosure == false} and (${session.loginMember} == null or (${session.loginMember} != null and ${session.loginMember.id} != 'admin')))">
+                                        <span data-th-text="'No. '+${event.no}">100</span>
+                                        <h3 class="mb-12">
+                                            <a href='detail?no=1'
+                                               data-th-href="@{detail(no=${event.no})}"
+                                               data-th-text="${event.title == ''} ? '(제목없음)' : ${event.title}">제목</a>
+                                        </h3>
+                                        <div class="meta-wrap">
+                                            <p class="meta">
+                                                <span data-th-text="${event.eventCode}">선착순or차등지급</span>
+                                            </p>
+                                            <p class="meta">
+                                                <!--                                            <span data-th-text="${#temporals.format(event.startDate, 'yyyy-MM-dd hh:mm')}+' ~ '+${#temporals.format(event.endDate, 'yyyy-MM-dd hh:mm')}">2022-12-01~2022-12-31</span>-->
+                                                <span data-th-text="${#strings.substring(event.startDate, 0, 16)}+' ~ '+${#strings.substring(event.endDate, 0, 16)}">2022-12-01~2022-12-31</span>
+                                            </p>
+                                        </div>
+                                        <hr class="my-4">
                                     </div>
-                                    <hr class="my-4">
                                 </div>
                             </div>
                         </div>

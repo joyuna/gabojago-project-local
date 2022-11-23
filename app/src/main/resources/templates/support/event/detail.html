@@ -80,11 +80,11 @@
         <nav id="colorlib-main-menu" role="navigation">
             <ul>
                 <li><a onclick="location.href='list.html'"
-                       th:onclick="|location.href='@{/support/notice/noticeList}'|">Notice</a></li>
+                       th:onclick="|location.href='@{/support/notice/noticeListPage?page=1}'|">Notice</a></li>
                 <li><a onclick="location.href='list.html'"
-                       th:onclick="|location.href='@{/support/qna/list}'|">QnA</a></li>
+                       th:onclick="|location.href='@{/support/qna/list?page=1}'|">QnA</a></li>
                 <li><a onclick="location.href='list.html'"
-                       th:onclick="|location.href='@{/support/event/list}'|">Event</a></li>
+                       th:onclick="|location.href='@{/support/event/list?page=1}'|">Event</a></li>
             </ul>
         </nav>
     </aside> <!-- END COLORLIB-ASIDE -->
@@ -95,7 +95,7 @@
             <div class="container">
                 <div class="slider-text justify-content-center align-items-center">
                     <div class="col-md-11 ftco-animate">
-                        <p class="breadcrumbs"><span class="mr-2"><a href="index.html">Support</a></span>
+                        <p class="breadcrumbs"><span class="mr-2"><a href="/app/support/">Support</a></span>
                             <span>Event</span>
                         </p>
                         <h1 class="bread">Event 상세보기</h1>
@@ -118,14 +118,13 @@
                             </div>
                             <div class="meta-wrap mt-3 text-left">
                                 <p class="meta">
-<!--                                    <span data-th-text="'기간 | '+${#temporals.format(event.startDate, 'yyyy-MM-dd hh:mm')}+' ~ '+${#temporals.format(event.endDate, 'yyyy-MM-dd hh:mm')}">시작일 ~ 종료일</span>-->
-                                    <span data-th-text="'기간 | '+${event.startDate}+' ~ '+${event.endDate}">시작일 ~ 종료일</span>
+                                    <span data-th-text="'기간 | '+${#strings.substring(event.startDate, 0, 16)}+' ~ '+${#strings.substring(event.endDate, 0, 16)}">시작일 ~ 종료일</span>
                                 </p>
                             </div>
                             <p class="meta">
                                 <span data-th-text="'작성 | '+${event.createdDate}">2022-1-1</span>
                             </p>
-                            <p class="meta">
+                            <p class="meta" th:if="${session.loginMember} != null and ${session.loginMember.id} == 'admin'">
                                 <span data-th-text="'조회수 '+${event.viewCount}">조회수</span>
                                 <span class="col-12"
                                       data-th-text="${event.disclosure == true} ? '비공개' : '공개'">공개여부</span>
@@ -192,7 +191,7 @@
                                 <span class="col">
                                     <button class="btn btn-secondary py-3 px-5"
                                             onclick="location.href='list.html'"
-                                            th:onclick="|location.href='@{/support/event/list}'|"
+                                            th:onclick="|location.href='@{/support/event/list?page=1}'|"
                                             type="button">이전</button>
                                 </span>
                             </div>
