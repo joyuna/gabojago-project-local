@@ -7,8 +7,6 @@ import java.util.List;
 
 public interface EventService {
 
-    List<Event> list() throws Exception;
-
     void add(Event event) throws Exception;
 
     Event get(int no) throws Exception;
@@ -20,4 +18,10 @@ public interface EventService {
     void itemAdd(EventItem eventItem) throws Exception;
 
     List<EventItem> itemList(int no) throws Exception;
+
+    void addViewCount(int no) throws Exception;
+
+    int eventPostCount() throws Exception;
+
+    List<Event> list(int displayPost, int size) throws Exception;
 }

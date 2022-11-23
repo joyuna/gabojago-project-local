@@ -2,6 +2,7 @@ package com.bitcamp.gabojago.web;
 
 import com.bitcamp.gabojago.service.EventService;
 import com.bitcamp.gabojago.vo.Member;
+import com.bitcamp.gabojago.vo.PageResponseDto;
 import com.bitcamp.gabojago.vo.event.Event;
 import com.bitcamp.gabojago.vo.event.EventAttachedFile;
 import com.bitcamp.gabojago.vo.event.EventItem;
@@ -11,6 +12,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.ServletContext;
@@ -30,6 +32,7 @@ public class EventController {
     ServletContext sc;
     @Autowired
     EventService eventService;
+    private int PAGE_CORRECTION = 1;
 
     public EventController(EventService eventService, ServletContext sc) {
         System.out.println("EventController() 호출됨>-<");
@@ -37,9 +40,26 @@ public class EventController {
         this.sc = sc;
     }
 
+//    @GetMapping("list")
+//    public void list(Model model) throws Exception {
+//        model.addAttribute("events", eventService.list());
+//    }
+
     @GetMapping("list")
-    public void list(Model model) throws Exception {
-        model.addAttribute("events", eventService.list());
+    public void list(Model model, @RequestParam("page") Integer page, @RequestParam(value = "size", defaultValue = "3") Integer size) throws Exception {
+        int total = eventService.eventPostCount();
+
+        page -= PAGE_CORRECTION;
+        List<Event> list = eventService.list((page) * size, size);
+        PageResponseDto<Event> eventPageResponseDto = new PageResponseDto<>(page, size, total, list);
+
+        model.addAttribute("events", eventPageResponseDto.getDtoList());
+        model.addAttribute("pages", eventPageResponseDto.getPage());
+        model.addAttribute("pageNum", eventPageResponseDto.getPage());
+        model.addAttribute("pageStart", eventPageResponseDto.getStart());
+        model.addAttribute("pageEnd", eventPageResponseDto.getEnd());
+        model.addAttribute("prev", eventPageResponseDto.isPrev());
+        model.addAttribute("next", eventPageResponseDto.isNext());
     }
 
     @GetMapping("addForm")
@@ -53,19 +73,20 @@ public class EventController {
             HttpSession session) throws Exception {
         System.out.println("eventController : " + event.toString());
         eventService.add(event);
-        return "redirect:list";
+        return "redirect:list?page=1";
     }
 
     @GetMapping("detail")
     public void detail(int no, Model model) throws Exception {
         model.addAttribute("event", eventService.get(no));
         model.addAttribute("eventItems", eventService.itemList(no));
+        eventService.addViewCount(no);
     }
 
     @GetMapping("delete")
     public String delete(int no) throws Exception {
         eventService.delete(no);
-        return "redirect:list";
+        return "redirect:list?page=1";
     }
 
     @GetMapping("editForm")
@@ -79,7 +100,7 @@ public class EventController {
             HttpSession session) throws Exception {
         System.out.println("EventControllerUpdate :" + event.toString());
         eventService.update(event);
-        return "redirect:list";
+        return "redirect:list?page=1";
     }
 
     @GetMapping("item/addForm")
@@ -119,6 +140,8 @@ public class EventController {
         eventAttachedFile.setFilePath(dirPath+"/");
         return eventAttachedFile;
     }
+
+
 //
 //    @PostMapping("item/itemadd")
 //    public String itemAdd(

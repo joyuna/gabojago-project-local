@@ -21,20 +21,6 @@
         values (#{id},#{disclosure},#{title},#{questionContent},now())
     </insert>
 
-    <select id="findAll" resultMap="qnaMap">
-        select
-            QNANO,
-            ID,
-            PBL,
-            TITLE,
-            CONT,
-            WDATE,
-            ANSCONT,
-            ANSDATE
-        from jang_qna
-        order by QNANO desc;
-    </select>
-
     <select id="findByNo" resultMap="qnaMap" parameterType="int">
         select
             QNANO,
@@ -61,4 +47,25 @@
         PBL=#{disclosure}
         where QNANO=#{no}
     </update>
+
+    <select id="qnaPostCount" resultType="int">
+        select
+        count(QNANO)
+        from jang_qna
+    </select>
+
+    <select id="findAll" parameterType="int" resultMap="qnaMap">
+        select
+            QNANO,
+            ID,
+            PBL,
+            TITLE,
+            CONT,
+            WDATE,
+            ANSCONT,
+            ANSDATE
+        from jang_qna
+        order by QNANO desc
+        limit #{size} offset #{displayPost}
+    </select>
 </mapper>

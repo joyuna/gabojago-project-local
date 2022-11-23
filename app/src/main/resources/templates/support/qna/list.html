@@ -145,13 +145,20 @@
                     <div class="col-md-12 text-center">
                         <div class="block-27">
                             <ul>
-                                <li><a href="#">&lt;</a></li>
-                                <li class="active"><span>1</span></li>
-                                <li><a href="#">2</a></li>
-                                <li><a href="#">3</a></li>
-                                <li><a href="#">4</a></li>
-                                <li><a href="#">5</a></li>
-                                <li><a href="#">&gt;</a></li>
+                                <li class="bt-color"><a th:if="${prev}==true"
+                                                        data-th-href="@{list(page=${pageStart - 1})}"
+                                                        th:text="'<'">1</a></li>
+
+                                <li><th:block class="page-item"
+                                              data-th-each="pageNum : ${#numbers.sequence(pageStart, pageEnd)}">
+                                    <a data-th-href="@{list(page=${pageNum})}"
+                                       th:text="${pageNum}">1</a>
+
+                                </th:block></li>
+
+                                <li><a th:if="${next}==true"
+                                       data-th-href="@{list(page=${pageEnd + 1})}"
+                                       th:text="'>'">1</a></li>
                             </ul>
                         </div>
                     </div>

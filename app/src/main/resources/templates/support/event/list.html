@@ -79,11 +79,11 @@
         <nav id="colorlib-main-menu" role="navigation">
             <ul>
                 <li><a onclick="location.href='list.html'"
-                       th:onclick="|location.href='@{/support/notice/noticeList}'|">Notice</a></li>
+                       th:onclick="|location.href='@{/support/notice/noticeListPage?page=1}'|">Notice</a></li>
                 <li><a onclick="location.href='list.html'"
                        th:onclick="|location.href='@{/support/qna/list}'|">QnA</a></li>
                 <li><a onclick="location.href='list.html'"
-                       th:onclick="|location.href='@{/support/event/list}'|">Event</a></li>
+                       th:onclick="|location.href='@{/support/event/list?page=1}'|">Event</a></li>
             </ul>
         </nav>
     </aside> <!-- END COLORLIB-ASIDE -->
@@ -129,7 +129,7 @@
                                             <span data-th-text="${event.eventCode}">선착순or차등지급</span>
                                         </p>
                                         <p class="meta">
-<!--                                            <span data-th-text="${#temporals.format(event.startDate, 'yyyy-MM-dd hh:mm')}+' ~ '+${#temporals.format(event.endDate, 'yyyy-MM-dd hh:mm')}">2022-12-01~2022-12-31</span>-->
+                                            <!--                                            <span data-th-text="${#temporals.format(event.startDate, 'yyyy-MM-dd hh:mm')}+' ~ '+${#temporals.format(event.endDate, 'yyyy-MM-dd hh:mm')}">2022-12-01~2022-12-31</span>-->
                                             <span data-th-text="${event.startDate}+' ~ '+${event.endDate}">2022-12-01~2022-12-31</span>
                                         </p>
                                     </div>
@@ -143,13 +143,20 @@
                     <div class="col-md-12 text-center">
                         <div class="block-27">
                             <ul>
-                                <li><a href="#">&lt;</a></li>
-                                <li class="active"><span>1</span></li>
-                                <li><a href="#">2</a></li>
-                                <li><a href="#">3</a></li>
-                                <li><a href="#">4</a></li>
-                                <li><a href="#">5</a></li>
-                                <li><a href="#">&gt;</a></li>
+                                <li class="bt-color"><a th:if="${prev}==true"
+                                                        data-th-href="@{list(page=${pageStart - 1})}"
+                                                        th:text="'<'">1</a></li>
+
+                                <li><th:block class="page-item"
+                                              data-th-each="pageNum : ${#numbers.sequence(pageStart, pageEnd)}">
+                                    <a data-th-href="@{list(page=${pageNum})}"
+                                       th:text="${pageNum}">1</a>
+
+                                </th:block></li>
+
+                                <li><a th:if="${next}==true"
+                                       data-th-href="@{list(page=${pageEnd + 1})}"
+                                       th:text="'>'">1</a></li>
                             </ul>
                         </div>
                     </div>
