@@ -1,6 +1,5 @@
 package com.bitcamp.gabojago.dao;
 
-import com.bitcamp.gabojago.vo.event.Event;
 import com.bitcamp.gabojago.vo.qna.QnaBoard;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;

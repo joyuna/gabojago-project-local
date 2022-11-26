@@ -40,11 +40,6 @@ public class EventController {
         this.sc = sc;
     }
 
-//    @GetMapping("list")
-//    public void list(Model model) throws Exception {
-//        model.addAttribute("events", eventService.list());
-//    }
-
     @GetMapping("list")
     public void list(Model model, @RequestParam("page") Integer page, @RequestParam(value = "size", defaultValue = "3") Integer size) throws Exception {
         int total = eventService.eventPostCount();
@@ -55,7 +50,7 @@ public class EventController {
 
         model.addAttribute("events", eventPageResponseDto.getDtoList());
         model.addAttribute("pages", eventPageResponseDto.getPage());
-        model.addAttribute("pageNum", eventPageResponseDto.getPage());
+        model.addAttribute("pageTotal", eventPageResponseDto.getTotal());
         model.addAttribute("pageStart", eventPageResponseDto.getStart());
         model.addAttribute("pageEnd", eventPageResponseDto.getEnd());
         model.addAttribute("prev", eventPageResponseDto.isPrev());
@@ -113,10 +108,8 @@ public class EventController {
             EventItem eventItem,
             MultipartFile file,
             HttpSession session) throws Exception {
-        System.out.println("eventCotrollerAdd_item before:" + eventItem.toString());
         EventAttachedFile eventAttachedFile = saveAttachedFile(file);
         eventItem.setEventAttachedFile(eventAttachedFile);
-        System.out.println("eventCotrollerAdd_item after :" + eventItem.toString());
         eventService.itemAdd(eventItem);
         return "redirect:../detail?no=" + eventItem.getEventNo();
     }
@@ -125,85 +118,14 @@ public class EventController {
             throws IOException, ServletException {
         EventAttachedFile eventAttachedFile = new EventAttachedFile();
         String dirPath = sc.getRealPath("/event/files");
-        System.out.println("tttt : " + sc.getContextPath());
         if (file.isEmpty()) {
             return eventAttachedFile;
         }
 
         String fileName = UUID.randomUUID().toString();
-        System.out.println("new file name : " + fileName);
-        System.out.println("new file path before : " + (dirPath + "/"));
-        System.out.println("new file path before : " + file.getContentType());
         file.transferTo(new File(dirPath + "/" + fileName + "." + file.getContentType().split("/")[1]));
-        System.out.println("new file path after : " + (dirPath + "/"));
         eventAttachedFile.setFileName(fileName + "." + file.getContentType().split("/")[1]);
         eventAttachedFile.setFilePath(dirPath+"/");
         return eventAttachedFile;
     }
-
-
-//
-//    @PostMapping("item/itemadd")
-//    public String itemAdd(
-//            EventItem eventItem,
-//            MultipartFile file,
-//            HttpSession session) throws Exception {
-//        System.out.println("eventCotrollerAdd_item before:" + eventItem.toString());
-//        eventItem.setEventAttachedFile(saveEventAttachedFile(file));
-//        System.out.println("eventCotrollerAdd_item after :" + eventItem.toString());
-//        eventService.itemAdd(eventItem);
-//        return "redirect:../detail?no=" + eventItem.getEventNo();
-//
-//    }
-//
-//    private EventAttachedFile saveEventAttachedFile(Part file)
-//            throws IOException, ServletException {
-//        EventAttachedFile eventAttachedFile = new EventAttachedFile();
-//        String dirPath = sc.getRealPath("/event/files");
-//
-//            if (file.getSize() == 0) {
-//
-//            }
-//
-//            String filename = UUID.randomUUID().toString();
-//            file.write(dirPath + "/" + filename);
-//            eventAttachedFile = new EventAttachedFile(filename);
-//        return attachedFile;
-//    }
-//
-//    private EventAttachedFile saveEventAttachedFile(MultipartFile file)
-//            throws IOException, ServletException {
-//        EventAttachedFile attachedFile = new EventAttachedFile();
-//        String dirPath = sc.getRealPath("/event/files");
-//
-//        for (MultipartFile part : file) {
-//            if (part.isEmpty()) {
-//                continue;
-//            }
-//
-//            String filename = UUID.randomUUID().toString();
-//            part.transferTo(new File(dirPath + "/" + filename));
-//            EventAttachedFile.add(new EventAttachedFile(filename));
-//        }
-//        return attachedFile;
-//    }
-//
-
-
-//    private List<EventAttachedFile> saveAttachedFiles(MultipartFile[] files)
-//            throws IOException, ServletException {
-//        List<EventAttachedFile> eventAttachedFiles = new ArrayList<>();
-//        String dirPath = sc.getRealPath("/event/files");
-//
-//        for (MultipartFile part : files) {
-//            if (part.isEmpty()) {
-//                continue;
-//            }
-//
-//            String fileName = UUID.randomUUID().toString();
-//            part.transferTo(new File(dirPath + "/" + fileName));
-//            eventAttachedFiles.add(new EventAttachedFile(fileName));
-//        }
-//        return eventAttachedFiles;
-//    }
 }

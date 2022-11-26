@@ -167,8 +167,7 @@
                                 </span>
                                         <span class="col">
                                     <button class="btn btn-secondary py-3 px-5"
-                                            onclick="location.href='list.html'"
-                                            th:onclick="|location.href='@{/support/event/list}'|"
+                                            th:onclick="|location.href='@{/support/event/list?page=1}'|"
                                             type="button">취소</button>
                                 </span>
                                     </div>
@@ -247,6 +246,10 @@
     </svg>
 </div>
 
+<script
+        src="https://code.jquery.com/jquery-3.6.1.js"
+        integrity="sha256-3zlB5s2uwoUzrXK3BT7AX3FyvojsraNFxCc2vC/7pNI="
+        crossorigin="anonymous"></script>
 <!--login modal script-->
 <script>
     const body = document.querySelector("body");

@@ -111,7 +111,7 @@
             </div>
         </div>
 
-        <section class="ftco-section ">
+        <section class="ftco-section">
             <div class="container">
                 <div class="col-lg-8">
                     <div class="row">
@@ -153,6 +153,7 @@
 
                                 <li>
                                     <th:block class="page-item"
+                                              th:if="${pageTotal > 0}"
                                               data-th-each="pageNum : ${#numbers.sequence(pageStart, pageEnd)}">
                                         <a data-th-href="@{list(page=${pageNum})}"
                                            th:text="${pageNum}">1</a>
@@ -239,7 +240,10 @@
                 stroke="#F96D00"/>
     </svg>
 </div>
-
+<script
+        src="https://code.jquery.com/jquery-3.6.1.js"
+        integrity="sha256-3zlB5s2uwoUzrXK3BT7AX3FyvojsraNFxCc2vC/7pNI="
+        crossorigin="anonymous"></script>
 <!--login modal script-->
 <script>
     const body = document.querySelector("body");

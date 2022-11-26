@@ -17,6 +17,7 @@
         <result column="SNS" property="snsAddress"/>
         <result column="MBTI" property="mbti"/>
         <result column="STATUS" property="status"/>
+        <result column="OUTDATE" property="outDate"/>
 
     </resultMap>
 
@@ -29,12 +30,14 @@
         where ID=#{id}
     </update>
 
+
     <update id="myAccountUpdate" parameterType="member">
         update jang_member set
         PWD=sha2(#{password},256),
         EMAIL=#{email},
         PNUM=#{phoneNo},
-        GENDER=#{gender}
+        GENDER=#{gender},
+        BIRTH=#{birthDay}
         where
         ID=#{id}
     </update>
@@ -64,23 +67,6 @@
         NNAME=#{nickName}
     </select>
 
-<!--회원 탈퇴를 위한 비밀번호 확인-->
-<!--    <select id="findByPassword" resultType="int">-->
-<!--        select count(*)-->
-<!--        from jang_member-->
-<!--        where-->
-<!--        ID=#{id}-->
-<!--        and-->
-<!--        PWD=sha2(#{password},256)-->
-<!--    </select>-->
-
-<!--    <update id="memberDelete" parameterType="String">-->
-<!--        update jang_member set-->
-<!--        PWD = 123456789101112131415,-->
-<!--        STATUS = '탈퇴'-->
-<!--        where-->
-<!--        ID=#{id};-->
-<!--    </update>-->
 
     <select id="checkPassword" resultType="int" parameterType="String">
         select
@@ -91,7 +77,8 @@
 
     <update id="resignMemberStatus" parameterType="String">
         update jang_member set
-        STATUS='탈퇴'
+        STATUS='탈퇴',
+        OUTDATE=now()
         where ID=#{id} and PWD=sha2(#{password},256)
     </update>
 

@@ -1,6 +1,5 @@
 package com.bitcamp.gabojago.service;
 
-import com.bitcamp.gabojago.vo.event.Event;
 import com.bitcamp.gabojago.vo.qna.QnaBoard;
 
 import java.util.List;

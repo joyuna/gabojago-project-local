@@ -29,14 +29,6 @@
         insert into jang_item(NAME,CNT,EVTNO,RANK)
         values (#{name},#{stock},#{eventNo},#{ranking})
     </insert>
-    <!--<insert id="insert" parameterType="eventItem"
-            useGeneratedKeys="true" keyColumn="itemno" keyProperty="itemNo">
-        <selectKey keyProperty="itemNo" resultType="int" order="BEFORE">
-            SELECT MAX(TO_NUMBER(ITMNO))+1 FROM jang_item
-        </selectKey>
-        insert into jang_item(ITMNO, NAME,CNT,EVTNO,RANK)
-        values (#{itemNo},#{name},#{stock},#{eventNo},#{ranking})
-    </insert>-->
 
     <select id="getItemsCountByEventNo" resultType="int" parameterType="int">
         select
