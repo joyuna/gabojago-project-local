@@ -1,12 +1,10 @@
 package com.bitcamp.gabojago.service;
 
 import com.bitcamp.gabojago.dao.MemberDao;
-import com.bitcamp.gabojago.dao.RecommendationDao;
-import com.bitcamp.gabojago.dao.ReportDao;
+import com.bitcamp.gabojago.dao.recommendation.RecommendationDao;
+import com.bitcamp.gabojago.dao.recommendation.ReportDao;
 import com.bitcamp.gabojago.vo.*;
 
-import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -269,8 +267,18 @@ public class DefaultRecommendationService implements RecommendationService  {
   }
 
   @Override
-  public List<Recommendation> recommendationListPage(int displayPost, int size) throws Exception{
-    return recommendationDao.recommendationListPage(displayPost, size);
+  public List<Recommendation> recommendationListPageOrderByRecent(int displayPost, int size) throws Exception{
+    return recommendationDao.recommendationListPageOrderByRecent(displayPost, size);
+  }
+
+  @Override
+  public List<Recommendation> recommendationListPageOrderByComments(int displayPost, int size) throws Exception{
+    return recommendationDao.recommendationListPageOrderByComments(displayPost, size);
+  }
+
+  @Override
+  public List<Recommendation> recommendationListPageOrderByCnt(int displayPost, int size) throws Exception{
+    return recommendationDao.recommendationListPageOrderByCnt(displayPost, size);
   }
 
 }

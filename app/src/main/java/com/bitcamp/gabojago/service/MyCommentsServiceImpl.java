@@ -16,16 +16,29 @@ public class MyCommentsServiceImpl implements MyCommentsService {
         this.myCommentsDao = myCommentsDao;
     }
 
-    // 코스추천 댓글
+
+    // paging_게시물 총개수 (코스추천 댓글)
     @Override
-    public List<JangComment> myRecommendationCommentsList(String id) throws Exception {
-        return myCommentsDao.myRecommendationCommentsList(id);
+    public int myRecommendationCommentCount(String id) throws Exception {
+        return myCommentsDao.myRecommendationCommentCount(id);
     }
 
-    // 전시회 댓글
+    // 게시물 목록 + paging (코스추천 댓글)
     @Override
-    public List<ExhibitionReview> myExhibitionCommentsList(String id) throws Exception {
-        return myCommentsDao.myExhibitionCommentsList(id);
+    public List<JangComment> myRecommendationCommentListPage(int displayPost, int size, String id) throws Exception {
+        return myCommentsDao.myRecommendationCommentListPage(displayPost, size, id);
     }
 
+
+    // paging_게시물 총개수 (전시회 댓글)
+    @Override
+    public int count(String id) throws Exception {
+        return myCommentsDao.count(id);
+    }
+
+    // 게시물 목록 + paging (전시회 댓글)
+    @Override
+    public List<ExhibitionReview> myExhibitionReviewListPage(int displayPost, int size, String id) throws Exception {
+        return myCommentsDao.myExhibitionReviewListPage(displayPost, size, id);
+    }
 }

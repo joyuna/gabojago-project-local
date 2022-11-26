@@ -3,7 +3,6 @@ package com.bitcamp.gabojago.web;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RestController;
 import com.bitcamp.gabojago.service.EmailService;
 import com.bitcamp.gabojago.vo.event.EmailMessage;
 import lombok.RequiredArgsConstructor;
@@ -12,7 +11,7 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class EmailController {
 
-    private final EmailService emailService;
+    private final EmailService emailService = null;
     
     @GetMapping("/send-mail")
     public ResponseEntity sendMail() {

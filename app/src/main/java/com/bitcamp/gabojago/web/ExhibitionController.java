@@ -1,25 +1,31 @@
 package com.bitcamp.gabojago.web;
 
-import com.bitcamp.gabojago.service.ExhibitionReviewService;
-import com.bitcamp.gabojago.service.ExhibitionService;
-import com.bitcamp.gabojago.vo.Exhibition;
-import com.bitcamp.gabojago.vo.ExhibitionFile;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
-
-import javax.imageio.ImageIO;
+import java.io.File;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.UUID;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpSession;
-import java.awt.*;
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
-import java.util.*;
-import java.util.List;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
+import com.bitcamp.gabojago.service.ExhibitionReviewService;
+import com.bitcamp.gabojago.service.ExhibitionService;
+import com.bitcamp.gabojago.service.payment.PaymentService;
+import com.bitcamp.gabojago.vo.Baguni;
+import com.bitcamp.gabojago.vo.Exhibition;
+import com.bitcamp.gabojago.vo.ExhibitionFile;
+import com.bitcamp.gabojago.vo.Member;
 
 @Controller // 주소 전달
 @RequestMapping("/exhibition/")
@@ -35,7 +41,8 @@ public class ExhibitionController {
   @Autowired
   ServletContext servletContext; // 테스트 필요
 
-
+  @Autowired
+  PaymentService paymentService;
 
 // 파일
 /* 멀티 사용
@@ -173,7 +180,17 @@ public class ExhibitionController {
 
 
 
-
+  @GetMapping("complete")
+  public void complete(Model model, HttpSession session, Integer exno, Integer cnt) {
+    Member member = (Member) session.getAttribute("loginMember");
+    Baguni baguni = new Baguni();
+    
+    baguni.setCnt(cnt);
+    baguni.setExno(exno);
+    baguni.setId(member.getId());
+    
+    paymentService.addBaguni(baguni);
+  }
 
 
   @GetMapping("detail")

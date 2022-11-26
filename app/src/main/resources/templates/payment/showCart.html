@@ -11,8 +11,8 @@
     <link rel="stylesheet" href="./css/main-modal.css" />
     <link
       rel="stylesheet"
-      href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
-    />
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+
     <script src="./script/jquery-3.6.0.js"></script>
     <script src="./script/script.js"></script>
 
@@ -65,12 +65,6 @@
 
           <script src="https://apis.google.com/js/platform.js?onload=init" async defer></script>
 
-
-
-
-
-
-
           <div class="savecheck">
             <input id="savecheckbox" type="checkbox" name="saveEmail"><label for="savecheckbox">&nbsp;ID 저장</label>
             <span><a href="#">ID 찾기</a></span><span> / </span><span><a href="#">Password 찾기</a></span>
@@ -104,45 +98,41 @@
     </div>
 
       <!-- Navigation 사실상의 header -->
+      <!-- Navigation 사실상의 header -->
       <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
         <div class="container">
           <a class="navbar-brand" href="/app">가보자GO</a>
           <div class="collapse navbar-collapse" id="navbarResponsive">
             <ul class="navbar-nav ml-auto">
-              <li class="nav-item active">
-                <a class="nav-link" href="/etc"
-                  >홈
-                  <span class="sr-only">(current)</span>
-                </a>
-              </li>
-              <li class="nav-item"><a class="nav-link" href="../">Search</a></li>
+
+              <li class="nav-item"><a class="nav-link" href="/app/search/searchForm">검색</a></li>
               <li class="nav-item">
-                <a class="nav-link" href="#">코스추천</a>
+                <a class="nav-link" href="/app/recommendation/recommendationList">코스추천</a>
               </li>
-              <li class="nav-item"><a class="nav-link" href="exhibition/exhibitionlist">전시회</a></li>
+              <li class="nav-item"><a class="nav-link" href="/app/exhibition/exhibitionlist">전시회</a></li>
               <li class="nav-item">
-                <a class="nav-link" href="#">고객지원</a>
+                <a class="nav-link" href="/app/support/">고객지원</a>
               </li>
               <li class="nav-item" th:if="${session.loginMember != null}">
                 <a
                   class="nav-link"
-                  href="auth/logout"
-                  th:text="${session.loginMember.name}+'(로그아웃)'"
-                  >홍길동(로그아웃)</a
-                >
+                  href="/app/auth/logout"
+                  th:text="${session.loginMember.name}+'(로그아웃)'">홍길동(로그아웃)</a>
               </li>
               <li class="nav-item" th:if="${session.loginMember == null}">
                 <span class="nav-link btn-open-popup">로그인</span>
               </li>
 
               <li class="nav-item">
-                <a class="nav-link" href="auth/register">회원가입</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="#">
-                  <img src="./images/mypage.png" width="90%" height="25"
+                <a class="nav-link" href="/app/myPage/">
+                  <img src="/app/images/mypage.png" width="90%" height="25"
                 /></a>
               </li>
+
+              <!--어드민만 보일 수 있음-->
+              <li class="nav-item">
+              <span data-th-if="${session.loginMember} != null and ${session.loginMember.id} == 'admin'">
+              <a class="nav-link" href='/app/member/list'>회원 관리</a></span> </li>
             </ul>
           </div>
         </div>
@@ -159,61 +149,32 @@
       </header>
 
       <script>
+        let queryString = new String();
+
         function clickedCheckbox(){
-          let resultPrice = 0;
           let resultCount = 0;
+          let str = new String();
           let checkedBoxList = document.getElementsByName("paymentBox");
 
           for(let i=0; i< checkedBoxList.length; i++){
             if(checkedBoxList[i].checked == true){
               resultCount++;
-              resultPrice += parseInt(checkedBoxList[i].value);
+              str += checkedBoxList[i].value + ",";
             }
           }
-
-          for(let i = 0; i < resultCount; i++){
-            let orderDetail = [
-              {
-                name:'EXNAME',
-                value:document.getElementById('EXNAME').innerHTML
-              },
-              {
-                name:"STDATE",
-                value:document.getElementById('STDATE').innerHTML
-              },
-              {
-                name:"EDDATE",
-                value:document.getElementById('EDDATE').innerHTML
-              },
-              {
-                name:"CNT",
-                value:document.getElementById('CNT').innerHTML
-              },
-              {
-                name:"PRICE",
-                value:document.getElementById('PRICE').innerHTML
-              }
-
-            ]
-
-            sessionStorage.setItem('exhibition_' + i, JSON.stringify(orderDetail));
-          }
-
-          sessionStorage.setItem('resultCount', resultCount);
+          queryString = str;
 
           document.getElementById("resultCount").innerHTML = resultCount;
-          document.getElementById("resultPrice").innerHTML = resultPrice;
         }
         
         function doPayment(){
-          let resultPrice = document.getElementById("resultPrice").innerHTML;
           let resultCount = document.getElementById("resultCount").innerHTML;
 
         	if(resultCount < 1){
         		alert("한개 이상의 티켓을 선택해주세요.");
         	}
         	else{
-            location.replace("http://localhost:9999/app/payment/paymentPage");
+            location.replace("paymentPage?exno=" + queryString);
           }
         }
       </script>
@@ -224,19 +185,17 @@
           <div class="colume align-items-center flex-fill mx-5">
 
       <!-- 전시회 폼 -->
-        <div class="shadow-lg w-100 my-5 py-4 px-4 bg-body rounded" style="position: relative;" data-th-each="exhibition : ${cartList}">
-                <div class="payment-check" style="margin-right: 100px;">
-                  <input onclick="clickedCheckbox()" class="check-input" type="checkbox" name="paymentBox" th:value="${exhibition['PRICE']}">
+        <div id="form" class="shadow-lg w-100 my-5 py-4 px-4 bg-body rounded" style="position: relative;" th:each="exhibition : ${cartList}">
+                  <input onclick="clickedCheckbox()" class="check-input" type="checkbox" name="paymentBox" th:value="${exhibition['EXNO']}"></input>
                   <label class="check-label" for="flexCheckDefault">
                     결제
                   </label>
-                </div>
 
                 <section id="exhibitionForm">
 
                 <h5 style="position: absolute; top: 10px; right: 10px;">
                   <a href='detail?exno=1'
-                  id="EXNAME"
+                  name="EXNAME"
                   th:value="${exhibition['EXNAME']}"
                   data-th-href="@{detail(exno=${exhibition['EXNO']})}"
                   data-th-text="${exhibition['EXNAME'] == ''} ? '(제목없음)' : ${exhibition['EXNAME']}"
@@ -244,21 +203,29 @@
                >지킬과 하이드</a>
                 </h5>
   
-                <h5 id="STDATE" style="position: absolute; top: 40px; right: 115px" data-th-text="${exhibition['STDATE']}" th:value="${exhibition['STDATE']}">
+                <h5 name="STDATE" style="position: absolute; top: 40px; right: 115px" data-th-text="${exhibition['STDATE']}" th:value="${exhibition['STDATE']}">
                   2022-11-11 ~ 
                 </h5>
 
-                <h5 id="EDDATE" style="position: absolute; top: 40px; right: 10px" data-th-text="${exhibition['EDDATE']}" th:value="${exhibition['EDDATE']}">
+                <h5 name="EDDATE" style="position: absolute; top: 40px; right: 10px" data-th-text="${exhibition['EDDATE']}" th:value="${exhibition['EDDATE']}">
                   2022-12-12
                 </h5>
 
-                <h5 id="CNT" style="position: absolute; top: 200px; right: 10px" data-th-text="${exhibition['CNT']}" th:value="${exhibition['CNT']}">
-                  2매
+                <h5 name="CNT" style="position: absolute; top: 200px; right: 30px" data-th-text="${exhibition['CNT']}" th:value="${exhibition['CNT']}">
+                  2
                 </h5>
               
-                <span id="PRICE" style="position: absolute; top: 230px; right: 10px" data-th-text="${exhibition['PRICE']}" th:value="${exhibition['PRICE']}">
+                <h5 style="position: absolute; top: 200px; right: 10px">
+                  매
+                </h5>
+
+                <h5 id="PRICE" style="position: absolute; top: 230px; right: 30px" data-th-text="${exhibition['PRICE']}" th:value="${exhibition['PRICE']}">
                   10000
-                </span>
+                </h5>
+
+                <h5 style="position: absolute; top: 230px; right: 10px">
+                  원
+                </h5>
 
 			          <img style="width:200px; height:200px" src="https://cdn.pixabay.com/photo/2016/03/27/16/23/woman-1283009__480.jpg"
 			               alt="..." />
@@ -271,17 +238,25 @@
           <!-- 주문 창 -->
           <div class="shadow-lg w-25 my-5 py-4 px-4 bg-body rounded" style="position: relative; width: 280px;">
             
-            <span style="position: absolute; bottom: 160px; right: 10px; font-weight: bold;">주문 상품수</span>
-            <span id="resultCount" style="position: absolute; bottom: 130px; right: 10px;"></span>
-            <span style="position: absolute; bottom: 90px; right: 10px; font-weight: bold;">총 결제 금액</span>
-            <span id="resultPrice" style="position: absolute; bottom: 60px; right: 10px;"></span>
+            <span style="position: absolute; bottom: 90px; right: 10px; font-weight: bold;">주문 상품 수</span>
+            <span id="resultCount" style="position: absolute; bottom: 60px; right: 10px;"></span>
 
               <button style="position: absolute; bottom: 10px; right: 10px;" type="button" class="btn btn-primary" onclick="doPayment()">모두 결제</button>
       </div>
            </div>
            </div>
 
-    
+           <script>
+            function isEmpty(){
+              if(!document.getElementById('PRICE')){
+                location.replace("emptyShowCart");
+              }else{
+              }
+            }
+
+            isEmpty();
+          </script>
+
     <!-- Footer-->
     <footer class="py-4 bg-dark">
       <div class="container">

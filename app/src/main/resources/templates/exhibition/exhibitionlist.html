@@ -63,7 +63,7 @@
 
         <li class="nav-item">
           <a class="nav-link" href="/app/myPage/">
-            <img src="../images/mypage.png" width="90%" height="25"
+            <img src="/app/images/mypage.png" width="90%" height="25"
             /></a>
         </li>
         <!--어드민만 보일 수 있음-->
@@ -106,6 +106,7 @@
                 ${exhibition.getExhibitionFiles().size()>0? exhibition.exhibitionFiles.get(0).path:''}"
           onerror="this.src='https://cdn.pixabay.com/photo/2015/04/21/21/12/room-733785_960_720.jpg'"
           style="height: 155px;"/>
+          
           <!-- 전시 제목,날짜 정렬-->
           <div class="card-body p-4">
             <div class="text-center">
@@ -219,7 +220,11 @@
       <br> <!--공백-->
       <button class="btn_login" type="submit"
               style="background-color: #ffca2c">Login</button>
+      <br> <!--공백-->
 
+      <a href="/app/member/kakaoLoginPage">
+        <img src = "/app/images/kakao_login_medium_wide.png" class="btn_login">
+      </a>
       <div class="g-signin2" data-onsuccess="onSignIn"></div>
 
       <script>

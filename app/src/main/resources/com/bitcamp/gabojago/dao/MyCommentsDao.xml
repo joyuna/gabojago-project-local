@@ -18,11 +18,22 @@
     </resultMap>
 
 
-    <select id="myRecommendationCommentsList" resultMap="jangCommentMap">
+    <!--paging_게시물 총개수 (코스추천 댓글) -->
+    <select id="myRecommendationCommentCount" resultType="int">
+        select
+        count(CMNO)
+        from jang_comment
+        where jang_comment.ID = #{id}
+    </select>
+
+    <!--게시물 목록 + paging (전시회 댓글) -->
+    <select id="myRecommendationCommentListPage" resultMap="jangCommentMap">
         select
         jang_comment.*
         from jang_comment
         where jang_comment.ID= #{id}
+        order by jang_comment.WDATE desc
+        limit #{size} offset #{displayPost}
     </select>
 
 
@@ -42,10 +53,22 @@
     </resultMap>
 
 
-    <select id="myExhibitionCommentsList" resultMap="exhibitionReviewMap">
+    <!--paging_게시물 총개수 (전시회 댓글) -->
+    <select id="count" resultType="int">
+        select
+        count(RVNO)
+        from jang_exhibition_review
+        where jang_exhibition_review.ID= #{id}
+    </select>
+
+    <!--게시물 목록 + paging (전시회 댓글) -->
+    <select id="myExhibitionReviewListPage" resultMap="exhibitionReviewMap">
         select
         jang_exhibition_review.*
         from jang_exhibition_review
         where jang_exhibition_review.ID= #{id}
+        order by jang_exhibition_review.WDATE desc
+        limit #{size} offset #{displayPost}
     </select>
+
 </mapper>

@@ -7314,22 +7314,24 @@ h1, h2, h3, h4, h5,
 #colorlib-page {
   width: 100%;
   overflow: hidden;
-  position: relative; }
+  position: relative;
+  }
 
 #colorlib-aside {
-  padding-top: 3em;
+  padding-top: 5em;
   padding-bottom: 40px;
   padding-left: 3em;
   padding-right: 3em;
   width: 22%;
-  position: fixed;
+  /*position: fixed;*/
+  float: left;
   bottom: 0;
-  top: 0;
+  top: 30px;
   left: 0;
   right: 0;
   overflow-y: hidden;
   z-index: 1001;
-  background: white;
+  /*background: white;*/
   -moz-transition: all 0.5s ease;
   -o-transition: all 0.5s ease;
   -webkit-transition: all 0.5s ease;
@@ -7656,7 +7658,7 @@ h1, h2, h3, h4, h5,
       .hero-wrap .author-info, .hero-wrap .author-image {
         width: 30%; } }
   .hero-wrap .author-info {
-    overflow-y: scroll; }
+   }
     @media (max-width: 767.98px) {
       .hero-wrap .author-info {
         width: 70%; } }

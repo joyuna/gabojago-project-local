@@ -67,7 +67,7 @@
     </delete>
 
     <!--조회수-->
-    <update id="addHits" parameterType="notice">
+    <update id="addHits" parameterType="int">
         update jang_notice set
         VCNT = VCNT + 1
         where NTNO = #{no}

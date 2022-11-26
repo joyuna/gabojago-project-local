@@ -109,45 +109,41 @@
     </div>
 
       <!-- Navigation 사실상의 header -->
+      <!-- Navigation 사실상의 header -->
       <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
         <div class="container">
           <a class="navbar-brand" href="/app">가보자GO</a>
           <div class="collapse navbar-collapse" id="navbarResponsive">
             <ul class="navbar-nav ml-auto">
-              <li class="nav-item active">
-                <a class="nav-link" href="/etc"
-                  >홈
-                  <span class="sr-only">(current)</span>
-                </a>
-              </li>
-              <li class="nav-item"><a class="nav-link" href="../">Search</a></li>
+
+              <li class="nav-item"><a class="nav-link" href="/app/search/searchForm">검색</a></li>
               <li class="nav-item">
-                <a class="nav-link" href="#">코스추천</a>
+                <a class="nav-link" href="/app/recommendation/recommendationList">코스추천</a>
               </li>
-              <li class="nav-item"><a class="nav-link" href="exhibition/exhibitionlist">전시회</a></li>
+              <li class="nav-item"><a class="nav-link" href="/app/exhibition/exhibitionlist">전시회</a></li>
               <li class="nav-item">
-                <a class="nav-link" href="#">고객지원</a>
+                <a class="nav-link" href="/app/support/">고객지원</a>
               </li>
               <li class="nav-item" th:if="${session.loginMember != null}">
                 <a
                   class="nav-link"
-                  href="auth/logout"
-                  th:text="${session.loginMember.name}+'(로그아웃)'"
-                  >홍길동(로그아웃)</a
-                >
+                  href="/app/auth/logout"
+                  th:text="${session.loginMember.name}+'(로그아웃)'">홍길동(로그아웃)</a>
               </li>
               <li class="nav-item" th:if="${session.loginMember == null}">
                 <span class="nav-link btn-open-popup">로그인</span>
               </li>
 
               <li class="nav-item">
-                <a class="nav-link" href="auth/register">회원가입</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="#">
-                  <img src="./images/mypage.png" width="90%" height="25"
+                <a class="nav-link" href="/app/myPage/">
+                  <img src="/app/images/mypage.png" width="90%" height="25"
                 /></a>
               </li>
+
+              <!--어드민만 보일 수 있음-->
+              <li class="nav-item">
+              <span data-th-if="${session.loginMember} != null and ${session.loginMember.id} == 'admin'">
+              <a class="nav-link" href='/app/member/list'>회원 관리</a></span> </li>
             </ul>
           </div>
         </div>
@@ -165,7 +161,12 @@
 			  </div>
 			</header>
 
-			<section class="py-5 " style=" width: 100%;">
+      <div class="shadow-lg w-100 my-5 py-4 px-4 bg-body rounded">
+        <div class="text-center">
+          <h5 class="display-4 fw-bolder"><b>전시회 검색결과</b></h5>
+          </div>
+
+			<section id="exhibition" class="py-5 " style=" width: 100%;">
 			  <!--justify-content-center-->
 			  <div class="container px-4 px-lg-5 mt-5">
 			    <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 ">
@@ -188,8 +189,8 @@
 			
 			              <h5>
 			                <a href='detail?exno=1'
-			                   th:href="@{../app/exhibition/detail(exno=${exhibition['EXNO']})}"
-			                   th:text="${exhibition['EXNAME'] == ''} ? '(제목없음)' : ${exhibition['EXNO']}"
+			                   th:href="@{../exhibition/detail(exno=${exhibition['EXNO']})}"
+			                   th:text="${exhibition['EXNAME'] == ''} ? '(제목없음)' : ${exhibition['EXNAME']}"
 			                   style="word-wrap: break-word"
 			                >제목rlfldsdfasdfasdf</a>
 			              </h5>
@@ -212,7 +213,11 @@
 			     </div>
         </div>
 			</section>
-
+    </div>
+      <div class="shadow-lg w-100 my-5 py-4 px-4 bg-body rounded">
+        <div class="text-center">
+          <h5 class="display-4 fw-bolder"><b>회원 검색결과</b></h5>
+      </div>
       <table class="table table-success table-striped">
         <thead>
           <tr>
@@ -225,7 +230,7 @@
             <th scope="col">MBTI</th>
           </tr>
         </thead>
-        <tbody>
+        <tbody id = "member">
           <tr th:each="result : ${memberResult}">
             <td th:text="${result['ID']}">1</td>
             <td th:text="${result['NNAME']}">2</td>
@@ -240,6 +245,19 @@
       </table>
 
     </div>
+
+    </div>
+
+    <script>
+      // if(!document.getElementById('exihibition')){
+      //   var jbBtn = document.createElement( 'h4' );
+      //   jbBtn.className = "text-center"
+      //   var jbBtnText = document.createTextNode( '전시회 검색 결과가 없습니다.' );
+      //   jbBtn.appendChild( jbBtnText );
+      //   document.getElementById('exhibition').appendChild( jbBtn );
+      // }
+    </script>
+
     <!-- Footer-->
     <footer class="py-4 bg-dark">
       <div class="container">

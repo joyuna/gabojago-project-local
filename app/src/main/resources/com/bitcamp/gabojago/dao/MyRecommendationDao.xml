@@ -24,12 +24,22 @@
         </association>
     </resultMap>
 
+    <!-- 게시물 총개수 -->
+    <select id="count" resultType="int">
+        select
+        count(RECONO)
+        from jang_so_recommendation
+        where jang_so_recommendation.ID= #{id}
+    </select>
 
-    <select id="myRecommendationList" resultMap="recommendationMap">
+    <!-- 게시물 목록 + paging -->
+    <select id="myRecommendationListPage" resultMap="recommendationMap">
         select
         jang_so_recommendation.*
         from jang_so_recommendation
         where jang_so_recommendation.ID = #{id}
+        order by jang_so_recommendation.WDATE desc
+        limit #{size} offset #{displayPost}
     </select>
 
 </mapper>

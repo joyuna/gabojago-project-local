@@ -14,7 +14,7 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @Service
 @RequiredArgsConstructor
-public class DefaultMailService {
+public class MailService {
 
   private final JavaMailSender emailSender;
   private final SpringTemplateEngine templateEngine;

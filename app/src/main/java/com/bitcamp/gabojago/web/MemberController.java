@@ -120,7 +120,7 @@ public class MemberController {
   static final String AUTHORIZE_URL = "/oauth/authorize";
   static final String TOKEN_URL = "/oauth/token";
   static final String REST_API_KEY = "88b44f74865aa118de9f54888c85a112";
-  static final String REDIRECT_URL = "http://localhost:9999/app/member/kakaoLogin";
+  static final String REDIRECT_URL = "http://192.168.0.114/app/member/kakaoLogin";
 
   @RequestMapping("kakaoLoginPage")
   String kakaoLoginPage() {

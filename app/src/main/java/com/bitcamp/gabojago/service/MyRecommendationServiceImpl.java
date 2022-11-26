@@ -15,8 +15,15 @@ public class MyRecommendationServiceImpl implements MyRecommendationService {
         this.myRecommendationDao = myRecommendationDao;
     }
 
+    // 게시물 총개수
     @Override
-    public List<Recommendation> myRecommendationList(String id) throws Exception {
-        return myRecommendationDao.myRecommendationList(id);
+    public int count(String id) throws Exception {
+        return myRecommendationDao.count(id);
+    }
+
+    // 게시물 목록 + paging
+    @Override
+    public List<Recommendation> myRecommendationListPage(int displayPost, int size, String id) throws Exception {
+        return myRecommendationDao.myRecommendationListPage(displayPost, size, id);
     }
 }

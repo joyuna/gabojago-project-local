@@ -15,7 +15,7 @@ import lombok.extern.slf4j.Slf4j;
 @RequiredArgsConstructor
 public class EmailService {
 
-    private final JavaMailSender javaMailSender;
+    private final JavaMailSender javaMailSender = null;
     
     @Value(value = "${spring.mail.username}")
     private String from;

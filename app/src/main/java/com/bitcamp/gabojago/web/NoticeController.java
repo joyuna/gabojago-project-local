@@ -100,7 +100,7 @@ public class NoticeController {
 
         model.addAttribute("notices", pageResponseDto.getDtoList());
         model.addAttribute("pages", pageResponseDto.getPage());
-        model.addAttribute("pageNum", pageResponseDto.getTotal());
+        model.addAttribute("pageTotal", pageResponseDto.getTotal());
         model.addAttribute("pageStart", pageResponseDto.getStart());
         model.addAttribute("pageEnd", pageResponseDto.getEnd());
         model.addAttribute("prev", pageResponseDto.isPrev());

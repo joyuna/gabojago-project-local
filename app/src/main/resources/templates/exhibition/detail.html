@@ -16,6 +16,10 @@
   <link rel="stylesheet" href="../css/main.css" />
   <link rel="stylesheet" href="../css/main-modal.css" />
 
+  <!-- <script
+  src="https://code.jquery.com/jquery-3.6.1.js"
+  integrity="sha256-3zlB5s2uwoUzrXK3BT7AX3FyvojsraNFxCc2vC/7pNI="
+  crossorigin="anonymous"></script> -->
 
 </head>
 <!-- Header-->
@@ -30,7 +34,6 @@
 </header>
 
 <body  class="pt-5"  >
-
 
 <!-- Navigation 사실상의 header -->
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
@@ -88,7 +91,7 @@
   <table border='1'>
     <div>
       <label>No. </label>
-      <input name='exno' type='number'  value='1'
+      <input id='exno' type='number'  value='1'
              data-th-value="${exhibition.exno}" readonly
              style="border: none;">
     </div>
@@ -143,8 +146,33 @@
   </style>
 
 
-  <button type="button" class="btn btn-outline-success">장바구니</button>
-  <button type="button" class="btn btn-outline-info">티켓</button>
+
+  <button onclick="doInsert()" type="button" class="btn btn-outline-success">장바구니</button>
+  <!-- <button type="button" class="btn btn-outline-info">바로구매</button> -->
+
+  
+
+
+<div class="btn-group btn-group-sm" role="group" aria-label="Small button group">
+  <button onclick="count('minus')" type="button" class="btn btn-outline-dark">-</button>
+  <button id = "ticketCount">1</button>
+  <button onclick="count('plus')" type="button" class="btn btn-outline-dark">+</button>
+</div>
+
+<script>
+  let ticketCount = parseInt(document.getElementById('ticketCount').innerHTML);
+  
+  function count(type){
+    if(type == 'plus'){
+      ticketCount++;
+    }
+    else if(type == 'minus' && ticketCount != 1){
+      ticketCount--;
+    }
+
+    document.getElementById('ticketCount').innerHTML = ticketCount;
+  }
+</script>
 
   <p style="float: right;">
     <button type='submit' class="btn btn-outline-secondary"
@@ -195,14 +223,14 @@
     <th class="text-right">작성일</th>
   </tr>
 
-  <tr data-th-each="exhibitionReview : ${exhibitionReviews}">
+  <tr id = 'exno' data-th-each="exhibitionReview : ${exhibitionReviews}">
     <td><input name='rvno' type='number'
                value='1'
                data-th-value="${exhibitionReview.rvno}"
                size="50"
                style="border: none; width: 50px; text-align: center"   readonly></td>
 
-    <td data-th-text="${exhibitionReview.id}" >홍길동</td>
+    <td id data-th-text="${exhibitionReview.id}" >홍길동</td>
 
     <td data-th-text="${exhibitionReview.cont == ''} ? '(제목없음)' : ${exhibitionReview.cont}"
         class="text-center">
@@ -264,7 +292,11 @@
       <br> <!--공백-->
       <button class="btn_login" type="submit"
               style="background-color: #ffca2c">Login</button>
+      <br> <!--공백-->
 
+      <a href="/app/member/kakaoLoginPage">
+        <img src = "/app/images/kakao_login_medium_wide.png" class="btn_login">
+      </a>
       <div class="g-signin2" data-onsuccess="onSignIn"></div>
 
       <script>
@@ -315,7 +347,15 @@
 </style>
 
 
+
 <script>
+  function doInsert(){
+    let exno = document.getElementById('exno').value;
+    let cnt = document.getElementById('ticketCount').innerHTML;
+
+    location.replace("complete?" + "exno=" + exno + "&cnt=" + cnt);
+  }
+
   $(document).ready(function () {
 
     // 1. 특정 위치에서 부터 버튼 나타고, 사라지게..효과는 fade로
@@ -353,32 +393,32 @@
 </script>
 
 <script>
-  const body = document.querySelector("body");
-  const modal = document.querySelector(".modal");
-  const btnOpenPopup = document.querySelector(".btn-open-popup");
+  // const body = document.querySelector("body");
+  // const modal = document.querySelector(".modal");
+  // const btnOpenPopup = document.querySelector(".btn-open-popup");
 
-  btnOpenPopup.addEventListener("click", () => {
-    modal.classList.toggle("show");
+  // btnOpenPopup.addEventListener("click", () => {
+  //   modal.classList.toggle("show");
 
-    if (modal.classList.contains("show")) {
-      body.style.overflow = "hidden";
-    }
-  });
+  //   if (modal.classList.contains("show")) {
+  //     body.style.overflow = "hidden";
+  //   }
+  // });
 
-  modal.addEventListener("click", (event) => {
-    if (event.target === modal) {
-      modal.classList.toggle("show");
+  // modal.addEventListener("click", (event) => {
+  //   if (event.target === modal) {
+  //     modal.classList.toggle("show");
 
-      if (!modal.classList.contains("show")) {
-        body.style.overflow = "auto";
-      }
-    }
-  });
+  //     if (!modal.classList.contains("show")) {
+  //       body.style.overflow = "auto";
+  //     }
+  //   }
+  // });
 
-  // 장현경 : 로그인 모달 창 나가기
-  $('.out').click(function() {
-    $('.modal').removeClass('show')
-  })
+  // // 장현경 : 로그인 모달 창 나가기
+  // $('.out').click(function() {
+  //   $('.modal').removeClass('show')
+  // })
 </script>
 
 </body>

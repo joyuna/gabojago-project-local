@@ -1,4 +1,4 @@
-package com.bitcamp.gabojago.dao;
+package com.bitcamp.gabojago.dao.recommendation;
 
 import com.bitcamp.gabojago.vo.Report;
 import org.apache.ibatis.annotations.Mapper;

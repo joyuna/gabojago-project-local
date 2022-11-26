@@ -1,6 +1,6 @@
 package com.bitcamp.gabojago.web;
 
-import com.bitcamp.gabojago.service.DefaultMailService;
+import com.bitcamp.gabojago.service.MailService;
 import com.bitcamp.gabojago.service.MemberService;
 import com.bitcamp.gabojago.vo.MailDto;
 import com.bitcamp.gabojago.vo.Member;
@@ -19,10 +19,10 @@ public class MailController {
 
   @Autowired
   MemberService memberService;
-  private final DefaultMailService defaultMailService;
+  private final MailService mailService;
 
-  public MailController(DefaultMailService defaultMailService) {
-    this.defaultMailService = defaultMailService;
+  public MailController(MailService mailService) {
+    this.mailService = mailService;
   }
 
   @GetMapping("/templateMail")
@@ -41,7 +41,7 @@ public class MailController {
     mailDto.setTitle("가보자GO 이메일 인증 번호");
     mailDto.setAddress(address);
     mailDto.setCheckNum(certificateNum);
-    defaultMailService.sendTemplateMessage(mailDto);
+    mailService.sendTemplateMessage(mailDto);
     return Integer.toString(certificateNum);
     } else {
       return "false";
